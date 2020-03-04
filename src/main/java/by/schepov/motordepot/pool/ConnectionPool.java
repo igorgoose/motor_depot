@@ -23,7 +23,7 @@ public enum ConnectionPool {
     private static final String DB_PROPERTIES = "db.properties";
     private static final int CAPACITY = 32;
     private static final int TIMEOUT_LIMIT = 5;
-    public static final String DB_PROPERTY_URL_KEY = "url";
+    private static final String DB_PROPERTY_URL_KEY = "url";
     private final BlockingQueue<ProxyConnection> availableConnections = new ArrayBlockingQueue<>(CAPACITY);
     private final List<ProxyConnection> unavailableConnections = new LinkedList<>();
     private final AtomicBoolean isInitialized = new AtomicBoolean(false);
@@ -33,13 +33,13 @@ public enum ConnectionPool {
     public void initializePool() throws ConnectionPoolException {
         initializeProperties();
         try {
-            Class.forName("com.mysql.jdbc.Driver");
             if (!isInitialized.get()) {
                 for (int i = 0; i < CAPACITY; i++) {
                     availableConnections.add(new ProxyConnection(DriverManager.getConnection(db_url, dbProperties)));
                 }
             }
-        } catch (SQLException | ClassNotFoundException e) {//todo log
+        } catch (SQLException e) {
+            LOGGER.error("Failed to initialize connection pool", e);
             throw new ConnectionPoolException(e);
         }
         isInitialized.set(true);
@@ -54,7 +54,8 @@ public enum ConnectionPool {
             if ((connection = availableConnections.poll(TIMEOUT_LIMIT, TimeUnit.SECONDS)) != null) {
                 unavailableConnections.add(connection);
             }
-        } catch (InterruptedException e) {//todo log
+        } catch (InterruptedException e) {
+            LOGGER.warn("Failed to get connection", e);
             Thread.currentThread().interrupt();
         }
         return connection;
@@ -68,24 +69,30 @@ public enum ConnectionPool {
             connection.setAutoCommit(true);
             if(unavailableConnections.remove(connection)){
                 availableConnections.put(connection);
-            }//throw?
-        } catch (InterruptedException e) {//todo log
+            }// else throw?
+        } catch (InterruptedException e) {
+            LOGGER.warn("Failed to return connection", e);
             Thread.currentThread().interrupt();
         } catch (SQLException e) {
             throw new ConnectionPoolException("Failed to return connection", e);
         }
     }
 
-    public void closePool(){
+    public void closePool() throws ConnectionPoolException {
         ProxyConnection connection;
-        while(!availableConnections.isEmpty()){
-            connection = availableConnections.poll();
-            if(connection != null){
-                connection.closeInPool();
+        try {//todo reconstruct to provide thread safety
+            while (!availableConnections.isEmpty()) {
+                connection = availableConnections.poll();
+                if (connection != null) {
+                    connection.closeInPool();
+                }
             }
-        }
-        while(!unavailableConnections.isEmpty()){
-            unavailableConnections.remove(0).closeInPool();//multithreading?
+            while (!unavailableConnections.isEmpty()) {
+                unavailableConnections.remove(0).closeInPool();//multithreading?
+            }
+        } catch (SQLException e) {
+            LOGGER.warn("Failed to close connection pool", e);
+            throw new ConnectionPoolException(e);
         }
     }
 
@@ -95,9 +102,12 @@ public enum ConnectionPool {
             try {
                 dbProperties.load(propertiesInputStream);
                 db_url = dbProperties.getProperty(DB_PROPERTY_URL_KEY);
-            } catch (IOException e) {//todo log
+            } catch (IOException e) {
+                LOGGER.error("Failed to load database properties");
                 throw new ConnectionPoolException(e);
             }
+        } else {
+            throw new ConnectionPoolException("Failed to find database properties file");
         }
     }
 
