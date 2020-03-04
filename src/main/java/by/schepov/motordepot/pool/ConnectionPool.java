@@ -15,6 +15,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.locks.ReentrantLock;
 
 public enum ConnectionPool {
     INSTANCE;
@@ -22,15 +23,16 @@ public enum ConnectionPool {
     private static final Logger LOGGER = Logger.getLogger(ConnectionPool.class);
     private static final String DB_PROPERTIES = "db.properties";
     private static final int CAPACITY = 32;
-    private static final int TIMEOUT_LIMIT = 5;
+    private static final int TIMEOUT_LIMIT = 10;
     private static final String DB_PROPERTY_URL_KEY = "url";
     private final BlockingQueue<ProxyConnection> availableConnections = new ArrayBlockingQueue<>(CAPACITY);
     private final List<ProxyConnection> unavailableConnections = new LinkedList<>();
     private final AtomicBoolean isInitialized = new AtomicBoolean(false);
     private final Properties dbProperties = new Properties();
     private String db_url;
+    private ReentrantLock closeLock = new ReentrantLock();
 
-    public void initializePool() throws ConnectionPoolException {
+    public void initializePool() throws ConnectionPoolException {//init block?
         initializeProperties();
         try {
             if (!isInitialized.get()) {
@@ -49,38 +51,55 @@ public enum ConnectionPool {
         if(!isInitialized.get()){
             throw new ConnectionPoolException("Connection pool is not initialized");
         }
-        ProxyConnection connection = null;
+        boolean locked = false;
         try {
-            if ((connection = availableConnections.poll(TIMEOUT_LIMIT, TimeUnit.SECONDS)) != null) {
-                unavailableConnections.add(connection);
+            locked = closeLock.tryLock();
+            ProxyConnection connection = null;
+            try {
+                if ((connection = availableConnections.poll(TIMEOUT_LIMIT, TimeUnit.SECONDS)) != null) {
+                    unavailableConnections.add(connection);
+                }
+            } catch (InterruptedException e) {
+                LOGGER.warn("Failed to get connection", e);
+                Thread.currentThread().interrupt();
             }
-        } catch (InterruptedException e) {
-            LOGGER.warn("Failed to get connection", e);
-            Thread.currentThread().interrupt();
+            return connection;
+        } finally {
+            if(locked){
+                closeLock.unlock();
+            }
         }
-        return connection;
     }
 
     public void returnConnection(ProxyConnection connection) throws ConnectionPoolException {
         if(connection == null){
             throw new ConnectionPoolException("Null connection passed");
         }
+        boolean locked = false;
         try {
-            connection.setAutoCommit(true);
-            if(unavailableConnections.remove(connection)){
-                availableConnections.put(connection);
-            }// else throw?
-        } catch (InterruptedException e) {
-            LOGGER.warn("Failed to return connection", e);
-            Thread.currentThread().interrupt();
-        } catch (SQLException e) {
-            throw new ConnectionPoolException("Failed to return connection", e);
+            locked = closeLock.tryLock();
+            try {
+                connection.setAutoCommit(true);
+                if (unavailableConnections.remove(connection)) {
+                    availableConnections.put(connection);
+                }// else throw?
+            } catch (InterruptedException e) {
+                LOGGER.warn("Failed to return connection", e);
+                Thread.currentThread().interrupt();
+            } catch (SQLException e) {
+                throw new ConnectionPoolException("Failed to return connection", e);
+            }
+        } finally {
+            if(locked){
+                closeLock.unlock();
+            }
         }
     }
 
     public void closePool() throws ConnectionPoolException {
         ProxyConnection connection;
-        try {//todo reconstruct to provide thread safety
+        try {
+            closeLock.lock();
             while (!availableConnections.isEmpty()) {
                 connection = availableConnections.poll();
                 if (connection != null) {
@@ -93,6 +112,8 @@ public enum ConnectionPool {
         } catch (SQLException e) {
             LOGGER.warn("Failed to close connection pool", e);
             throw new ConnectionPoolException(e);
+        } finally {
+            closeLock.unlock();
         }
     }
 
