@@ -22,7 +22,7 @@ public enum ConnectionPool {
     private static final Logger LOGGER = Logger.getLogger(ConnectionPool.class);
     private static final String DB_PROPERTIES = "db.properties";
     private static final int CAPACITY = 32;
-    private static final int TIMEOUT_LIMIT = 5;
+    private static final int TIMEOUT_LIMIT = 10;
     private static final String DB_PROPERTY_URL_KEY = "url";
     private final BlockingQueue<ProxyConnection> availableConnections = new ArrayBlockingQueue<>(CAPACITY);
     private final List<ProxyConnection> unavailableConnections = new LinkedList<>();
@@ -30,7 +30,7 @@ public enum ConnectionPool {
     private final Properties dbProperties = new Properties();
     private String dbURL;
 
-    public void initializePool() throws ConnectionPoolException {
+    public void initializePool() throws ConnectionPoolException {//init block?
         initializeProperties();
         try {
             if (!isInitialized.get()) {
@@ -46,7 +46,7 @@ public enum ConnectionPool {
     }
 
     public ProxyConnection getConnection() throws ConnectionPoolException {
-        if(!isInitialized.get()){
+        if (!isInitialized.get()) {
             throw new ConnectionPoolException("Connection pool is not initialized");
         }
         ProxyConnection connection = null;
@@ -62,14 +62,16 @@ public enum ConnectionPool {
     }
 
     public void returnConnection(ProxyConnection connection) throws ConnectionPoolException {
-        if(connection == null){
+        if (connection == null) {
             throw new ConnectionPoolException("Null connection passed");
         }
         try {
             connection.setAutoCommit(true);
-            if(unavailableConnections.remove(connection)){
+            if (unavailableConnections.remove(connection)) {
                 availableConnections.put(connection);
-            }// else throw?
+            } else {
+                throw new ConnectionPoolException("Unknown connection passed");
+            }
         } catch (InterruptedException e) {
             LOGGER.warn("Failed to return connection", e);
             Thread.currentThread().interrupt();
@@ -78,10 +80,11 @@ public enum ConnectionPool {
         }
     }
 
+
     public void closePool() throws ConnectionPoolException {
         try {
             for (int i = 0; i < CAPACITY; i++) {
-               availableConnections.take().closeInPool();
+                availableConnections.take().closeInPool();
             }
         } catch (InterruptedException e) {
             LOGGER.warn("Failed to close connection pool", e);
@@ -94,7 +97,7 @@ public enum ConnectionPool {
 
     private void initializeProperties() throws ConnectionPoolException {
         InputStream propertiesInputStream = getClass().getClassLoader().getResourceAsStream(DB_PROPERTIES);
-        if(propertiesInputStream != null) {
+        if (propertiesInputStream != null) {
             try {
                 dbProperties.load(propertiesInputStream);
                 dbURL = dbProperties.getProperty(DB_PROPERTY_URL_KEY);
