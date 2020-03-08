@@ -64,7 +64,7 @@ public class ProxyConnection implements Connection {
         try {
             ConnectionPool.INSTANCE.returnConnection(this);
         } catch (ConnectionPoolException e) {
-            e.printStackTrace();
+            LOGGER.warn("Failed to return connection to pool");
         }
     }
 

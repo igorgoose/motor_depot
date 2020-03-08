@@ -28,14 +28,14 @@ public enum ConnectionPool {
     private final List<ProxyConnection> unavailableConnections = new LinkedList<>();
     private final AtomicBoolean isInitialized = new AtomicBoolean(false);
     private final Properties dbProperties = new Properties();
-    private String db_url;
+    private String dbURL;
 
     public void initializePool() throws ConnectionPoolException {
         initializeProperties();
         try {
             if (!isInitialized.get()) {
                 for (int i = 0; i < CAPACITY; i++) {
-                    availableConnections.add(new ProxyConnection(DriverManager.getConnection(db_url, dbProperties)));
+                    availableConnections.add(new ProxyConnection(DriverManager.getConnection(dbURL, dbProperties)));
                 }
             }
         } catch (SQLException e) {
@@ -79,17 +79,13 @@ public enum ConnectionPool {
     }
 
     public void closePool() throws ConnectionPoolException {
-        ProxyConnection connection;
-        try {//todo reconstruct to provide thread safety
-            while (!availableConnections.isEmpty()) {
-                connection = availableConnections.poll();
-                if (connection != null) {
-                    connection.closeInPool();
-                }
+        try {
+            for (int i = 0; i < CAPACITY; i++) {
+               availableConnections.take().closeInPool();
             }
-            while (!unavailableConnections.isEmpty()) {
-                unavailableConnections.remove(0).closeInPool();//multithreading?
-            }
+        } catch (InterruptedException e) {
+            LOGGER.warn("Failed to close connection pool", e);
+            Thread.currentThread().interrupt();
         } catch (SQLException e) {
             LOGGER.warn("Failed to close connection pool", e);
             throw new ConnectionPoolException(e);
@@ -101,7 +97,7 @@ public enum ConnectionPool {
         if(propertiesInputStream != null) {
             try {
                 dbProperties.load(propertiesInputStream);
-                db_url = dbProperties.getProperty(DB_PROPERTY_URL_KEY);
+                dbURL = dbProperties.getProperty(DB_PROPERTY_URL_KEY);
             } catch (IOException e) {
                 LOGGER.error("Failed to load database properties");
                 throw new ConnectionPoolException(e);
