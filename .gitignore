@@ -5,6 +5,7 @@ target/
 log/
 .idea/
 Main.java
+*.iml
 
 ### Maven ###
 pom.xml.tag
