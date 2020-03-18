@@ -61,7 +61,7 @@ public enum ConnectionPool {
         return connection;
     }
 
-    public void returnConnection(ProxyConnection connection) throws ConnectionPoolException {
+    void returnConnection(ProxyConnection connection) throws ConnectionPoolException {//default?
         if (connection == null) {
             throw new ConnectionPoolException("Null connection passed");
         }
