@@ -42,13 +42,24 @@
 
 
                 <div class="wrap-input100 validate-input m-b-16" data-validate = "Username is required">
-                    <input class="input100" type="text" name="username" placeholder="Username">
+                    <label>
+                        <input class="input100" type="text" name="username">
+                        <label class="input100-label m-l-4">
+                            <fmt:message bundle="${bundle}" key="home.username"/>
+                        </label>
+
+                    </label>
                     <span class="focus-input100"></span>
                 </div>
 
 
                 <div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
-                    <input class="input100" type="password" name="pass" placeholder="Password">
+                    <label>
+                        <input class="input100" type="password" name="pass">
+                        <label class="input100-label m-l-4">
+                            <fmt:message bundle="${bundle}" key="home.password"/>
+                        </label>
+                    </label>
                     <span class="focus-input100"></span>
                 </div>
 
@@ -68,11 +79,6 @@
                         Русский
                     </button>
                 </div>
-                <div>
-                    <label>
-                        <fmt:message bundle="${bundle}" key="language"/>
-                    </label>
-                </div>
 
             </form>
         </div>
@@ -81,23 +87,6 @@
 
 
 <div id="dropDownSelect1"></div>
-
-<!--===============================================================================================-->
-<%--<script src="vendor/jquery/jquery-3.2.1.min.js"></script>--%>
-<%--<!--===============================================================================================-->--%>
-<%--<script src="vendor/animsition/js/animsition.min.js"></script>--%>
-<%--<!--===============================================================================================-->--%>
-<%--<script src="vendor/bootstrap/js/popper.js"></script>--%>
-<%--<script src="vendor/bootstrap/js/bootstrap.min.js"></script>--%>
-<%--<!--===============================================================================================-->--%>
-<%--<script src="vendor/select2/select2.min.js"></script>--%>
-<%--<!--===============================================================================================-->--%>
-<%--<script src="vendor/daterangepicker/moment.min.js"></script>--%>
-<%--<script src="vendor/daterangepicker/daterangepicker.js"></script>--%>
-<%--<!--===============================================================================================-->--%>
-<%--<script src="vendor/countdowntime/countdowntime.js"></script>--%>
-<%--<!--===============================================================================================-->--%>
-<%--<script src="js/main.js"></script>--%>
 
 </body>
 </html>
