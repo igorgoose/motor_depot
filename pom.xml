@@ -10,12 +10,17 @@
     <url>http://maven.apache.org</url>
 
     <properties>
-        <log4j.version>1.2.17</log4j.version>
-        <mysql-connector-java.version>8.0.18</mysql-connector-java.version>
         <maven-war-plugin.version>3.2.3</maven-war-plugin.version>
-        <maven-compiler.version>2.3.1</maven-compiler.version>
-        <maven-compiler-source>8</maven-compiler-source>
-        <maven-compiler-target>8</maven-compiler-target>
+        <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.version>3.8.1</maven.compiler.version>
+        <webapp.directory>C:\Users\Asus\apache-tomcat-9.0.31\webapps\${project.artifactId}</webapp.directory>
+        <log4j.version>2.12.1</log4j.version>
+        <junit.version>4.12</junit.version>
+        <servlet.version>4.0.1</servlet.version>
+        <mysql.connector.version>8.0.19</mysql.connector.version>
+        <jstl.version>1.2</jstl.version>
     </properties>
 
     <dependencies>
@@ -26,15 +31,28 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
             <version>${log4j.version}</version>
         </dependency>
+
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql-connector-java.version}</version>
+            <version>${mysql.connector.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>${jstl.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${servlet.version}</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
@@ -44,10 +62,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-compiler.version}</version>
+                <version>${maven.compiler.version}</version>
                 <configuration>
-                    <source>${maven-compiler-source}</source>
-                    <target>${maven-compiler-target}</target>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
                 </configuration>
             </plugin>
             <plugin>

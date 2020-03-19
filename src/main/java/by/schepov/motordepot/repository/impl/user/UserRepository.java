@@ -6,7 +6,8 @@ import by.schepov.motordepot.exception.repository.RepositoryException;
 import by.schepov.motordepot.pool.ConnectionPool;
 import by.schepov.motordepot.pool.ProxyConnection;
 import by.schepov.motordepot.repository.Repository;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -16,7 +17,7 @@ public enum UserRepository implements Repository<User> {
 
     private ConnectionPool pool = ConnectionPool.INSTANCE;
 
-    private static final Logger LOGGER = Logger.getLogger(UserRepository.class);
+    private static final Logger LOGGER = LogManager.getLogger(UserRepository.class);
 
     private static final String INSERT_QUERY =
             "INSERT INTO users(login, password, role_id, email, status_id) VALUES(?, ?, ?, ?, ?)";

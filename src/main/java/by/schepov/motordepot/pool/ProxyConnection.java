@@ -8,11 +8,12 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ProxyConnection implements Connection {
 
-    private static final Logger LOGGER = Logger.getLogger(ProxyConnection.class);
+    private static final Logger LOGGER = LogManager.getLogger(ProxyConnection.class);
     private Connection connection;
 
     ProxyConnection(Connection connection) {
