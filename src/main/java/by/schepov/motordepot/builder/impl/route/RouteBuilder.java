@@ -1,4 +1,4 @@
-package by.schepov.motordepot.builder.impl;
+package by.schepov.motordepot.builder.impl.route;
 
 import by.schepov.motordepot.builder.AbstractBuilder;
 import by.schepov.motordepot.entity.Route;
