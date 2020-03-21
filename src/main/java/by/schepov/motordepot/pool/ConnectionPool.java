@@ -2,7 +2,9 @@ package by.schepov.motordepot.pool;
 
 
 import by.schepov.motordepot.exception.pool.ConnectionPoolException;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,7 +21,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public enum ConnectionPool {
     INSTANCE;
 
-    private static final Logger LOGGER = Logger.getLogger(ConnectionPool.class);
+    private static final Logger LOGGER = LogManager.getLogger(ConnectionPool.class);
     private static final String DB_PROPERTIES = "db.properties";
     private static final int CAPACITY = 32;
     private static final int TIMEOUT_LIMIT = 10;
