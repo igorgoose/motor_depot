@@ -1,6 +1,7 @@
 package by.schepov.motordepot.builder.impl.user;
 
 import by.schepov.motordepot.builder.AbstractBuilder;
+import by.schepov.motordepot.entity.Role;
 import by.schepov.motordepot.entity.User;
 
 import java.sql.ResultSet;
@@ -45,5 +46,9 @@ public class ResultSetUserBuilder extends AbstractBuilder<User> {
         return this;
     }
 
+    public ResultSetUserBuilder withRole(String roleNameColumn) throws SQLException {
+        userBuilder.withRole(Role.valueOf(resultSet.getString(roleNameColumn)));
+        return this;
+    }
 
 }

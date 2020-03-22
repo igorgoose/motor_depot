@@ -1,6 +1,7 @@
 package by.schepov.motordepot.builder.impl.user;
 
 import by.schepov.motordepot.builder.AbstractBuilder;
+import by.schepov.motordepot.entity.Role;
 import by.schepov.motordepot.entity.User;
 
 public class UserBuilder extends AbstractBuilder<User> {
@@ -37,4 +38,8 @@ public class UserBuilder extends AbstractBuilder<User> {
         return this;
     }
 
+    public UserBuilder withRole(Role role){
+        object.setRole(role);
+        return this;
+    }
 }
