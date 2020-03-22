@@ -15,6 +15,7 @@ public class LocaleFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) {
+
     }
 
     @Override
