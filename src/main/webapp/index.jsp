@@ -1,13 +1,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<<<<<<< HEAD
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <fmt:setLocale value="${locale}"/>
 <fmt:setBundle basename="locale" var="bundle" />
-=======
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<fmt:setLocale value="${locale}"/>
-<fmt:setBundle basename="locale" var="bundle"/>
->>>>>>> repository
 <html>
 <head>
     <title>Login</title>
@@ -82,7 +76,7 @@
                 </div>
 
                 <div class="container-login100-form-btn m-t-17">
-                    <button class="login100-form-btn">
+                    <button class="login100-form-btn" name="command" value="log_in">
                         <fmt:message bundle="${bundle}" key="button.login"/>
                     </button>
                 </div>

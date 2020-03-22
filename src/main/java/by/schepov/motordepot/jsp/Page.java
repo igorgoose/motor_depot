@@ -1,8 +1,9 @@
-package by.schepov.motordepot.page;
+package by.schepov.motordepot.jsp;
 
 public enum Page {
 
-    HOME("index.jsp");
+    HOME("index.jsp"),
+    WELCOME("/jsp/welcome.jsp");
 
     private String name;
 

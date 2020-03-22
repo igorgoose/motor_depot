@@ -1,11 +1,11 @@
 package by.schepov.motordepot.command;
 
-import by.schepov.motordepot.page.Page;
+import by.schepov.motordepot.jsp.Page;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class LogIn implements Command {
+public class LogIn implements Executable {
 
     LogIn(){
 

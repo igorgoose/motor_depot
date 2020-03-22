@@ -100,15 +100,15 @@
                 </div>
 
                 <div class="container-login100-form-btn m-t-17">
-                    <button class="login100-form-btn" >
+                    <button class="login100-form-btn" name="command" value="sign_up">
                         <fmt:message bundle="${bundle}" key="button.signup"/>
                     </button>
                 </div>
 
                 <div class="container-login100-form-btn m-t-17">
-                    <button class="login100-form-btn" name="command" value="sign_up">
+                    <a class="login100-form-btn" href=${pageContext.request.contextPath}/index.jsp>
                         <fmt:message bundle="${bundle}" key="button.home"/>
-                    </button>
+                    </a>
                 </div>
             </form>
         </div>
