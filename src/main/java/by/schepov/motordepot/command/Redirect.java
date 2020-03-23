@@ -1,18 +1,19 @@
 package by.schepov.motordepot.command;
 
+import by.schepov.motordepot.jsp.JSPParameter;
 import by.schepov.motordepot.jsp.Page;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class LogIn implements Executable {
+public class Redirect implements Executable {
 
-    LogIn(){
+    Redirect(){
 
     }
 
     @Override
     public Page execute(HttpServletRequest request, HttpServletResponse response) {
-        return Page.WELCOME;
+        return Page.valueOf(request.getParameter(JSPParameter.ADDRESS.getValue()));
     }
 }

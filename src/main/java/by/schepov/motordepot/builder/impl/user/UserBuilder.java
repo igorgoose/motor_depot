@@ -28,7 +28,7 @@ public class UserBuilder extends AbstractBuilder<User> {
 
 
     public UserBuilder withLogin(String login){
-        object.setLogin(login);
+        object.setUsername(login);
         return this;
     }
 

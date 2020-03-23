@@ -20,13 +20,13 @@ public enum UserRepository implements Repository<User> {
     private static final Logger LOGGER = LogManager.getLogger(UserRepository.class);
 
     private static final String INSERT_QUERY =
-            "INSERT INTO users(login, password, role_id, email, status_id) VALUES(?, ?, ?, ?, ?)";
+            "INSERT INTO users(login, password, role_id, email, is_blocked) VALUES(?, ?, ?, ?, ?)";
 
     @Override
     public void insert(User item) throws RepositoryException {
         try (ProxyConnection connection = pool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_QUERY)) {
-            preparedStatement.setString(1, item.getLogin());
+            preparedStatement.setString(1, item.getUsername());
             preparedStatement.setString(2, item.getPassword());
             preparedStatement.setInt(3, item.getRole().getId());
             preparedStatement.setString(4, item.getEmail());

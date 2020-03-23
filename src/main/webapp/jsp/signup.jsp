@@ -61,40 +61,38 @@
 
                 <div class="wrap-input100 validate-input m-b-16" data-validate = "Username is required">
                     <label>
-                        <input class="input100" type="text" name="username">
-                        <label class="input100-label m-l-4">
-                            <fmt:message bundle="${bundle}" key="signup.username"/>
-                        </label>
+                        <input class="input100" type="text" name="username" placeholder="Username"
+                               pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$">
+                        <span class="form__error"> <fmt:message bundle="${bundle}" key="form.error.username"/></span>
                     </label>
                     <span class="focus-input100"></span>
                 </div>
 
                 <div class="wrap-input100 validate-input m-b-16" data-validate = "Username is required">
                     <label>
-                        <input class="input100" type="text" name="email">
-                        <label class="input100-label m-l-4">
-                            <fmt:message bundle="${bundle}" key="signup.email"/>
-                        </label>
+                        <input class="input100" type="email" name="email" placeholder="Email"
+                               pattern="^[A-Za-z0-9+_.-]+@(.+)(\.(.+))+$">
+                        <span class="form__error"> <fmt:message bundle="${bundle}" key="form.error.email"/></span>
                     </label>
                     <span class="focus-input100"></span>
                 </div>
 
                 <div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
                     <label>
-                        <input class="input100" type="password" name="password">
-                        <label class="input100-label m-l-4">
-                            <fmt:message bundle="${bundle}" key="signup.password"/>
-                        </label>
+                        <input class="input100" type="password" name="password" placeholder="Password"
+                               pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+                        >
+                        <span class="form__error"> <fmt:message bundle="${bundle}" key="form.error.password"/></span>
                     </label>
                     <span class="focus-input100"></span>
                 </div>
 
                 <div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
                     <label>
-                        <input class="input100" type="password" name="repeat_password">
-                        <label class="input100-label m-l-4">
-                            <fmt:message bundle="${bundle}" key="signup.repeat.password"/>
-                        </label>
+                        <input class="input100" type="password" name="repeat_password" placeholder="Repeat password"
+                               pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+                        >
+                        <span class="form__error"> <fmt:message bundle="${bundle}" key="form.error.password"/></span>
                     </label>
                     <span class="focus-input100"></span>
                 </div>
@@ -106,7 +104,7 @@
                 </div>
 
                 <div class="container-login100-form-btn m-t-17">
-                    <a class="login100-form-btn" href=${pageContext.request.contextPath}/index.jsp>
+                    <a class="login100-form-btn" href="${pageContext.request.contextPath}/index.jsp">
                         <fmt:message bundle="${bundle}" key="button.home"/>
                     </a>
                 </div>

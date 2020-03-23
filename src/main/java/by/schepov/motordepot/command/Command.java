@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 public enum Command {
 
     LOG_IN("log_in", new LogIn(), 4),
-    SIGN_UP("sign_up", new SignUp(),4);
+    SIGN_UP("sign_up", new SignUp(),4),
+    LANGUAGE("language", new Language(), 4),
+    REDIRECT("redirect", new Redirect(), 4);
 
     private String name;
     private int accessLevel;

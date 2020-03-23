@@ -3,7 +3,9 @@ package by.schepov.motordepot.jsp;
 public enum Page {
 
     HOME("index.jsp"),
-    WELCOME("/jsp/welcome.jsp");
+    WELCOME("/jsp/welcome.jsp"),
+    SIGN_UP("/jsp/signup.jsp"),
+    ERROR("/jsp/error.jsp");
 
     private String name;
 

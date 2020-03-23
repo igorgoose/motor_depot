@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class Car implements Serializable {
     private int id;
-    private Driver driver;
+    private User driver;
     private String registrationNumber;
     private CarModel carModel;
     private int loadCapacity;
@@ -21,11 +21,11 @@ public class Car implements Serializable {
         this.id = id;
     }
 
-    public Driver getDriver() {
+    public User getDriver() {
         return driver;
     }
 
-    public void setDriver(Driver driver) {
+    public void setDriver(User driver) {
         this.driver = driver;
     }
 

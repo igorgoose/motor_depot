@@ -34,12 +34,13 @@ public enum ConnectionPool {
     public void initializePool() throws ConnectionPoolException {//init block?
         initializeProperties();
         try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
             if (!isInitialized.get()) {
                 for (int i = 0; i < CAPACITY; i++) {
                     availableConnections.add(new ProxyConnection(DriverManager.getConnection(dbURL, dbProperties)));
                 }
             }
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             LOGGER.error("Failed to initialize connection pool", e);
             throw new ConnectionPoolException(e);
         }
