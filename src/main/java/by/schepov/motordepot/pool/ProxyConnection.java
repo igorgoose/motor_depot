@@ -2,14 +2,14 @@ package by.schepov.motordepot.pool;
 
 
 import by.schepov.motordepot.exception.pool.ConnectionPoolException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class ProxyConnection implements Connection {
 
