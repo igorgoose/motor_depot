@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class User implements Serializable {
     private int id;
-    private String login;
+    private String username;
     private String password;
     private Role role;
     private String email;
@@ -19,12 +19,12 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public String getLogin() {
-        return login;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -66,7 +66,7 @@ public class User implements Serializable {
         User user = (User) o;
         return id == user.id &&
                 isBlocked == user.isBlocked &&
-                Objects.equals(login, user.login) &&
+                Objects.equals(username, user.username) &&
                 Objects.equals(password, user.password) &&
                 role == user.role &&
                 Objects.equals(email, user.email);
@@ -74,14 +74,14 @@ public class User implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, login, password, role, email, isBlocked);
+        return Objects.hash(id, username, password, role, email, isBlocked);
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", login='" + login + '\'' +
+                ", login='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +
                 ", email='" + email + '\'' +
