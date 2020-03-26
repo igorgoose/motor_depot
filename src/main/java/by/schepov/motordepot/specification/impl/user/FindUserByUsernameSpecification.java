@@ -29,7 +29,7 @@ public class FindUserByUsernameSpecification implements Specification<User> {
     public static final String PASSWORD_COLUMN = "password";
     public static final String ROLE_COLUMN = "role";
 
-    public FindUserByUsernameSpecification(String login){
+    public FindUserByUsernameSpecification(String login) {
         this.login = login;
     }
 
