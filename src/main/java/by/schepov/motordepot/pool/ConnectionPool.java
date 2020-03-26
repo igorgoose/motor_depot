@@ -2,6 +2,7 @@ package by.schepov.motordepot.pool;
 
 
 import by.schepov.motordepot.exception.pool.ConnectionPoolException;
+import com.mysql.cj.jdbc.Driver;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -34,13 +35,13 @@ public enum ConnectionPool {
     public void initializePool() throws ConnectionPoolException {//init block?
         initializeProperties();
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            DriverManager.registerDriver(new Driver());
             if (!isInitialized.get()) {
                 for (int i = 0; i < CAPACITY; i++) {
                     availableConnections.add(new ProxyConnection(DriverManager.getConnection(dbURL, dbProperties)));
                 }
             }
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             LOGGER.error("Failed to initialize connection pool", e);
             throw new ConnectionPoolException(e);
         }

@@ -64,7 +64,7 @@
 
                 <div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
                     <label>
-                        <input class="input100" type="password" name="repeat_password" placeholder="Repeat password"
+                        <input class="input100" type="password" name="password" placeholder="Password"
                                pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
                         >
                         <span class="form__error"> <fmt:message bundle="${bundle}" key="form.error.password"/></span>
