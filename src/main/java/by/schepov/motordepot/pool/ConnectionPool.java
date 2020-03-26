@@ -2,7 +2,8 @@ package by.schepov.motordepot.pool;
 
 
 import by.schepov.motordepot.exception.pool.ConnectionPoolException;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,7 +20,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public enum ConnectionPool {
     INSTANCE;
 
-    private static final Logger LOGGER = Logger.getLogger(ConnectionPool.class);
+    private static final Logger LOGGER = LogManager.getLogger(ConnectionPool.class);
     private static final String DB_PROPERTIES = "db.properties";
     private static final int CAPACITY = 32;
     private static final int TIMEOUT_LIMIT = 10;
@@ -33,12 +34,13 @@ public enum ConnectionPool {
     public void initializePool() throws ConnectionPoolException {//init block?
         initializeProperties();
         try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
             if (!isInitialized.get()) {
                 for (int i = 0; i < CAPACITY; i++) {
                     availableConnections.add(new ProxyConnection(DriverManager.getConnection(dbURL, dbProperties)));
                 }
             }
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             LOGGER.error("Failed to initialize connection pool", e);
             throw new ConnectionPoolException(e);
         }
@@ -61,7 +63,7 @@ public enum ConnectionPool {
         return connection;
     }
 
-    public void returnConnection(ProxyConnection connection) throws ConnectionPoolException {
+    void returnConnection(ProxyConnection connection) throws ConnectionPoolException {//default?
         if (connection == null) {
             throw new ConnectionPoolException("Null connection passed");
         }
