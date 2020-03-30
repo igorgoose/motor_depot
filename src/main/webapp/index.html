@@ -32,14 +32,28 @@
     <div class="toolbar-top-container">
         <div class="toolbar-top">
             <form class="toolbar-top-form flex-sb flex-w" action="controller" method="post">
-                <button class="toolbar-top-btn four">
-                    <!--                        <fmt:message bundle="${bundle}" key="home.login.button"/>-->
-                    button1
-                </button>
-                <button class="toolbar-top-btn five">
-                    <!--                        <fmt:message bundle="${bundle}" key="home.login.button"/>-->
-                    button2
-                </button>
+<!--                <button class="toolbar-top-btn" name="language" required>-->
+<!--                    <option>Русский</option>-->
+<!--                    <option>English</option>-->
+<!--                </button>-->
+                <div class="dropdown toolbar-top-btn">
+                    <button class="dropbtn">Language</button>
+                    <div class="dropdown-content">
+                        <button>Русский</button>
+                        <button>English</button>
+                    </div>
+                </div>
+                <div class="dropdown toolbar-top-btn">
+                    <button class="dropbtn">user</button>
+                    <div class="dropdown-content">
+                        <button>Profile</button>
+                        <button>log out</button>
+                    </div>
+                </div>
+<!--                <button class="toolbar-top-btn five">-->
+<!--                    &lt;!&ndash;                        <fmt:message bundle="${bundle}" key="home.login.button"/>&ndash;&gt;-->
+<!--                    button2-->
+<!--                </button>-->
             </form>
         </div>
     </div>

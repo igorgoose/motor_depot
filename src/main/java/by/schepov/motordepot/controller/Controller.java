@@ -6,6 +6,7 @@ import by.schepov.motordepot.exception.pool.ConnectionPoolException;
 import by.schepov.motordepot.jsp.JSPParameter;
 import by.schepov.motordepot.jsp.Page;
 import by.schepov.motordepot.pool.ConnectionPool;
+import by.schepov.motordepot.session.SessionAttribute;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,17 +21,20 @@ import java.io.IOException;
 public class Controller extends HttpServlet {
 
     private static final Logger LOGGER = LogManager.getLogger(Controller.class);
-    private Page currentPage = Page.HOME;
+//    private Page currentPage = Page.HOME;
 
     @Override
     public void init() throws ServletException {
         try {
             ConnectionPool.INSTANCE.initializePool();
         } catch (ConnectionPoolException e) {
-            //todo log
             LOGGER.fatal(e);
         }
     }
+
+//    public Page getCurrentPage() {
+//        return currentPage;
+//    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -43,16 +47,17 @@ public class Controller extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String languageChosen = req.getParameter(JSPParameter.LANGUAGE.getValue());
-        Page page;
-        if (languageChosen != null) {
-            page = currentPage;
-        } else {
-            String commandName = req.getParameter(JSPParameter.COMMAND.getValue());
-            Command command = Command.getCommandByName(commandName);
-            page = command.execute(req, resp);
-            currentPage = page;
-        }
+//        String languageChosen = req.getParameter(JSPParameter.LANGUAGE.getValue());
+//        Page page;
+//        if (languageChosen != null) {
+//            page = currentPage;
+//        } else {
+        String commandName = req.getParameter(JSPParameter.COMMAND.getValue());
+        Command command = Command.getCommandByName(commandName);
+        Page page = command.execute(req, resp);
+        req.getSession().setAttribute(SessionAttribute.CURRENT_PAGE.getName(), page);
+
+//        }
         req.getRequestDispatcher(page.getName()).forward(req, resp);
     }
 }

@@ -185,33 +185,59 @@ iframe {
 /*//////////////////////////////////////////////////////////////////
 [ toolbar ]*/
 .toolbar-top-container {
-    /*width: 100%;*/
-    /*!*min-height: 100vh;*!*/
-    /*!*display: -webkit-box;*!*/
-    /*!*display: -webkit-flex;*!*/
-    /*!*display: -moz-box;*!*/
-    /*!*display: -ms-flexbox;*!*/
-    /*!*display: flex;*!*/
-    /*!*flex-wrap: wrap;*!*/
-    /*!*justify-content: center;*!*/
-    /*!*align-items: center;*!*/
-    /*padding: 0px;*/
-    /*!*position: fixed;*!*/
-    /*!*top : 0;*!*/
-    /*!*temporary*!*/
-    /*!*border: 1px solid black;*!*/
 
-    /*background-position: center;*/
-    /*background-size: cover;*/
-    /*background-repeat: no-repeat;;*/
 }
 
 
 .toolbar-top {
     background: #e6e6e6;
-    display: grid;
-    /*grid-gap: 10px;*/
     border: 1px solid transparent;
+}
+
+
+
+/* Dropdown Button */
+.dropbtn {
+    font-family: Ubuntu-Bold;
+    font-size: 16px;
+    color: #fff;
+    line-height: 1.2;
+    text-transform: uppercase;
+
+    width: 100%;
+    padding: 0 20px;
+    height: 48px;
+    background-color: #827ffe;
+    border-radius: 3px;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    left: 0;
+    background-color: #f1f1f1;
+    width: 100%;
+    /*box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);*/
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content button {
+    padding: 12px 16px;
+    width: 100%;
+    line-height: 1.2;
+    text-transform: uppercase;
+    display: block;
 }
 
 .toolbar-top-btn {
@@ -226,8 +252,6 @@ iframe {
     height: 48px;
     background-color: #827ffe;
     border-radius: 3px;
-    /*border: 1px solid black;*/
-    /*margin: 3px;*/
     -webkit-transition: all 0.4s;
     -o-transition: all 0.4s;
     -moz-transition: all 0.4s;
@@ -238,6 +262,14 @@ iframe {
     background-color: #403866;
 }
 
+/* Change color of dropdown links on hover */
+.dropdown-content button:hover {background-color: #ddd;}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {background-color: #403866;}
 
 /*==================================================================
 [ Form ]*/

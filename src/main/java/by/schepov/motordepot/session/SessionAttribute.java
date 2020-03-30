@@ -1,6 +1,8 @@
 package by.schepov.motordepot.session;
 
 public enum SessionAttribute {
+    LOCALE("locale"),
+    CURRENT_PAGE("current_page"),
     USER("user");
 
     private String name;
