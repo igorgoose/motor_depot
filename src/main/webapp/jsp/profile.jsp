@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: igorg
-  Date: 22.03.2020
-  Time: 13:57
+  Date: 30.03.2020
+  Time: 16:08
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -57,67 +57,10 @@
         </div>
     </div>
     <div class="container-login100">
-        <div class="wrap-login100 p-t-50 p-b-90">
-            <form class="login100-form validate-form flex-sb flex-w" action="controller" method="post">
-					<span class="login100-form-title p-b-51">
-						<fmt:message bundle="${bundle}" key="signup.title"/>
-					</span>
 
-                <div class="wrap-input100 validate-input m-b-16" data-validate = "Username is required">
-                    <label>
-                        <input class="input100" type="text" name="username" placeholder="Username"
-                               pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$">
-                        <span class="form__error"> <fmt:message bundle="${bundle}" key="form.error.username"/></span>
-                    </label>
-                    <span class="focus-input100"></span>
-                </div>
 
-                <div class="wrap-input100 validate-input m-b-16" data-validate = "Username is required">
-                    <label>
-                        <input class="input100" type="email" name="email" placeholder="Email"
-                               pattern="^[A-Za-z0-9+_.-]+@(.+)(\.(.+))+$">
-                        <span class="form__error"> <fmt:message bundle="${bundle}" key="form.error.email"/></span>
-                    </label>
-                    <span class="focus-input100"></span>
-                </div>
-
-                <div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
-                    <label>
-                        <input class="input100" type="password" name="password" placeholder="Password"
-                               pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
-                        >
-                        <span class="form__error"> <fmt:message bundle="${bundle}" key="form.error.password"/></span>
-                    </label>
-                    <span class="focus-input100"></span>
-                </div>
-
-                <div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
-                    <label>
-                        <input class="input100" type="password" name="repeat_password" placeholder="Repeat password"
-                               pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
-                        >
-                        <span class="form__error"> <fmt:message bundle="${bundle}" key="form.error.password"/></span>
-                    </label>
-                    <span class="focus-input100"></span>
-                </div>
-
-                <div class="container-login100-form-btn m-t-17">
-                    <button class="login100-form-btn" name="command" value="sign_up">
-                        <fmt:message bundle="${bundle}" key="button.signup"/>
-                    </button>
-                </div>
-
-                <div class="container-login100-form-btn m-t-17">
-                    <button class="login100-form-btn" name="command" value="redirect">
-                        <fmt:message bundle="${bundle}" key="button.home"/>
-                    </button>
-                    <input class="invisible" name="address" value="HOME"/>
-                </div>
-            </form>
-        </div>
     </div>
 </div>
-
 
 </body>
 </html>
