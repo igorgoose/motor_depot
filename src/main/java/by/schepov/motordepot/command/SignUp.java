@@ -7,14 +7,19 @@ import by.schepov.motordepot.exception.service.UserServiceException;
 import by.schepov.motordepot.jsp.JSPParameter;
 import by.schepov.motordepot.jsp.Page;
 import by.schepov.motordepot.service.UserService;
+import by.schepov.motordepot.session.SessionAttribute;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 
 public class SignUp implements Executable {
 
     private final UserBuilder userBuilder = new UserBuilder();
     private final UserService userService = UserService.INSTANCE;
+    private static final Logger LOGGER = LogManager.getLogger(SignUp.class);
 
     SignUp(){
 
@@ -31,11 +36,12 @@ public class SignUp implements Executable {
                 .withEmail(email)
                 .withRole(Role.USER)
                 .build();
-        request.setAttribute("username", username);
+        request.setAttribute(JSPParameter.USERNAME.getValue(), username);
         try {
             userService.insertUser(user);
+            request.getSession().setAttribute(SessionAttribute.USER.getName(), user);
         } catch (UserServiceException e) {
-            //todo log
+            LOGGER.warn(e);
             return Page.ERROR;
         }
         return Page.WELCOME;

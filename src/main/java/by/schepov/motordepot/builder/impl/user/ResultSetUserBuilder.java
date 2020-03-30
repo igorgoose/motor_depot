@@ -1,13 +1,13 @@
 package by.schepov.motordepot.builder.impl.user;
 
-import by.schepov.motordepot.builder.AbstractBuilder;
+import by.schepov.motordepot.builder.Builder;
 import by.schepov.motordepot.entity.Role;
 import by.schepov.motordepot.entity.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ResultSetUserBuilder extends AbstractBuilder<User> {
+public class ResultSetUserBuilder implements Builder<User> {
 
     private final UserBuilder userBuilder = new UserBuilder();
     private final ResultSet resultSet;
@@ -51,4 +51,8 @@ public class ResultSetUserBuilder extends AbstractBuilder<User> {
         return this;
     }
 
+    @Override
+    public User build() {
+        return userBuilder.build();
+    }
 }
