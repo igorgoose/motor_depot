@@ -6,6 +6,7 @@ import by.schepov.motordepot.exception.pool.ConnectionPoolException;
 import by.schepov.motordepot.exception.specification.SpecificationException;
 import by.schepov.motordepot.pool.ConnectionPool;
 import by.schepov.motordepot.pool.ProxyConnection;
+import by.schepov.motordepot.specification.Column;
 import by.schepov.motordepot.specification.Specification;
 
 import java.sql.PreparedStatement;
@@ -22,12 +23,6 @@ public class FindUserByUsernameSpecification implements Specification<User> {
                     "LEFT JOIN motor_depot.roles as roles on role_id = roles.id " +
                     "WHERE users.login = ?";
     private final ConnectionPool pool = ConnectionPool.INSTANCE;
-    public static final String ID_COLUMN = "id";
-    public static final String BLOCKED_COLUMN = "is_blocked";
-    public static final String EMAIL_COLUMN = "email";
-    public static final String LOGIN_COLUMN = "login";
-    public static final String PASSWORD_COLUMN = "password";
-    public static final String ROLE_COLUMN = "role";
 
     public FindUserByUsernameSpecification(String login) {
         this.login = login;
@@ -45,12 +40,12 @@ public class FindUserByUsernameSpecification implements Specification<User> {
             ResultSetUserBuilder builder = new ResultSetUserBuilder(resultSet);
             while (resultSet.next()) {
                 builder.reset();
-                users.add(builder.withId(ID_COLUMN)
-                        .withBlocked(BLOCKED_COLUMN)
-                        .withEmail(EMAIL_COLUMN)
-                        .withLogin(LOGIN_COLUMN)
-                        .withPassword(PASSWORD_COLUMN)
-                        .withRole(ROLE_COLUMN)
+                users.add(builder.withId(Column.ID)
+                        .withBlocked(Column.IS_BLOCKED)
+                        .withEmail(Column.EMAIL)
+                        .withLogin(Column.LOGIN)
+                        .withPassword(Column.PASSWORD)
+                        .withRole(Column.ROLE)
                         .build());
             }
             return users;

@@ -6,7 +6,10 @@ import by.schepov.motordepot.exception.pool.ConnectionPoolException;
 import by.schepov.motordepot.exception.specification.SpecificationException;
 import by.schepov.motordepot.pool.ConnectionPool;
 import by.schepov.motordepot.pool.ProxyConnection;
+import by.schepov.motordepot.specification.Column;
 import by.schepov.motordepot.specification.Specification;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,12 +21,9 @@ public class FindRouteByIdSpecification implements Specification<Route> {
 
 
     private int id;
+    private static final Logger LOGGER = LogManager.getLogger(FindRouteByIdSpecification.class);
     private static final String QUERY = "SELECT * FROM routes WHERE id = ?";
     private final ConnectionPool pool = ConnectionPool.INSTANCE;
-    private static final String DEPARTURE_LOCATION_COLUMN = "departure_location";
-    private static final String ARRIVAL_LOCATION_COLUMN = "arrival_location";
-    private static final String DEPARTURE_TIME_COLUMN = "departure_time";
-    private static final String ARRIVAL_TIME_COLUMN = "arrival_time";
 
     public FindRouteByIdSpecification(int id) {
         this.id = id;
@@ -39,15 +39,15 @@ public class FindRouteByIdSpecification implements Specification<Route> {
             ResultSetRouteBuilder builder = new ResultSetRouteBuilder(resultSet);
             while (resultSet.next()) {
                 builder.reset();
-                routes.add(builder.withDepartureLocation(DEPARTURE_LOCATION_COLUMN)
-                        .withArrivalLocation(ARRIVAL_LOCATION_COLUMN)
-                        .withDepartureTime(DEPARTURE_TIME_COLUMN)
-                        .withArrivalTime(ARRIVAL_TIME_COLUMN)
+                routes.add(builder.withDepartureLocation(Column.DEPARTURE_LOCATION)
+                        .withArrivalLocation(Column.ARRIVAL_LOCATION)
+                        .withDepartureTime(Column.DEPARTURE_TIME)
+                        .withArrivalTime(Column.ARRIVAL_TIME)
                         .build());
             }
             return routes;
         } catch (ConnectionPoolException | SQLException e) {
-            //todo log
+            LOGGER.warn(e);
             throw new SpecificationException(e);
         }
     }

@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <fmt:setLocale value="${locale}"/>
 <fmt:setBundle basename="locale" var="bundle" />
@@ -51,14 +52,49 @@
                     </div>
                 </div>
                 <div class="dropdown toolbar-top-btn">
-                    <button class="dropbtn" disabled><fmt:message bundle="${bundle}" key="button.role.guest"/></button>
+                    <button class="dropbtn" disabled>
+                        ${username}(
+                        <c:if test="${role == 3}">
+                            <fmt:message bundle="${bundle}" key="button.role.user"/>
+                        </c:if>
+                        <c:if test="${role == 2}">
+                            <fmt:message bundle="${bundle}" key="button.role.driver"/>
+                        </c:if>
+                        <c:if test="${role == 1}">
+                            <fmt:message bundle="${bundle}" key="button.role.admin"/>
+                        </c:if>
+                        )
+                    </button>
+                    <div class="dropdown-content">
+                        <button name="command" value="log_out">log out</button>
+                    </div>
                 </div>
             </form>
         </div>
     </div>
-    <div class="container-login100">
-
-
+    <div class="main-container">
+        <table>
+            <tr>
+                <th>Request ID</th>
+                <th>Departure location</th>
+                <th>Arrival location</th>
+                <th>Departure time</th>
+                <th>Arrival time</th>
+                <th>Passengers quantity</th>
+                <th>Load(kg)</th>
+            </tr>
+            <c:forEach var="request" items="${requests}">
+                <tr>
+                    <td>${request.id}</td>
+                    <td>${request.route.departureLocation}</td>
+                    <td>${request.route.arrivalLocation}</td>
+                    <td>${request.route.departureTime}</td>
+                    <td>${request.route.arrivalTime}</td>
+                    <td>${request.passengersQuantity}</td>
+                    <td>${request.load}</td>
+                </tr>
+            </c:forEach>
+        </table>
     </div>
 </div>
 

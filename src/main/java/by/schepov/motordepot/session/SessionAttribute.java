@@ -1,8 +1,10 @@
 package by.schepov.motordepot.session;
 
 public enum SessionAttribute {
+    ROLE("role"),
+    LAST_REQUEST("last_request"),
     LOCALE("locale"),
-    CURRENT_PAGE("current_page"),
+    LAST_PAGE("last_page"),
     USER("user");
 
     private String name;
