@@ -38,7 +38,9 @@
         <div class="toolbar-top">
             <form class="toolbar-top-form flex-sb flex-w" action="controller" method="post">
                 <div class="dropdown toolbar-top-btn">
-                    <button class="dropbtn" disabled><fmt:message bundle="${bundle}" key="button.language"/></button>
+                    <button class="dropbtn" disabled>
+                        <fmt:message bundle="${bundle}" key="button.language"/>
+                    </button>
                     <div class="dropdown-content">
                         <button name="language" value="ru">Русский</button>
                         <button name="language" value="en">English</button>
@@ -63,7 +65,7 @@
             </form>
         </div>
     </div>
-    <div class="main-container">
+    <div class="container-login100">
         <div class="wrap-login100 p-t-50 p-b-90">
             <form class="login100-form validate-form flex-sb flex-w" action="controller" method="post">
 					<span class="login100-form-title p-b-51">

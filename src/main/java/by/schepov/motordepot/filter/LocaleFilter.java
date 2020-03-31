@@ -26,14 +26,6 @@ public class LocaleFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) resp;
         HttpSession session = request.getSession();
-//        Page currentPage = (Page) session.getAttribute(SessionAttribute.LAST_PAGE.getName());
-//        if (currentPage == null) {
-//            currentPage = Page.HOME;
-//            session.setAttribute(SessionAttribute.LAST_PAGE.getName(), currentPage);
-//            session.setAttribute(SessionAttribute.LOCALE.getName(), RUSSIAN);
-//            request.getRequestDispatcher(currentPage.getName()).forward(request, response);
-//            return;
-//        }
         String localeName = request.getParameter(JSPParameter.LANGUAGE.getValue());
         if (localeName == null) {
             localeName = (String) session.getAttribute(SessionAttribute.LOCALE.getName());
@@ -42,6 +34,7 @@ public class LocaleFilter implements Filter {
             }
             session.setAttribute(SessionAttribute.LOCALE.getName(), localeName);
             chain.doFilter(request, response);
+            return;
         } else {
             session.setAttribute(SessionAttribute.LOCALE.getName(), localeName);
         }

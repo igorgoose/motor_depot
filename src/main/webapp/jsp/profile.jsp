@@ -72,7 +72,7 @@
             </form>
         </div>
     </div>
-    <div class="main-container">
+    <div class="container-login100">
         <table>
             <tr>
                 <th>Request ID</th>
