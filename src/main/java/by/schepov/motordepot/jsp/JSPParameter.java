@@ -17,7 +17,7 @@ public enum JSPParameter {
         this.value = value;
     }
 
-    public String getValue() {
+    public String getName() {
         return value;
     }
 

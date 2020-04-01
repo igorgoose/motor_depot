@@ -6,7 +6,7 @@ import by.schepov.motordepot.entity.User;
 import by.schepov.motordepot.exception.service.UserServiceException;
 import by.schepov.motordepot.jsp.JSPParameter;
 import by.schepov.motordepot.jsp.Page;
-import by.schepov.motordepot.service.UserService;
+import by.schepov.motordepot.service.impl.UserService;
 import by.schepov.motordepot.session.SessionAttribute;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 public class SignUp implements Executable {
 
     private final UserBuilder userBuilder = new UserBuilder();
-    private final UserService userService = UserService.INSTANCE;
+    private final UserService userService = UserService.getInstance();
     private static final Logger LOGGER = LogManager.getLogger(SignUp.class);
 
     SignUp(){
@@ -27,16 +27,16 @@ public class SignUp implements Executable {
 
     @Override
     public Page execute(HttpServletRequest request, HttpServletResponse response) {
-        String username = request.getParameter(JSPParameter.USERNAME.getValue());
-        String password = request.getParameter(JSPParameter.PASSWORD.getValue());
-        String email = request.getParameter(JSPParameter.EMAIL.getValue());
+        String username = request.getParameter(JSPParameter.USERNAME.getName());
+        String password = request.getParameter(JSPParameter.PASSWORD.getName());
+        String email = request.getParameter(JSPParameter.EMAIL.getName());
         userBuilder.reset();
         User user = userBuilder.withLogin(username)
                 .withPassword(password)
                 .withEmail(email)
                 .withRole(Role.USER)
                 .build();
-        request.setAttribute(JSPParameter.USERNAME.getValue(), username);
+        request.setAttribute(JSPParameter.USERNAME.getName(), username);
         try {
             userService.insertUser(user);
             request.getSession().setAttribute(SessionAttribute.USER.getName(), user);
@@ -44,6 +44,6 @@ public class SignUp implements Executable {
             LOGGER.warn(e);
             return Page.ERROR;
         }
-        return Page.WELCOME;
+        return Page.AUTHORIZE;
     }
 }
