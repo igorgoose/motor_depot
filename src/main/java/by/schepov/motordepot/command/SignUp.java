@@ -27,16 +27,16 @@ public class SignUp implements Executable {
 
     @Override
     public Page execute(HttpServletRequest request, HttpServletResponse response) {
-        String username = request.getParameter(JSPParameter.USERNAME.getValue());
-        String password = request.getParameter(JSPParameter.PASSWORD.getValue());
-        String email = request.getParameter(JSPParameter.EMAIL.getValue());
+        String username = request.getParameter(JSPParameter.USERNAME.getName());
+        String password = request.getParameter(JSPParameter.PASSWORD.getName());
+        String email = request.getParameter(JSPParameter.EMAIL.getName());
         userBuilder.reset();
         User user = userBuilder.withLogin(username)
                 .withPassword(password)
                 .withEmail(email)
                 .withRole(Role.USER)
                 .build();
-        request.setAttribute(JSPParameter.USERNAME.getValue(), username);
+        request.setAttribute(JSPParameter.USERNAME.getName(), username);
         try {
             userService.insertUser(user);
             request.getSession().setAttribute(SessionAttribute.USER.getName(), user);

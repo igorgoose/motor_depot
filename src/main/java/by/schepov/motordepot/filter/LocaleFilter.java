@@ -26,7 +26,7 @@ public class LocaleFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) resp;
         HttpSession session = request.getSession();
-        String localeName = request.getParameter(JSPParameter.LANGUAGE.getValue());
+        String localeName = request.getParameter(JSPParameter.LANGUAGE.getName());
         if (localeName == null) {
             localeName = (String) session.getAttribute(SessionAttribute.LOCALE.getName());
             if (localeName == null) {

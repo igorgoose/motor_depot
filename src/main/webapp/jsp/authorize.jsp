@@ -44,7 +44,9 @@
                     </div>
                 </div>
                 <div class="dropdown toolbar-top-btn">
-                    <button class="dropbtn" disabled><fmt:message bundle="${bundle}" key="button.role.guest"/></button>
+                    <button class="dropbtn" disabled>
+                        <fmt:message bundle="${bundle}" key="button.role.guest"/>
+                    </button>
                 </div>
             </form>
         </div>

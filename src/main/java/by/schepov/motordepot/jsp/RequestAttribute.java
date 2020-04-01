@@ -13,7 +13,7 @@ public enum RequestAttribute {
         this.value = value;
     }
 
-    public String getValue() {
+    public String getName() {
         return value;
     }
 

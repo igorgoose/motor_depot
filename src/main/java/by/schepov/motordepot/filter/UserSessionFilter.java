@@ -5,7 +5,6 @@ import by.schepov.motordepot.jsp.RequestAttribute;
 import by.schepov.motordepot.session.SessionAttribute;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -26,7 +25,7 @@ public class UserSessionFilter implements Filter {
             role = Role.GUEST;
             session.setAttribute(SessionAttribute.ROLE.getName(), Role.GUEST);
         }
-        request.setAttribute(RequestAttribute.ROLE.getValue(), role.getId());
+        request.setAttribute(RequestAttribute.ROLE.getName(), role.getId());
         chain.doFilter(req, resp);
     }
 

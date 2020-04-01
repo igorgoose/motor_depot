@@ -47,20 +47,42 @@
                     </div>
                 </div>
                 <div class="dropdown toolbar-top-btn">
-                    <button class="dropbtn" disabled>
-                        <c:if test="${role == 4}">
+                    <c:if test="${role == 4}">
+                        <button class="dropbtn" disabled>
                             <fmt:message bundle="${bundle}" key="button.role.guest"/>
-                        </c:if>
+                        </button>
+                        <div class="dropdown-content">
+                            <button name="command" value="redirect">
+                                <fmt:message bundle="${bundle}" key="button.authorize"/>
+                            </button>
+                            <input class="invisible" name="address" value="AUTHORIZE"/>
+                        </div>
+                    </c:if>
+                    <c:if test="${role < 4}">
                         <c:if test="${role == 3}">
-                            <fmt:message bundle="${bundle}" key="button.role.user"/>
+                            <button class="dropbtn" disabled>
+                                <fmt:message bundle="${bundle}" key="button.role.user"/>
+                            </button>
                         </c:if>
                         <c:if test="${role == 2}">
-                            <fmt:message bundle="${bundle}" key="button.role.driver"/>
+                            <button class="dropbtn" disabled>
+                                <fmt:message bundle="${bundle}" key="button.role.driver"/>
+                            </button>
                         </c:if>
                         <c:if test="${role == 1}">
-                            <fmt:message bundle="${bundle}" key="button.role.admin"/>
+                            <button class="dropbtn" disabled>
+                                <fmt:message bundle="${bundle}" key="button.role.admin"/>
+                            </button>
                         </c:if>
-                    </button>
+                        <div class="dropdown-content">
+                            <button name="command" value="view_profile">
+                                <fmt:message bundle="${bundle}" key="button.profile"/>
+                            </button>
+                            <button name="command" value="log_out">
+                                <fmt:message bundle="${bundle}" key="button.logout"/>
+                            </button>
+                        </div>
+                    </c:if>
                 </div>
             </form>
         </div>
@@ -68,16 +90,9 @@
     <div class="container-login100">
         <div class="wrap-login100 p-t-50 p-b-90">
             <form class="login100-form validate-form flex-sb flex-w" action="controller" method="post">
-					<span class="login100-form-title p-b-51">
-						<fmt:message bundle="${bundle}" key="welcome"/>
-					</span>
-
-                <div class="container-login100-form-btn m-t-17">
-                    <button class="login100-form-btn" name="command" value="redirect">
-                        <fmt:message bundle="${bundle}" key="button.authorize"/>
-                    </button>
-                    <input class="invisible" name="address" value="AUTHORIZE"/>
-                </div>
+                <span class="login100-form-title p-b-51">
+                    <fmt:message bundle="${bundle}" key="welcome"/>
+                </span>
             </form>
         </div>
     </div>

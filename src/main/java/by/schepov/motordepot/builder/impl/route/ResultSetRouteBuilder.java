@@ -38,17 +38,17 @@ public class ResultSetRouteBuilder implements Builder<Route> {
     }
 
     public ResultSetRouteBuilder withDepartureTime(Column departureTimeColumn) throws SQLException {
-        routeBuilder.withDepartureLocation(resultSet.getString(departureTimeColumn.getName()));
+        routeBuilder.withDepartureTime(resultSet.getDate(departureTimeColumn.getName()));
         return this;
     }
 
     public ResultSetRouteBuilder withArrivalLocation(Column arrivalLocationColumn) throws SQLException {
-        routeBuilder.withDepartureLocation(resultSet.getString(arrivalLocationColumn.getName()));
+        routeBuilder.withArrivalLocation(resultSet.getString(arrivalLocationColumn.getName()));
         return this;
     }
 
     public ResultSetRouteBuilder withArrivalTime(Column arrivalTimeColumn) throws SQLException {
-        routeBuilder.withDepartureLocation(resultSet.getString(arrivalTimeColumn.getName()));
+        routeBuilder.withArrivalTime(resultSet.getDate(arrivalTimeColumn.getName()));
         return this;
     }
 }

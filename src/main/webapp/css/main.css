@@ -597,3 +597,17 @@ input:invalid:not(:placeholder-shown) + .form__error {
     display: none;
 }
 
+/*///////////////////////profile///////////////////////////////*/
+
+.wrap-content-unit{
+    /*border: 1px solid black;*/
+    width: 95%;
+    background: #fff;
+    border-radius: 10px;
+    position: relative;
+}
+
+.profile-table{
+    border: 1px solid black;
+    width: 100%;
+}

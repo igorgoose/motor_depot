@@ -23,6 +23,8 @@
   <filter-mapping>
     <filter-name>UserSessionFilter</filter-name>
     <url-pattern>/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
   </filter-mapping>
   <filter-mapping>
     <filter-name>LocaleFilter</filter-name>

@@ -43,7 +43,7 @@ public class Controller extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String commandName = req.getParameter(JSPParameter.COMMAND.getValue());
+        String commandName = req.getParameter(JSPParameter.COMMAND.getName());
         Command command = Command.getCommandByName(commandName);
         Page page = command.execute(req, resp);
         req.getSession().setAttribute(SessionAttribute.LAST_PAGE.getName(), page);
