@@ -59,21 +59,19 @@
                         </div>
                     </c:if>
                     <c:if test="${role < 4}">
-                        <c:if test="${role == 3}">
-                            <button class="dropbtn" disabled>
+                        <button class="dropbtn" disabled>
+                                ${username}(
+                            <c:if test="${role == 3}">
                                 <fmt:message bundle="${bundle}" key="button.role.user"/>
-                            </button>
-                        </c:if>
-                        <c:if test="${role == 2}">
-                            <button class="dropbtn" disabled>
+                            </c:if>
+                            <c:if test="${role == 2}">
                                 <fmt:message bundle="${bundle}" key="button.role.driver"/>
-                            </button>
-                        </c:if>
-                        <c:if test="${role == 1}">
-                            <button class="dropbtn" disabled>
+                            </c:if>
+                            <c:if test="${role == 1}">
                                 <fmt:message bundle="${bundle}" key="button.role.admin"/>
-                            </button>
-                        </c:if>
+                            </c:if>
+                            )
+                        </button>
                         <div class="dropdown-content">
                             <button name="command" value="view_profile">
                                 <fmt:message bundle="${bundle}" key="button.profile"/>

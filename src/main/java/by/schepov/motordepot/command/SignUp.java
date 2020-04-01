@@ -29,7 +29,14 @@ public class SignUp implements Executable {
     public Page execute(HttpServletRequest request, HttpServletResponse response) {
         String username = request.getParameter(JSPParameter.USERNAME.getName());
         String password = request.getParameter(JSPParameter.PASSWORD.getName());
+        String repeatPassword = request.getParameter(JSPParameter.REPEAT_PASSWORD.getName());
         String email = request.getParameter(JSPParameter.EMAIL.getName());
+        //todo create validator
+        //todo let user try again
+        if(password == null || !password.equals(repeatPassword)){
+            LOGGER.info("Password was not repeated correctly");
+            return Page.ERROR;
+        }
         userBuilder.reset();
         User user = userBuilder.withLogin(username)
                 .withPassword(password)
@@ -44,6 +51,6 @@ public class SignUp implements Executable {
             LOGGER.warn(e);
             return Page.ERROR;
         }
-        return Page.AUTHORIZE;
+        return Page.HOME;
     }
 }

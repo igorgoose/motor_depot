@@ -39,8 +39,6 @@ public class LogIn implements Executable {
             userService.authorizeUser(user);
             request.getSession().setAttribute(SessionAttribute.USER.getName(), user);
             request.getSession().setAttribute(SessionAttribute.ROLE.getName(), user.getRole());
-            request.setAttribute(RequestAttribute.USERNAME.getName(), username);
-            request.setAttribute(RequestAttribute.ROLE.getName(), user.getRole().getId());
         } catch (UserServiceException e) {
             LOGGER.warn(e);
             return Page.ERROR;
