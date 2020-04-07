@@ -12,7 +12,7 @@
 <fmt:setBundle basename="locale" var="bundle"/>
 <html>
 <head>
-    <title>Login</title>
+    <title><fmt:message bundle="${bundle}" key="profile.label"/></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
