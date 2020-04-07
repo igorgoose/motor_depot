@@ -66,7 +66,9 @@
                 <div class="wrap-input100 validate-input m-b-16" data-validate = "Username is required">
                     <label>
                         <input class="input100" type="text" name="username" placeholder="Username"
-                               pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$">
+                               pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$"
+                               required
+                        >
                         <span class="form__error"> <fmt:message bundle="${bundle}" key="form.error.username"/></span>
                     </label>
                     <span class="focus-input100"></span>
@@ -75,7 +77,8 @@
                 <div class="wrap-input100 validate-input m-b-16" data-validate = "Username is required">
                     <label>
                         <input class="input100" type="email" name="email" placeholder="Email"
-                               pattern="^[A-Za-z0-9+_.-]+@(.+)(\.(.+))+$">
+                               pattern="^[A-Za-z0-9+_.-]+@(.+)(\.(.+))+$"
+                        >
                         <span class="form__error"> <fmt:message bundle="${bundle}" key="form.error.email"/></span>
                     </label>
                     <span class="focus-input100"></span>
@@ -85,6 +88,7 @@
                     <label>
                         <input class="input100" type="password" name="password" placeholder="Password"
                                pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+                               required
                         >
                         <span class="form__error"> <fmt:message bundle="${bundle}" key="form.error.password"/></span>
                     </label>
@@ -95,6 +99,7 @@
                     <label>
                         <input class="input100" type="password" name="repeat_password" placeholder="Repeat password"
                                pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+                               required
                         >
                         <span class="form__error"> <fmt:message bundle="${bundle}" key="form.error.password"/></span>
                     </label>
@@ -107,6 +112,8 @@
                     </button>
                 </div>
 
+            </form>
+            <form class="login100-form validate-form flex-sb flex-w" action="controller" method="post">
                 <div class="container-login100-form-btn m-t-17">
                     <button class="login100-form-btn" name="command" value="redirect">
                         <fmt:message bundle="${bundle}" key="button.home"/>
