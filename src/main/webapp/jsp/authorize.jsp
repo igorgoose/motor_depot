@@ -92,6 +92,8 @@
                     </button>
                 </div>
 
+            </form>
+            <form class="login100-form validate-form flex-sb flex-w" action="controller" method="post">
                 <div class="container-login100-form-btn m-t-17">
                     <button class="login100-form-btn" name="command" value="redirect">
                         <fmt:message bundle="${bundle}" key="button.signup"/>
