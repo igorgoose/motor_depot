@@ -311,15 +311,15 @@ iframe {
     display: none;
 }
 
-input:valid:not(:placeholder-shown){
+input:valid{
     border: 1px solid green;
 }
 
-input:invalid:not(:placeholder-shown){
+input:invalid{
     border: 1px solid red;
 }
 
-input:invalid:not(:placeholder-shown) + .form__error {
+input:invalid + .form__error {
     display: block;
 }
 
