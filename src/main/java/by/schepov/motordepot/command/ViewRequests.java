@@ -32,6 +32,7 @@ public class ViewRequests implements Executable {
             request.setAttribute(RequestAttribute.USERNAME.getName(), user.getUsername());
             request.setAttribute(RequestAttribute.ROLE.getName(), user.getRole().getId());
             request.setAttribute(RequestAttribute.REQUESTS.getName(), requests);
+            request.setAttribute(RequestAttribute.MANAGEMENT_REQUEST.getName(), Command.VIEW_REQUESTS.getName());
         } catch (ServiceException e) {
             LOGGER.warn(e);
             return Page.ERROR;
