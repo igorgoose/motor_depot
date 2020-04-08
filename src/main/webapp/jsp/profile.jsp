@@ -105,10 +105,10 @@
         </div>
         <div class="wrap-content-unit p-t-10 p-b-10">
             <form action="controller" method="post">
-                <button class="login100-form-btn" name="command" value="redirect">
+                <button class="login100-form-btn" name="address" value="HOME">
                     <fmt:message bundle="${bundle}" key="button.home"/>
                 </button>
-                <input class="invisible" name="address" value="HOME"/>
+<%--                <input class="invisible" name="address" value="HOME"/>--%>
             </form>
         </div>
     </div>

@@ -8,11 +8,11 @@ import javax.servlet.http.HttpServletResponse;
 
 public enum Command {
 
+    VIEW_REQUESTS("view_requests", new ViewRequests(), 1),
     LOG_OUT("log_out", new LogOut(), 3),
     VIEW_PROFILE("view_profile", new ViewProfile(), 3),
     LOG_IN("log_in", new LogIn(), 4),
     SIGN_UP("sign_up", new SignUp(),4),
-    LANGUAGE("language", new Language(), 4),
     REDIRECT("redirect", new Redirect(), 4);
 
     private String name;
