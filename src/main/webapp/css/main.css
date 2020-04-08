@@ -604,6 +604,7 @@ input:invalid + .form__error {
     width: 95%;
     background: #fff;
     border-radius: 10px;
+    border: 1px solid red;
     position: relative;
 }
 

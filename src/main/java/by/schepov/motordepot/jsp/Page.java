@@ -2,6 +2,7 @@ package by.schepov.motordepot.jsp;
 
 public enum Page {
 
+    MANAGEMENT("/jsp/management.jsp"),
     HOME("index.jsp"),
     AUTHORIZE("/jsp/authorize.jsp"),
     SIGN_UP("/jsp/signup.jsp"),

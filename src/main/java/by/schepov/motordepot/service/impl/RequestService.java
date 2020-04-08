@@ -6,6 +6,7 @@ import by.schepov.motordepot.exception.service.RequestServiceException;
 import by.schepov.motordepot.repository.impl.request.RequestRepository;
 import by.schepov.motordepot.service.Service;
 import by.schepov.motordepot.specification.impl.request.FindRequestByUserIdSpecification;
+import by.schepov.motordepot.specification.impl.request.GetAllRequestsSpecification;
 import com.google.protobuf.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,5 +38,12 @@ public class RequestService extends Service<Request> {
         }
     }
 
-
+    public Set<Request> getAllRequests() throws ServiceException {
+        try {
+            return repository.execute(new GetAllRequestsSpecification());
+        } catch (RepositoryException e) {
+            LOGGER.warn(e);
+            throw new ServiceException(e);
+        }
+    }
 }
