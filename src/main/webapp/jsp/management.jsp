@@ -105,8 +105,8 @@
                     </button>
                 </div>
                 <div class="btn-wrapper">
-                    <button class="left-menu-bar-button">
-                        another_button
+                    <button class="left-menu-bar-button" name="command" value="view_users">
+                        <fmt:message bundle="${bundle}" key="button.users"/>
                     </button>
                 </div>
             </div>
@@ -133,6 +133,26 @@
                                 <td>${request.route.arrivalTime}</td>
                                 <td>${request.passengersQuantity}</td>
                                 <td>${request.load}</td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </div>
+            </c:if>
+            <c:if test="${management_request eq 'view_users'}">
+                <div class="content-unit-container">
+                    <table class="profile-table">
+                        <tr>
+                            <th>User ID</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Blocked</th>
+                        </tr>
+                        <c:forEach var="user" items="${users}">
+                            <tr>
+                                <td>${user.id}</td>
+                                <td>${user.username}</td>
+                                <td>${user.email}</td>
+                                <td>${user.blocked}</td>
                             </tr>
                         </c:forEach>
                     </table>

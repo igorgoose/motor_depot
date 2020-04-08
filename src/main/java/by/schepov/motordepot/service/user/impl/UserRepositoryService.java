@@ -1,32 +1,35 @@
-package by.schepov.motordepot.service.impl;
+package by.schepov.motordepot.service.user.impl;
 
 import by.schepov.motordepot.entity.User;
 import by.schepov.motordepot.exception.repository.RepositoryException;
 import by.schepov.motordepot.exception.service.UserServiceException;
 import by.schepov.motordepot.repository.impl.user.UserRepository;
-import by.schepov.motordepot.service.Service;
+import by.schepov.motordepot.service.RepositoryService;
+import by.schepov.motordepot.service.user.UserService;
 import by.schepov.motordepot.specification.impl.user.FindUserByUsernameSpecification;
+import by.schepov.motordepot.specification.impl.user.GetAllUsersSpecification;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Set;
 
-public class UserService extends Service<User> {
+public class UserRepositoryService extends RepositoryService<User> implements UserService {
 
-    private static final Logger LOGGER = LogManager.getLogger(UserService.class);
+    private static final Logger LOGGER = LogManager.getLogger(UserRepositoryService.class);
 
-    private UserService() {
+    private UserRepositoryService() {
         super(UserRepository.INSTANCE);
     }
 
     public static class InstanceHolder{
-        public static final UserService INSTANCE = new UserService();
+        public static final UserRepositoryService INSTANCE = new UserRepositoryService();
     }
 
-    public static UserService getInstance(){
-        return UserService.InstanceHolder.INSTANCE;
+    public static UserRepositoryService getInstance(){
+        return UserRepositoryService.InstanceHolder.INSTANCE;
     }
 
+    @Override
     public void insertUser(User user) throws UserServiceException {
         try {
             Set<User> similarLoginUsers = repository.execute(new FindUserByUsernameSpecification(user.getUsername()));
@@ -40,6 +43,7 @@ public class UserService extends Service<User> {
         }
     }
 
+    @Override
     public void authorizeUser(User user) throws UserServiceException {
         try {
             Set<User> foundUsers = repository.execute(new FindUserByUsernameSpecification(user.getUsername()));
@@ -52,6 +56,15 @@ public class UserService extends Service<User> {
                 }
             }
             throw new UserServiceException("Invalid user data");
+        } catch (RepositoryException e) {
+            LOGGER.warn(e);
+            throw new UserServiceException(e);
+        }
+    }
+
+    public Set<User> getAllUsers() throws UserServiceException {
+        try {
+            return repository.execute(new GetAllUsersSpecification());
         } catch (RepositoryException e) {
             LOGGER.warn(e);
             throw new UserServiceException(e);

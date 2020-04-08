@@ -48,7 +48,6 @@
                 </div>
                 <div class="dropdown toolbar-top-btn">
                     <c:if test="${role == 4}">
-
                         <button class="dropbtn" disabled>
                             <fmt:message bundle="${bundle}" key="button.role.guest"/>
                         </button>

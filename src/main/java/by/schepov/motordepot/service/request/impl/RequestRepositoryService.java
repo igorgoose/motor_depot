@@ -1,10 +1,11 @@
-package by.schepov.motordepot.service.impl;
+package by.schepov.motordepot.service.request.impl;
 
 import by.schepov.motordepot.entity.Request;
 import by.schepov.motordepot.exception.repository.RepositoryException;
 import by.schepov.motordepot.exception.service.RequestServiceException;
 import by.schepov.motordepot.repository.impl.request.RequestRepository;
-import by.schepov.motordepot.service.Service;
+import by.schepov.motordepot.service.RepositoryService;
+import by.schepov.motordepot.service.request.RequestService;
 import by.schepov.motordepot.specification.impl.request.FindRequestByUserIdSpecification;
 import by.schepov.motordepot.specification.impl.request.GetAllRequestsSpecification;
 import com.google.protobuf.ServiceException;
@@ -13,22 +14,23 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Set;
 
-public class RequestService extends Service<Request> {
+public class RequestRepositoryService extends RepositoryService<Request> implements RequestService {
 
-    private static final Logger LOGGER = LogManager.getLogger(RequestService.class);
+    private static final Logger LOGGER = LogManager.getLogger(RequestRepositoryService.class);
 
-    private RequestService() {
+    private RequestRepositoryService() {
         super(RequestRepository.INSTANCE);
     }
 
     public static class InstanceHolder{
-        public static final RequestService INSTANCE = new RequestService();
+        public static final RequestRepositoryService INSTANCE = new RequestRepositoryService();
     }
 
-    public static RequestService getInstance(){
+    public static RequestRepositoryService getInstance(){
         return InstanceHolder.INSTANCE;
     }
 
+    @Override
     public Set<Request> findRequestsByUserId(int id) throws RequestServiceException {
         try {
             return repository.execute(new FindRequestByUserIdSpecification(id));
@@ -38,6 +40,7 @@ public class RequestService extends Service<Request> {
         }
     }
 
+    @Override
     public Set<Request> getAllRequests() throws ServiceException {
         try {
             return repository.execute(new GetAllRequestsSpecification());
@@ -46,4 +49,5 @@ public class RequestService extends Service<Request> {
             throw new ServiceException(e);
         }
     }
+
 }

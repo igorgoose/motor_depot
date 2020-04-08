@@ -5,7 +5,7 @@ import by.schepov.motordepot.entity.User;
 import by.schepov.motordepot.exception.service.RequestServiceException;
 import by.schepov.motordepot.jsp.Page;
 import by.schepov.motordepot.jsp.RequestAttribute;
-import by.schepov.motordepot.service.impl.RequestService;
+import by.schepov.motordepot.service.request.impl.RequestRepositoryService;
 import by.schepov.motordepot.session.SessionAttribute;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,7 +16,7 @@ import java.util.Set;
 
 public class ViewProfile implements Executable {
 
-    private final RequestService requestService = RequestService.getInstance();
+    private final RequestRepositoryService requestService = RequestRepositoryService.getInstance();
     private static final Logger LOGGER = LogManager.getLogger(SignUp.class);
 
     ViewProfile(){
