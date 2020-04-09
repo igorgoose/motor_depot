@@ -20,6 +20,10 @@ public class ViewRequests implements Executable {
 
     private final RequestRepositoryService requestService = RequestRepositoryService.getInstance();
 
+    ViewRequests(){
+
+    }
+
     @Override
     public Page execute(HttpServletRequest request, HttpServletResponse response) {
         User user = (User) request.getSession().getAttribute(SessionAttribute.USER.getName());

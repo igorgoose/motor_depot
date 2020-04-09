@@ -21,6 +21,10 @@ public class ViewUsers implements Executable {
     //todo create ServiceFactory
     private final UserService userService = UserRepositoryService.getInstance();
 
+    ViewUsers(){
+
+    }
+
     @Override
     public Page execute(HttpServletRequest request, HttpServletResponse response) {
         User user = (User) request.getSession().getAttribute(SessionAttribute.USER.getName());
