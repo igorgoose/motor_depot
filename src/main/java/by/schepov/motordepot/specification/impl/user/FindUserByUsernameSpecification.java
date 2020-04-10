@@ -48,6 +48,7 @@ public class FindUserByUsernameSpecification implements Specification<User> {
                         .withRole(Column.ROLE)
                         .build());
             }
+            resultSet.close();
             return users;
         } catch (ConnectionPoolException | SQLException e) {
             //todo log

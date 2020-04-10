@@ -7,6 +7,10 @@ import by.schepov.motordepot.entity.User;
 
 public class RequestBuilder extends AbstractBuilder<Request> {
 
+    public RequestBuilder(){
+
+    }
+
     @Override
     public void reset() {
         object = new Request();

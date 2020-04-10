@@ -12,7 +12,6 @@ public interface Repository<T> {
         try {
             return query.execute();
         } catch (SpecificationException e) {
-            //todo log
             throw new RepositoryException(e);
         }
     }

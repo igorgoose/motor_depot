@@ -7,6 +7,9 @@ import java.sql.Date;
 
 public class RouteBuilder extends AbstractBuilder<Route> {
 
+    public RouteBuilder(){
+
+    }
 
     @Override
     public void reset() {

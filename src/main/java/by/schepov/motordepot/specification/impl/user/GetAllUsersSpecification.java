@@ -44,6 +44,7 @@ public class GetAllUsersSpecification implements Specification<User> {
                         .withRole(Column.ROLE)
                         .build());
             }
+            resultSet.close();
             return users;
         } catch (SQLException | ConnectionPoolException e) {
             LOGGER.warn(e);

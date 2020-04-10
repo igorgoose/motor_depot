@@ -26,6 +26,7 @@ public class Controller extends HttpServlet {
     public void init() throws ServletException {
         try {
             ConnectionPool.INSTANCE.initializePool();
+            LOGGER.warn("LAUNCH");
         } catch (ConnectionPoolException e) {
             LOGGER.fatal(e);
         }

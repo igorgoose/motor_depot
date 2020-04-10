@@ -71,6 +71,7 @@ public class GetAllRequestsSpecification implements Specification<Request> {
                         .withPassengersQuantity(Column.PASSENGERS_QUANTITY)
                         .build());
             }
+            resultSet.close();
             return requests;
         } catch (ConnectionPoolException | SQLException e) {
             LOGGER.warn(e);

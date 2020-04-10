@@ -46,6 +46,7 @@ public class FindUserByIdSpecification implements Specification<User> {
                         .withRole(Column.ROLE)
                         .build());
             }
+            resultSet.close();
             return users;
         } catch (ConnectionPoolException | SQLException e) {
             //todo log

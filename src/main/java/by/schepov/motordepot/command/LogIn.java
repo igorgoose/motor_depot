@@ -19,7 +19,7 @@ public class LogIn implements Executable {
 
     private final UserBuilder userBuilder = new UserBuilder();
     private final UserRepositoryService userService = UserRepositoryService.getInstance();
-    private static final Logger LOGGER = LogManager.getLogger(SignUp.class);
+    private static final Logger LOGGER = LogManager.getLogger(LogIn.class);
 
     LogIn(){
 
