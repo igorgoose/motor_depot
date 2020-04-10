@@ -240,6 +240,13 @@ iframe {
     display: block;
 }
 
+.toolbar-top-btn-wrapper{
+    padding: 5px;
+    width: 20%;
+    float: left;
+}
+
+
 .toolbar-top-btn {
     font-family: Ubuntu-Bold;
     font-size: 16px;

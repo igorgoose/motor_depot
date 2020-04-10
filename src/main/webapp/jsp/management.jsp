@@ -63,10 +63,9 @@
                         <fmt:message bundle="${bundle}" key="button.role.guest"/>
                     </button>
                     <div class="dropdown-content">
-                        <button name="command" value="redirect">
+                        <button name="address" value="AUTHORIZE">
                             <fmt:message bundle="${bundle}" key="button.authorize"/>
                         </button>
-                        <input class="invisible" name="address" value="AUTHORIZE"/>
                     </div>
                 </c:if>
                 <c:if test="${role < 4}">
@@ -98,39 +97,67 @@
         </form>
     </div>
     <div class="ultimate-container">
-        <div class="left-menu-bar">
-            <button class="left-menu-bar-button">
-                <fmt:message bundle="${bundle}" key="button.requests"/>
-            </button>
-            <button class="left-menu-bar-button">
-                another_button
-            </button>
-        </div>
-        <div class="content-container">
-            <div class="content-unit-container">
-                <table class="profile-table">
-                    <tr>
-                        <th>Request ID</th>
-                        <th>Departure location</th>
-                        <th>Arrival location</th>
-                        <th>Departure time</th>
-                        <th>Arrival time</th>
-                        <th>Passengers quantity</th>
-                        <th>Load(kg)</th>
-                    </tr>
-                    <c:forEach var="request" items="${requests}">
-                        <tr>
-                            <td>${request.id}</td>
-                            <td>${request.route.departureLocation}</td>
-                            <td>${request.route.arrivalLocation}</td>
-                            <td>${request.route.departureTime}</td>
-                            <td>${request.route.arrivalTime}</td>
-                            <td>${request.passengersQuantity}</td>
-                            <td>${request.load}</td>
-                        </tr>
-                    </c:forEach>
-                </table>
+        <form class="toolbar-top-form flex-sb flex-w" action="controller" method="post">
+            <div class="menu-bar">
+                <div class="btn-wrapper">
+                    <button class="left-menu-bar-button" name="command" value="view_requests">
+                        <fmt:message bundle="${bundle}" key="button.requests"/>
+                    </button>
+                </div>
+                <div class="btn-wrapper">
+                    <button class="left-menu-bar-button" name="command" value="view_users">
+                        <fmt:message bundle="${bundle}" key="button.users"/>
+                    </button>
+                </div>
             </div>
+        </form>
+        <div class="content-container">
+            <c:if test="${management_request eq 'view_requests'}">
+                <div class="content-unit-container">
+                    <table class="profile-table">
+                        <tr>
+                            <th>Request ID</th>
+                            <th>Departure location</th>
+                            <th>Arrival location</th>
+                            <th>Departure time</th>
+                            <th>Arrival time</th>
+                            <th>Passengers quantity</th>
+                            <th>Load(kg)</th>
+                        </tr>
+                        <c:forEach var="request" items="${requests}">
+                            <tr>
+                                <td>${request.id}</td>
+                                <td>${request.route.departureLocation}</td>
+                                <td>${request.route.arrivalLocation}</td>
+                                <td>${request.route.departureTime}</td>
+                                <td>${request.route.arrivalTime}</td>
+                                <td>${request.passengersQuantity}</td>
+                                <td>${request.load}</td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </div>
+            </c:if>
+            <c:if test="${management_request eq 'view_users'}">
+                <div class="content-unit-container">
+                    <table class="profile-table">
+                        <tr>
+                            <th>User ID</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Blocked</th>
+                        </tr>
+                        <c:forEach var="user" items="${users}">
+                            <tr>
+                                <td>${user.id}</td>
+                                <td>${user.username}</td>
+                                <td>${user.email}</td>
+                                <td>${user.blocked}</td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </div>
+            </c:if>
         </div>
     </div>
 </div>

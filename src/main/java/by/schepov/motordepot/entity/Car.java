@@ -7,7 +7,7 @@ public class Car implements Serializable {
     private int id;
     private User driver;
     private String registrationNumber;
-    private CarModel carModel;
+    private CarName carName;
     private int loadCapacity;
     private int passengerCapacity;
     private CarStatus carStatus;
@@ -37,12 +37,12 @@ public class Car implements Serializable {
         this.registrationNumber = registrationNumber;
     }
 
-    public CarModel getCarModel() {
-        return carModel;
+    public CarName getCarName() {
+        return carName;
     }
 
-    public void setCarModel(CarModel carModel) {
-        this.carModel = carModel;
+    public void setCarName(CarName carName) {
+        this.carName = carName;
     }
 
     public int getLoadCapacity() {
@@ -79,13 +79,13 @@ public class Car implements Serializable {
                 passengerCapacity == car.passengerCapacity &&
                 Objects.equals(driver, car.driver) &&
                 Objects.equals(registrationNumber, car.registrationNumber) &&
-                carModel == car.carModel &&
+                carName == car.carName &&
                 carStatus == car.carStatus;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, driver, registrationNumber, carModel, loadCapacity, passengerCapacity, carStatus);
+        return Objects.hash(id, driver, registrationNumber, carName, loadCapacity, passengerCapacity, carStatus);
     }
 
     @Override
@@ -94,7 +94,7 @@ public class Car implements Serializable {
                 "id=" + id +
                 ", driver=" + driver +
                 ", registrationNumber='" + registrationNumber + '\'' +
-                ", carModel=" + carModel +
+                ", carName=" + carName +
                 ", loadCapacity=" + loadCapacity +
                 ", passengerCapacity=" + passengerCapacity +
                 ", carStatus=" + carStatus +

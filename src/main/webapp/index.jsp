@@ -52,10 +52,9 @@
                             <fmt:message bundle="${bundle}" key="button.role.guest"/>
                         </button>
                         <div class="dropdown-content">
-                            <button name="command" value="redirect">
+                            <button name="address" value="AUTHORIZE">
                                 <fmt:message bundle="${bundle}" key="button.authorize"/>
                             </button>
-                            <input class="invisible" name="address" value="AUTHORIZE"/>
                         </div>
                     </c:if>
                     <c:if test="${role < 4}">
@@ -63,25 +62,50 @@
                             <button class="dropbtn" disabled>
                                 <fmt:message bundle="${bundle}" key="button.role.user"/>
                             </button>
+                            <div class="dropdown-content">
+                                <button name="command" value="view_profile">
+                                    <fmt:message bundle="${bundle}" key="button.profile"/>
+                                </button>
+<%--                                <button name="address" value="MANAGEMENT">--%>
+<%--                                    <fmt:message bundle="${bundle}" key="button.management"/>--%>
+<%--                                </button>--%>
+                                <button name="command" value="log_out">
+                                    <fmt:message bundle="${bundle}" key="button.logout"/>
+                                </button>
+                            </div>
                         </c:if>
                         <c:if test="${role == 2}">
                             <button class="dropbtn" disabled>
                                 <fmt:message bundle="${bundle}" key="button.role.driver"/>
                             </button>
+                            <div class="dropdown-content">
+                                <button name="command" value="view_profile">
+                                    <fmt:message bundle="${bundle}" key="button.profile"/>
+                                </button>
+                                <button name="address" value="MANAGEMENT">
+                                    <fmt:message bundle="${bundle}" key="button.management"/>
+                                </button>
+                                <button name="command" value="log_out">
+                                    <fmt:message bundle="${bundle}" key="button.logout"/>
+                                </button>
+                            </div>
                         </c:if>
                         <c:if test="${role == 1}">
                             <button class="dropbtn" disabled>
                                 <fmt:message bundle="${bundle}" key="button.role.admin"/>
                             </button>
+                            <div class="dropdown-content">
+                                <button name="command" value="view_profile">
+                                    <fmt:message bundle="${bundle}" key="button.profile"/>
+                                </button>
+                                <button name="address" value="MANAGEMENT">
+                                    <fmt:message bundle="${bundle}" key="button.management"/>
+                                </button>
+                                <button name="command" value="log_out">
+                                    <fmt:message bundle="${bundle}" key="button.logout"/>
+                                </button>
+                            </div>
                         </c:if>
-                        <div class="dropdown-content">
-                            <button name="command" value="view_profile">
-                                <fmt:message bundle="${bundle}" key="button.profile"/>
-                            </button>
-                            <button name="command" value="log_out">
-                                <fmt:message bundle="${bundle}" key="button.logout"/>
-                            </button>
-                        </div>
                     </c:if>
                 </div>
             </form>
