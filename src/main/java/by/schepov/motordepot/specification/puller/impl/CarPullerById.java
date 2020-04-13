@@ -20,7 +20,7 @@ public enum CarPullerById implements PullerById<Car> {
 
     private static final String QUERY = "SELECT cars.id, driver_id, registration_number, name_id, load_capacity, " +
             "passenger_capacity, status_id, " +
-            "st.status status, brand_id, model_id, brands.name brand, models.name model " +
+            "st.status car_status, brand_id, model_id, brands.name brand, models.name model " +
             "FROM motor_depot.cars as cars " +
             "LEFT JOIN motor_depot.car_statuses as st on status_id = st.id " +
             "LEFT JOIN motor_depot.car_names as names on name_id = names.id " +
@@ -46,7 +46,7 @@ public enum CarPullerById implements PullerById<Car> {
                     return resultSetCarBuilder.withId(Column.ID).withLoadCapacity(Column.LOAD_CAPACITY)
                             .withPassengerCapacity(Column.PASSENGER_CAPACITY).withCarName(carName)
                             .withDriver(driver).withRegistrationNumber(Column.REGISTRATION_NUMBER)
-                            .withCarStatus(CarStatus.valueOf(resultSet.getString(Column.STATUS.getName()))).build();
+                            .withCarStatus(Column.CAR_STATUS).build();
                 }
                 return null;
             }
