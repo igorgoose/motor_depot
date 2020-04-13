@@ -56,8 +56,8 @@ public class ResultSetCarBuilder implements Builder<Car> {
         return this;
     }
 
-    public ResultSetCarBuilder withCarStatus(CarStatus carStatus){
-        carBuilder.withCarStatus(carStatus);
+    public ResultSetCarBuilder withCarStatus(Column carStatusColumn) throws SQLException {
+        carBuilder.withCarStatus(CarStatus.valueOf(resultSet.getString(carStatusColumn.getName())));
         return this;
     }
 }

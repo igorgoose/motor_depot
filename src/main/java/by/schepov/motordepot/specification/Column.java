@@ -27,7 +27,15 @@ public enum Column {
     BRAND("brand"),
     MODEL("model"),
     DRIVER_ID("driver_id"),
-    STATUS("status");
+    STATUS("status"), USER_EMAIL("user_email"),
+    USER_LOGIN("user_login"), USER_PASSWORD("user_password"),
+    USER_ROLE("user_role"), USER_BLOCKED("user_blocked"),
+    DRIVER_EMAIL("driver_email"),
+    DRIVER_LOGIN("driver_login"), DRIVER_PASSWORD("driver_password"),
+    DRIVER_ROLE("driver_role"), DRIVER_BLOCKED("driver_blocked"),
+    CAR_ID("car_id"),
+    MODEL_NAME("model_name"), BRAND_NAME("brand_name"), CAR_NAME_ID("car_name_id"),
+    CAR_STATUS("car_status");
 
     private String name;
 

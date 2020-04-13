@@ -1,5 +1,15 @@
 package by.schepov.motordepot.entity;
 
 public enum CarStatus {
-    READY, BUSY, BROKEN
+    READY(1), BUSY(2), BROKEN(3);
+
+    private int id;
+
+    CarStatus(int id){
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
 }

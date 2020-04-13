@@ -53,11 +53,7 @@ public class CarName {
 
     @Override
     public String toString() {
-        return "CarName{" +
-                "id=" + id +
-                ", carModel=" + carModel +
-                ", carBrand=" + carBrand +
-                '}';
+        return carBrand.getName() + " " + carModel.getName();
     }
 
 }
