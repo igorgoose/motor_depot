@@ -47,7 +47,7 @@
 <body>
 <div class="limiter">
     <div class="toolbar-top">
-        <form class="toolbar-top-form flex-sb flex-w" action="controller" method="post">
+        <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller" method="post">
             <div class="dropdown toolbar-top-btn">
                 <button class="dropbtn" disabled>
                     <fmt:message bundle="${bundle}" key="button.language"/>
@@ -97,7 +97,7 @@
         </form>
     </div>
     <div class="ultimate-container">
-        <form class="toolbar-top-form flex-sb flex-w" action="controller" method="post">
+        <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller" method="post">
             <div class="menu-bar">
                 <div class="btn-wrapper">
                     <button class="left-menu-bar-button" name="command" value="view_requests">
@@ -122,104 +122,34 @@
             </div>
         </form>
         <div class="content-container">
-            <c:if test="${management_request eq 'view_requests'}">
-                <div class="content-unit-container">
-                    <table class="profile-table">
+            <div class="content-unit-container">
+                <table class="profile-table">
+                    <thead>
+                    <tr>
+                        <th>Car ID</th>
+                        <th>Car Model</th>
+                        <th>Reg. Number</th>
+                        <th>Driver</th>
+                        <th>Load Capacity</th>
+                        <th>Passenger Capacity</th>
+                        <th>State</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach var="car" items="${cars}">
                         <tr>
-                            <th>Request ID</th>
-                            <th>Departure location</th>
-                            <th>Arrival location</th>
-                            <th>Departure time</th>
-                            <th>Arrival time</th>
-                            <th>Passengers quantity</th>
-                            <th>Load(kg)</th>
+                            <td>${car.id}</td>
+                            <td>${car.carName}</td>
+                            <td>${car.registrationNumber}</td>
+                            <td>${car.driver.username}</td>
+                            <td>${car.loadCapacity}</td>
+                            <td>${car.passengerCapacity}</td>
+                            <td>${car.carStatus}</td>
                         </tr>
-                        <c:forEach var="request" items="${requests}">
-                            <tr>
-                                <td>${request.id}</td>
-                                <td>${request.route.departureLocation}</td>
-                                <td>${request.route.arrivalLocation}</td>
-                                <td>${request.route.departureTime}</td>
-                                <td>${request.route.arrivalTime}</td>
-                                <td>${request.passengersQuantity}</td>
-                                <td>${request.load}</td>
-                            </tr>
-                        </c:forEach>
-                    </table>
-                </div>
-            </c:if>
-            <c:if test="${management_request eq 'view_users'}">
-                <div class="content-unit-container">
-                    <table class="profile-table">
-                        <tr>
-                            <th>User ID</th>
-                            <th>Username</th>
-                            <th>Email</th>
-                            <th>Blocked</th>
-                        </tr>
-                        <c:forEach var="user" items="${users}">
-                            <tr>
-                                <td>${user.id}</td>
-                                <td>${user.username}</td>
-                                <td>${user.email}</td>
-                                <td>${user.blocked}</td>
-                            </tr>
-                        </c:forEach>
-                    </table>
-                </div>
-            </c:if>
-            <c:if test="${management_request eq 'view_cars'}">
-                <div class="content-unit-container">
-                    <table class="profile-table">
-                        <tr>
-                            <th>Car ID</th>
-                            <th>Car Model</th>
-                            <th>Reg. Number</th>
-                            <th>Driver</th>
-                            <th>Load Capacity</th>
-                            <th>Passenger Capacity</th>
-                            <th>State</th>
-                        </tr>
-                        <c:forEach var="car" items="${cars}">
-                            <tr>
-                                <td>${car.id}</td>
-                                <td>${car.carName}</td>
-                                <td>${car.registrationNumber}</td>
-                                <td>${car.driver.username}</td>
-                                <td>${car.loadCapacity}</td>
-                                <td>${car.passengerCapacity}</td>
-                                <td>${car.carStatus}</td>
-                            </tr>
-                        </c:forEach>
-                    </table>
-                </div>
-            </c:if>
-            <c:if test="${management_request eq 'view_orders'}">
-                <div class="content-unit-container">
-                    <table class="profile-table">
-                        <tr>
-                            <th>Order ID</th>
-                            <th>User</th>
-                            <th>From</th>
-                            <th>To</th>
-                            <th>Departure Time</th>
-                            <th>Arrival Time</th>
-                            <th>Is Complete</th>
-                        </tr>
-                        <c:forEach var="order" items="${orders}">
-                            <tr>
-                                <td>${order.id}</td>
-                                <td>${order.user.username}</td>
-                                <td>${order.route.departureLocation}</td>
-                                <td>${order.route.arrivalLocation}</td>
-                                <td>${order.route.departureTime}</td>
-                                <td>${order.route.arrivalTime}</td>
-                                <td>${order.isComplete}</td>
-                            </tr>
-                        </c:forEach>
-                    </table>
-                </div>
-            </c:if>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

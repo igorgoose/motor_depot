@@ -3,6 +3,10 @@ package by.schepov.motordepot.jsp;
 public enum Page {
 
     MANAGEMENT("/jsp/management.jsp"),
+    MANAGEMENT_REQUESTS("/jsp/management_requests.jsp"),
+    MANAGEMENT_USERS("/jsp/management_users.jsp"),
+    MANAGEMENT_CARS("/jsp/management_cars.jsp"),
+    MANAGEMENT_ORDERS("/jsp/management_orders.jsp"),
     HOME("index.jsp"),
     AUTHORIZE("/jsp/authorize.jsp"),
     SIGN_UP("/jsp/signup.jsp"),

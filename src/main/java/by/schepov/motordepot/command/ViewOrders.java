@@ -40,6 +40,6 @@ public class ViewOrders implements Executable {
             LOGGER.warn(e);
             return Page.ERROR;
         }
-        return Page.MANAGEMENT;
+        return Page.MANAGEMENT_ORDERS;
     }
 }

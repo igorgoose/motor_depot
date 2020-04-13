@@ -58,7 +58,7 @@
     </div>
     <div class="container-login100">
         <div class="wrap-login100 p-t-50 p-b-90">
-            <form class="login100-form validate-form flex-sb flex-w" action="controller" method="post">
+            <form class="login100-form validate-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller" method="post">
 					<span class="login100-form-title p-b-51">
 						<fmt:message bundle="${bundle}" key="signup.title"/>
 					</span>
@@ -113,7 +113,7 @@
                 </div>
 
             </form>
-            <form class="login100-form validate-form flex-sb flex-w" action="controller" method="post">
+            <form class="login100-form validate-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller" method="post">
                 <div class="container-login100-form-btn m-t-17">
                     <button class="login100-form-btn" name="address" value="HOME">
                         <fmt:message bundle="${bundle}" key="button.home"/>
