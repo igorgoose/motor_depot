@@ -23,7 +23,7 @@ public enum ConnectionPool {
 
     private static final Logger LOGGER = LogManager.getLogger(ConnectionPool.class);
     private static final String DB_PROPERTIES = "db.properties";
-    private static final int CAPACITY = 32;
+    private static final int CAPACITY = 12;
     private static final int TIMEOUT_LIMIT = 10;
     private static final String DB_PROPERTY_URL_KEY = "url";
     private final BlockingQueue<ProxyConnection> availableConnections = new ArrayBlockingQueue<>(CAPACITY);
@@ -89,6 +89,7 @@ public enum ConnectionPool {
             for (int i = 0; i < CAPACITY; i++) {
                 availableConnections.take().closeInPool();
             }
+            DriverManager.deregisterDriver(new Driver());
         } catch (InterruptedException e) {
             LOGGER.warn("Failed to close connection pool", e);
             Thread.currentThread().interrupt();

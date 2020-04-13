@@ -194,6 +194,32 @@
                     </table>
                 </div>
             </c:if>
+            <c:if test="${management_request eq 'view_orders'}">
+                <div class="content-unit-container">
+                    <table class="profile-table">
+                        <tr>
+                            <th>Order ID</th>
+                            <th>User</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Departure Time</th>
+                            <th>Arrival Time</th>
+                            <th>Is Complete</th>
+                        </tr>
+                        <c:forEach var="order" items="${orders}">
+                            <tr>
+                                <td>${order.id}</td>
+                                <td>${order.user.username}</td>
+                                <td>${order.route.departureLocation}</td>
+                                <td>${order.route.arrivalLocation}</td>
+                                <td>${order.route.departureTime}</td>
+                                <td>${order.route.arrivalTime}</td>
+                                <td>${order.isComplete}</td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </div>
+            </c:if>
         </div>
     </div>
 </div>

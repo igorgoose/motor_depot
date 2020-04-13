@@ -52,6 +52,7 @@ public class GetAllCarsSpecification implements Specification<Car> {
             while (resultSet.next()) {
                 carBuilder.reset();
                 driverBuilder.reset();
+                carNameBuilder.reset();
                 User driver = driverBuilder.withId(Column.DRIVER_ID).withEmail(Column.EMAIL).withLogin(Column.LOGIN)
                         .withPassword(Column.PASSWORD).withRole(Column.ROLE).withBlocked(Column.IS_BLOCKED)
                         .build();
