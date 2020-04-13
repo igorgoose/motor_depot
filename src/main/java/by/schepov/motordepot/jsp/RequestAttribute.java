@@ -8,7 +8,7 @@ public enum RequestAttribute {
     ROLE("role"),
     USERNAME("username"),
     REQUESTS("requests"),
-    USERS("users");
+    USERS("users"), CARS("cars");
 
     private String value;
 

@@ -36,8 +36,8 @@ public class GetAllCarsSpecification implements Specification<Car> {
             "LEFT JOIN motor_depot.car_statuses as st on status_id = st.id " +
             "LEFT JOIN motor_depot.car_names as names on name_id = names.id " +
             "LEFT JOIN motor_depot.car_brands as brands on brand_id = brands.id " +
-            "LEFT JOIN motor_depot.car_models as models on model_id = models.id " +
-            "WHERE cars.id = ?";
+            "LEFT JOIN motor_depot.car_models as models on model_id = models.id";
+
     private ConnectionPool pool = ConnectionPool.INSTANCE;
 
     @Override

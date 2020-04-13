@@ -109,6 +109,16 @@
                         <fmt:message bundle="${bundle}" key="button.users"/>
                     </button>
                 </div>
+                <div class="btn-wrapper">
+                    <button class="left-menu-bar-button" name="command" value="view_cars">
+                        <fmt:message bundle="${bundle}" key="button.cars"/>
+                    </button>
+                </div>
+                <div class="btn-wrapper">
+                    <button class="left-menu-bar-button" name="command" value="view_orders">
+                        <fmt:message bundle="${bundle}" key="button.orders"/>
+                    </button>
+                </div>
             </div>
         </form>
         <div class="content-container">
@@ -153,6 +163,32 @@
                                 <td>${user.username}</td>
                                 <td>${user.email}</td>
                                 <td>${user.blocked}</td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </div>
+            </c:if>
+            <c:if test="${management_request eq 'view_cars'}">
+                <div class="content-unit-container">
+                    <table class="profile-table">
+                        <tr>
+                            <th>Car ID</th>
+                            <th>Car Model</th>
+                            <th>Reg. Number</th>
+                            <th>Driver</th>
+                            <th>Load Capacity</th>
+                            <th>Passenger Capacity</th>
+                            <th>State</th>
+                        </tr>
+                        <c:forEach var="car" items="${cars}">
+                            <tr>
+                                <td>${car.id}</td>
+                                <td>${car.carName}</td>
+                                <td>${car.registrationNumber}</td>
+                                <td>${car.driver.username}</td>
+                                <td>${car.loadCapacity}</td>
+                                <td>${car.passengerCapacity}</td>
+                                <td>${car.carStatus}</td>
                             </tr>
                         </c:forEach>
                     </table>
