@@ -5,7 +5,8 @@ import java.util.Objects;
 public class Order {
     private int id;
     private User user;
-    private Route route;
+    private String departureLocation;
+    private String arrivalLocation;
     private Car car;
     private User driver;
     private boolean isComplete;
@@ -26,12 +27,20 @@ public class Order {
         this.user = user;
     }
 
-    public Route getRoute() {
-        return route;
+    public String getDepartureLocation() {
+        return departureLocation;
     }
 
-    public void setRoute(Route route) {
-        this.route = route;
+    public void setDepartureLocation(String departureLocation) {
+        this.departureLocation = departureLocation;
+    }
+
+    public String getArrivalLocation() {
+        return arrivalLocation;
+    }
+
+    public void setArrivalLocation(String arrivalLocation) {
+        this.arrivalLocation = arrivalLocation;
     }
 
     public Car getCar() {
@@ -66,14 +75,15 @@ public class Order {
         return id == order.id &&
                 isComplete == order.isComplete &&
                 Objects.equals(user, order.user) &&
-                Objects.equals(route, order.route) &&
+                Objects.equals(departureLocation, order.departureLocation) &&
+                Objects.equals(arrivalLocation, order.arrivalLocation) &&
                 Objects.equals(car, order.car) &&
                 Objects.equals(driver, order.driver);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, route, car, driver, isComplete);
+        return Objects.hash(id, user, departureLocation, arrivalLocation, car, driver, isComplete);
     }
 
     @Override
@@ -81,7 +91,8 @@ public class Order {
         return "Order{" +
                 "id=" + id +
                 ", user=" + user +
-                ", route=" + route +
+                ", departureLocation='" + departureLocation + '\'' +
+                ", arrivalLocation='" + arrivalLocation + '\'' +
                 ", car=" + car +
                 ", driver=" + driver +
                 ", isComplete=" + isComplete +

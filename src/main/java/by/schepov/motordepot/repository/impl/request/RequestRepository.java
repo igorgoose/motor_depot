@@ -21,16 +21,18 @@ public enum RequestRepository implements Repository<Request> {
     private ConnectionPool pool = ConnectionPool.INSTANCE;
 
     private static final Logger LOGGER = LogManager.getLogger(RequestRepository.class);
-    private static final String INSERT_QUERY = "INSERT INTO requests(user_id, route_id, passengers_quantity, load_kg) VALUES(?, ?, ?, ?)";
+    private static final String INSERT_QUERY = "INSERT INTO requests(user_id, departure_location, arrival_location, passengers_quantity, load_capacity)" +
+            " VALUES(?, ?, ?, ?, ?)";
 
     @Override
     public void insert(Request item) throws RepositoryException {
         try (ProxyConnection connection = pool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_QUERY)) {
             preparedStatement.setInt(1, item.getUser().getId());
-            preparedStatement.setInt(2, item.getRoute().getId());
-            preparedStatement.setInt(3, item.getPassengersQuantity());
-            preparedStatement.setInt(4, item.getLoad());
+            preparedStatement.setString(2, item.getDepartureLocation());
+            preparedStatement.setString(3, item.getArrivalLocation());
+            preparedStatement.setInt(4, item.getPassengersQuantity());
+            preparedStatement.setInt(5, item.getLoad());
             preparedStatement.executeUpdate();
         } catch (ConnectionPoolException | SQLException e) {
             LOGGER.warn(e);

@@ -2,7 +2,6 @@ package by.schepov.motordepot.builder.impl.request;
 
 import by.schepov.motordepot.builder.AbstractBuilder;
 import by.schepov.motordepot.entity.Request;
-import by.schepov.motordepot.entity.Route;
 import by.schepov.motordepot.entity.User;
 
 public class RequestBuilder extends AbstractBuilder<Request> {
@@ -26,8 +25,13 @@ public class RequestBuilder extends AbstractBuilder<Request> {
         return this;
     }
 
-    public RequestBuilder withRoute(Route route){
-        object.setRoute(route);
+    public RequestBuilder withDepartureLocation(String departureLocation){
+        object.setDepartureLocation(departureLocation);
+        return this;
+    }
+
+    public RequestBuilder withArrivalLocation(String arrivalLocation){
+        object.setArrivalLocation(arrivalLocation);
         return this;
     }
 

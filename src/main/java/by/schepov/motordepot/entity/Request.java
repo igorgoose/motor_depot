@@ -5,7 +5,8 @@ import java.util.Objects;
 public class Request {
     private int id;
     private User user;
-    private Route route;
+    private String departureLocation;
+    private String arrivalLocation;
     private int passengersQuantity;
     private int load;
 
@@ -25,12 +26,20 @@ public class Request {
         this.user = user;
     }
 
-    public Route getRoute() {
-        return route;
+    public String getDepartureLocation() {
+        return departureLocation;
     }
 
-    public void setRoute(Route route) {
-        this.route = route;
+    public void setDepartureLocation(String departureLocation) {
+        this.departureLocation = departureLocation;
+    }
+
+    public String getArrivalLocation() {
+        return arrivalLocation;
+    }
+
+    public void setArrivalLocation(String arrivalLocation) {
+        this.arrivalLocation = arrivalLocation;
     }
 
     public int getPassengersQuantity() {
@@ -58,12 +67,13 @@ public class Request {
                 passengersQuantity == request.passengersQuantity &&
                 load == request.load &&
                 Objects.equals(user, request.user) &&
-                Objects.equals(route, request.route);
+                Objects.equals(departureLocation, request.departureLocation) &&
+                Objects.equals(arrivalLocation, request.arrivalLocation);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, route, passengersQuantity, load);
+        return Objects.hash(id, user, departureLocation, arrivalLocation, passengersQuantity, load);
     }
 
     @Override
@@ -71,7 +81,8 @@ public class Request {
         return "Request{" +
                 "id=" + id +
                 ", user=" + user +
-                ", route=" + route +
+                ", departureLocation='" + departureLocation + '\'' +
+                ", arrivalLocation='" + arrivalLocation + '\'' +
                 ", passengersQuantity=" + passengersQuantity +
                 ", load=" + load +
                 '}';

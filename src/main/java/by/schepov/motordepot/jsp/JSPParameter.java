@@ -11,7 +11,8 @@ public enum JSPParameter {
     PASSWORD("password"),
     EMAIL("email"),
     ADDRESS("address"),
-    REPEAT_PASSWORD("repeat_password");
+    REPEAT_PASSWORD("repeat_password"),
+    ;
 
     private String value;
 

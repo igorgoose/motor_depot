@@ -1,10 +1,8 @@
 package by.schepov.motordepot.specification.impl.request;
 
 import by.schepov.motordepot.builder.impl.request.ResultSetRequestBuilder;
-import by.schepov.motordepot.builder.impl.route.ResultSetRouteBuilder;
 import by.schepov.motordepot.builder.impl.user.ResultSetUserBuilder;
 import by.schepov.motordepot.entity.Request;
-import by.schepov.motordepot.entity.Route;
 import by.schepov.motordepot.entity.User;
 import by.schepov.motordepot.exception.pool.ConnectionPoolException;
 import by.schepov.motordepot.exception.specification.SpecificationException;
@@ -27,17 +25,15 @@ public class FindRequestByUserIdSpecification implements Specification<Request> 
 
     private static final Logger LOGGER = LogManager.getLogger(FindRequestByUserIdSpecification.class);
     private static final String QUERY =
-            "SELECT reqs.id, passengers_quantity, load_kg, " +
-                    "user_id, login, password, role_id, email, is_blocked, " +
-                    "route_id, departure_time, departure_location, arrival_time, arrival_location, role " +
+            "SELECT reqs.id, passengers_quantity, load_capacity, departure_location, arrival_location," +
+                    "user_id, login, password, role_id, email, is_blocked, role " +
                     "FROM motor_depot.requests as reqs " +
                     "LEFT JOIN motor_depot.users as users on user_id = users.id " +
-                    "LEFT JOIN motor_depot.routes as routes on route_id = routes.id " +
                     "LEFT JOIN motor_depot.roles as roles on role_id = roles.id " +
                     "WHERE user_id = ?";
     private final ConnectionPool pool = ConnectionPool.INSTANCE;
 
-    public FindRequestByUserIdSpecification(int userId){
+    public FindRequestByUserIdSpecification(int userId) {
         this.userId = userId;
     }
 
@@ -49,14 +45,11 @@ public class FindRequestByUserIdSpecification implements Specification<Request> 
             //todo resolve code duplication issue
             ResultSet resultSet = preparedStatement.executeQuery();
             HashSet<Request> requests = new HashSet<>();
-            ResultSetRouteBuilder routeBuilder = new ResultSetRouteBuilder(resultSet);
             ResultSetUserBuilder userBuilder = new ResultSetUserBuilder(resultSet);
             ResultSetRequestBuilder requestBuilder = new ResultSetRequestBuilder(resultSet);
             User user;
-            Route route;
             while (resultSet.next()) {
                 userBuilder.reset();
-                routeBuilder.reset();
                 user = userBuilder.withId(Column.USER_ID)
                         .withLogin(Column.LOGIN)
                         .withPassword(Column.PASSWORD)
@@ -64,19 +57,14 @@ public class FindRequestByUserIdSpecification implements Specification<Request> 
                         .withEmail(Column.EMAIL)
                         .withBlocked(Column.IS_BLOCKED)
                         .build();
-                route = routeBuilder.withId(Column.ROUTE_ID)
-                        .withArrivalLocation(Column.ARRIVAL_LOCATION)
-                        .withArrivalTime(Column.ARRIVAL_TIME)
-                        .withDepartureLocation(Column.DEPARTURE_LOCATION)
-                        .withDepartureTime(Column.DEPARTURE_TIME)
-                        .build();
                 requestBuilder.reset();
                 requests.add(requestBuilder.withId(Column.ID)
-                .withRoute(route)
-                .withUser(user)
-                .withLoad(Column.LOAD_KG)
-                .withPassengersQuantity(Column.PASSENGERS_QUANTITY)
-                .build());
+                        .withDepartureLocation(Column.DEPARTURE_LOCATION)
+                        .withArrivalLocation(Column.ARRIVAL_LOCATION)
+                        .withUser(user)
+                        .withLoad(Column.LOAD_KG)
+                        .withPassengersQuantity(Column.PASSENGERS_QUANTITY)
+                        .build());
             }
             resultSet.close();
             return requests;
