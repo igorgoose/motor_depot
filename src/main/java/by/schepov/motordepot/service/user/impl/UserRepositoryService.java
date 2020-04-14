@@ -6,6 +6,7 @@ import by.schepov.motordepot.exception.service.UserServiceException;
 import by.schepov.motordepot.repository.impl.user.UserRepository;
 import by.schepov.motordepot.service.RepositoryService;
 import by.schepov.motordepot.service.user.UserService;
+import by.schepov.motordepot.specification.impl.user.FindUserByIdSpecification;
 import by.schepov.motordepot.specification.impl.user.FindUserByUsernameSpecification;
 import by.schepov.motordepot.specification.impl.user.GetAllUsersSpecification;
 import org.apache.logging.log4j.LogManager;
@@ -62,11 +63,21 @@ public class UserRepositoryService extends RepositoryService<User> implements Us
         }
     }
 
+    @Override
     public Set<User> getAllUsers() throws UserServiceException {
         try {
             return repository.execute(new GetAllUsersSpecification());
         } catch (RepositoryException e) {
             LOGGER.warn(e);
+            throw new UserServiceException(e);
+        }
+    }
+
+    @Override
+    public Set<User> getUsersById(int id) throws UserServiceException {
+        try {
+            return repository.execute(new FindUserByIdSpecification(id));
+        } catch (RepositoryException e) {
             throw new UserServiceException(e);
         }
     }

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public enum Command {
 
+    VIEW_USER_DETAILS("user_details", new ViewUserDetails(), 1),
     VIEW_ORDERS("view_orders", new ViewOrders(), 1),
     VIEW_CARS("view_cars", new ViewCars(), 1),
     VIEW_USERS("view_users", new ViewUsers(), 1),

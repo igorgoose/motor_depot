@@ -7,4 +7,5 @@ import java.util.Set;
 
 public interface OrderService {
     Set<Order> getAllOrders() throws OrderServiceException;
+    Set<Order> getOrdersByUserId(int id) throws OrderServiceException;
 }

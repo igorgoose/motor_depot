@@ -7,7 +7,7 @@
 --%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <fmt:setLocale value="${locale}"/>
 <fmt:setBundle basename="locale" var="bundle"/>
 <html>
@@ -17,6 +17,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/icons/favicon.ico"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css"
+          href="${pageContext.request.contextPath}/bootstrap-4.4.1-dist/css/bootstrap.min.css">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css"
           href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css">
@@ -97,33 +100,59 @@
         </form>
     </div>
     <div class="ultimate-container">
-        <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller" method="post">
+        <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller"
+              method="post">
             <div class="menu-bar">
                 <div class="btn-wrapper">
-                    <button class="menu-bar-button" name="command" value="view_requests">
-                        <fmt:message bundle="${bundle}" key="button.requests"/>
+                    <button class="menu-bar-button-dangerous" name="command" value="block">
+                        <fmt:message bundle="${bundle}" key="button.block"/>
                     </button>
                 </div>
                 <div class="btn-wrapper">
-                    <button class="menu-bar-button" name="command" value="view_users">
-                        <fmt:message bundle="${bundle}" key="button.users"/>
+                    <button class="menu-bar-button-dangerous" name="command" value="delete">
+                        <fmt:message bundle="${bundle}" key="button.delete"/>
                     </button>
                 </div>
                 <div class="btn-wrapper">
-                    <button class="menu-bar-button" name="command" value="view_cars">
-                        <fmt:message bundle="${bundle}" key="button.cars"/>
+                    <button class="menu-bar-button" name="command" value="view_users_requests">
+                        <fmt:message bundle="${bundle}" key="button.users_requests"/>
                     </button>
                 </div>
                 <div class="btn-wrapper">
-                    <button class="menu-bar-button" name="command" value="view_orders">
-                        <fmt:message bundle="${bundle}" key="button.orders"/>
+                    <button class="menu-bar-button" name="command" value="view_users_orders">
+                        <fmt:message bundle="${bundle}" key="button.users_orders"/>
                     </button>
                 </div>
             </div>
         </form>
         <div class="content-container">
             <div class="content-unit-container">
-                <table class="profile-table">
+                <label class="info-label">
+                    ID: ${user.id}
+                </label>
+            </div>
+            <div class="content-unit-container">
+                <label class="info-label">
+                    Username: ${user.username}
+                </label>
+            </div>
+            <div class="content-unit-container">
+                <label class="info-label">
+                    Email: ${user.email}
+                </label>
+            </div>
+            <div class="content-unit-container">
+                <label class="info-label">
+                    Role: ${user.role}
+                </label>
+            </div>
+            <div class="content-unit-container">
+                <label class="info-label">
+                    Blocked: ${user.blocked}
+                </label>
+            </div>
+            <div class="content-unit-container pre-scrollable">
+                <table class="table">
                     <thead>
                     <tr>
                         <th>Request ID</th>
@@ -148,10 +177,45 @@
                             <td class="p-b-5 p-t-5 p-r-5 p-l-5">
                                 <form action="${pageContext.request.contextPath}/controller"
                                       method="post">
-                                <input type="hidden" name="user_id" value="${user.id}"/>
-                                <button class="table-btn" name="command" value="users_more">
-                                    <fmt:message bundle="${bundle}" key="button.details"/>
-                                </button>
+                                    <input type="hidden" name="user_id" value="${user.id}"/>
+                                    <button class="table-btn" name="command" value="users_more">
+                                        <fmt:message bundle="${bundle}" key="button.details"/>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+            <div class="content-unit-container pre-scrollable">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Departure Time</th>
+                        <th>Arrival Time</th>
+                        <th>Is Complete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach var="order" items="${orders}">
+                        <tr>
+                            <td>${order.id}</td>
+                            <td>${order.route.departureLocation}</td>
+                            <td>${order.route.arrivalLocation}</td>
+                            <td>${order.route.departureTime}</td>
+                            <td>${order.route.arrivalTime}</td>
+                            <td>${order.isComplete}</td>
+                            <td class="p-b-5 p-t-5 p-r-5 p-l-5">
+                                <form action="${pageContext.request.contextPath}/controller"
+                                      method="post">
+                                    <input type="hidden" name="user_id" value="${user.id}"/>
+                                    <button class="table-btn" name="command" value="users_more">
+                                        <fmt:message bundle="${bundle}" key="button.details"/>
+                                    </button>
                                 </form>
                             </td>
                         </tr>
@@ -162,6 +226,5 @@
         </div>
     </div>
 </div>
-
 </body>
 </html>

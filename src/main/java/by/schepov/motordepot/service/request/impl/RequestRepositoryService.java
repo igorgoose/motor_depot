@@ -50,4 +50,14 @@ public class RequestRepositoryService extends RepositoryService<Request> impleme
         }
     }
 
+    @Override
+    public Set<Request> getRequestsByUserId(int id) throws ServiceException {
+        try {
+            return repository.execute(new FindRequestByUserIdSpecification(id));
+        } catch (RepositoryException e) {
+            LOGGER.warn(e);
+            throw new ServiceException(e);
+        }
+    }
+
 }

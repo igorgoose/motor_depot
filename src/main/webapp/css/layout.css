@@ -1,20 +1,15 @@
 
-.ultimate-container{
+.ultimate-container {
     width: 100%;
     height: available;
-    /*min-height: 100vh;*/
 }
 
-.menu-bar{
+.menu-bar {
     width: 100%;
-    /*height: 100%;*/
-    /*float: left;*/
-    /*border: 1px solid black;*/
 }
 
-.content-container{
+.content-container {
     width: 100%;
-    /*min-height: 100vh;*/
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
@@ -22,35 +17,95 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    /*align-items: center;*/
     padding: 2px;
-    /*height: 100%;*/
-    /*border: 1px solid red;*/
     float: left;
 }
 
-.content-unit-container{
-    /*border: 1px solid black;*/
+.content-unit-container {
+    font-family: Ubuntu-Bold;
+    font-size: 16px;
     width: 100%;
     background: #fff;
-    /*border-radius: 10px;*/
     padding: 2px;
     justify-content: center;
     align-items: center;
-    /*border: 1px solid red;*/
     flex-wrap: wrap;
 }
 
-.btn-wrapper{
+.btn-wrapper {
     padding: 5px;
     width: 20%;
     float: left;
 }
 
-.left-menu-bar-button{
+.menu-bar-button {
     font-family: Ubuntu-Bold;
     font-size: 16px;
+    color: #827ffe;
+    line-height: 1.2;
+    text-transform: uppercase;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    width: 100%;
+    height: 62px;
+    background-color: white;
+    border: 2px solid #827ffe;
+    border-radius: 10px;
+
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
+.menu-bar-button:hover {
+    background-color: #827ffe;
+    border: 2px solid #fff;
     color: #fff;
+}
+
+.menu-bar-button-dangerous {
+    font-family: Ubuntu-Bold;
+    font-size: 16px;
+    color: #fe3931;
+    line-height: 1.2;
+    text-transform: uppercase;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    width: 100%;
+    height: 62px;
+    background-color: white;
+    border: 2px solid #fe3931;
+    border-radius: 10px;
+
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
+.menu-bar-button-dangerous:hover {
+    background-color: #fe3931;
+    border: 2px solid #fff;
+    color: #fff;
+}
+
+.table-btn {
+    font-family: Ubuntu-Bold;
+    font-size: 16px;
+    color: #827ffe;
     line-height: 1.2;
     text-transform: uppercase;
 
@@ -64,8 +119,8 @@
     padding: 0 20px;
     width: 100%;
     height: 62px;
-    /*background-color: rgba(30, 25, 47, 0.45);*/
-    background-color: rgb(255, 199, 49);
+    background-color: white;
+    border: 2px solid #827ffe;
     border-radius: 10px;
 
     -webkit-transition: all 0.4s;
@@ -74,7 +129,13 @@
     transition: all 0.4s;
 }
 
-.left-menu-bar-button:hover {
-    background-color: rgb(172, 203, 206);
+.table-btn:hover {
+    background-color: #827ffe;
+    border: 2px solid #fff;
     color: #fff;
+}
+
+.info-label {
+    font-family: Ubuntu-Bold;
+    font-size: 20px;
 }

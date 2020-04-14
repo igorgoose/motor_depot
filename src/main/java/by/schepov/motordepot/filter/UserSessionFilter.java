@@ -1,6 +1,7 @@
 package by.schepov.motordepot.filter;
 
 import by.schepov.motordepot.entity.Role;
+import by.schepov.motordepot.entity.User;
 import by.schepov.motordepot.jsp.RequestAttribute;
 import by.schepov.motordepot.session.SessionAttribute;
 
@@ -13,10 +14,6 @@ import java.io.IOException;
 public class UserSessionFilter implements Filter {
 
     @Override
-    public void init(FilterConfig filterConfig) {
-    }
-
-    @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpSession session = request.getSession();
@@ -27,9 +24,5 @@ public class UserSessionFilter implements Filter {
         }
         request.setAttribute(RequestAttribute.ROLE.getName(), role.getId());
         chain.doFilter(req, resp);
-    }
-
-    @Override
-    public void destroy() {
     }
 }

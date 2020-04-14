@@ -4,11 +4,14 @@ import by.schepov.motordepot.exception.InvalidParameterException;
 
 public enum RequestAttribute {
 
+    USER("user"),
     MANAGEMENT_REQUEST("management_request"),
     ROLE("role"),
     USERNAME("username"),
     REQUESTS("requests"),
-    USERS("users"), CARS("cars"), ORDERS("orders");
+    USERS("users"),
+    CARS("cars"),
+    ORDERS("orders");
 
     private String value;
 

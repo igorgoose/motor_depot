@@ -23,8 +23,7 @@ public class GetAllUsersSpecification implements Specification<User> {
 
     private static final String QUERY =
             "SELECT users.id, login, password, role_id, email, is_blocked, role FROM motor_depot.users as users " +
-                    "LEFT JOIN motor_depot.roles as roles on role_id = roles.id " +
-                    "WHERE role_id = 3";
+                    "LEFT JOIN motor_depot.roles as roles on role_id = roles.id";
     private final ConnectionPool pool = ConnectionPool.INSTANCE;
 
     @Override

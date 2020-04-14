@@ -18,10 +18,10 @@ import org.apache.logging.log4j.Logger;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class GetAllOrdersSpecification implements Specification<Order> {
+public class FindOrdersByUserIdSpecification implements Specification<Order> {
 
     private static final Logger LOGGER = LogManager.getLogger(GetAllOrdersSpecification.class);
     private static final String QUERY =
@@ -45,21 +45,28 @@ public class GetAllOrdersSpecification implements Specification<Order> {
                     "LEFT JOIN motor_depot.car_statuses as cs on cars.status_id = cs.id " +
                     "LEFT JOIN motor_depot.car_names cn on cars.name_id = cn.id " +
                     "LEFT JOIN motor_depot.car_models car_mds on cn.model_id = car_mds.id " +
-                    "LEFT JOIN motor_depot.car_brands car_brds on cn.brand_id = car_brds.id";
+                    "LEFT JOIN motor_depot.car_brands car_brds on cn.brand_id = car_brds.id " +
+                    "WHERE user_id = ?";
 
     private final ConnectionPool pool = ConnectionPool.INSTANCE;
     private final OrderBuilder orderBuilder = new OrderBuilder();
+    private int id;
+
+    public FindOrdersByUserIdSpecification(int id) {
+        this.id = id;
+    }
 
     @Override
     public Set<Order> execute() throws SpecificationException {
-        try(ProxyConnection connection = pool.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(QUERY)){
+        try (ProxyConnection connection = pool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(QUERY)) {
+            preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             ResultSetUserBuilder userBuilder = new ResultSetUserBuilder(resultSet);
             ResultSetRouteBuilder routeBuilder = new ResultSetRouteBuilder(resultSet);
             ResultSetCarBuilder carBuilder = new ResultSetCarBuilder(resultSet);
             ResultSetCarNameBuilder carNameBuilder = new ResultSetCarNameBuilder(resultSet);
-            HashSet<Order> orders = new HashSet<>();
+            LinkedHashSet<Order> orders = new LinkedHashSet<>();
             while (resultSet.next()) {
                 orderBuilder.reset();
                 userBuilder.reset();
@@ -86,7 +93,7 @@ public class GetAllOrdersSpecification implements Specification<Order> {
                 orders.add(order);
             }
             return orders;
-        } catch (ConnectionPoolException | SQLException e) {
+        } catch (SQLException | ConnectionPoolException e) {
             LOGGER.warn(e);
             throw new SpecificationException(e);
         }

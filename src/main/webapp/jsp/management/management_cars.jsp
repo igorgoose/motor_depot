@@ -47,7 +47,8 @@
 <body>
 <div class="limiter">
     <div class="toolbar-top">
-        <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller" method="post">
+        <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller"
+              method="post">
             <div class="dropdown toolbar-top-btn">
                 <button class="dropbtn" disabled>
                     <fmt:message bundle="${bundle}" key="button.language"/>
@@ -97,25 +98,26 @@
         </form>
     </div>
     <div class="ultimate-container">
-        <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller" method="post">
+        <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller"
+              method="post">
             <div class="menu-bar">
                 <div class="btn-wrapper">
-                    <button class="left-menu-bar-button" name="command" value="view_requests">
+                    <button class="menu-bar-button" name="command" value="view_requests">
                         <fmt:message bundle="${bundle}" key="button.requests"/>
                     </button>
                 </div>
                 <div class="btn-wrapper">
-                    <button class="left-menu-bar-button" name="command" value="view_users">
+                    <button class="menu-bar-button" name="command" value="view_users">
                         <fmt:message bundle="${bundle}" key="button.users"/>
                     </button>
                 </div>
                 <div class="btn-wrapper">
-                    <button class="left-menu-bar-button" name="command" value="view_cars">
+                    <button class="menu-bar-button" name="command" value="view_cars">
                         <fmt:message bundle="${bundle}" key="button.cars"/>
                     </button>
                 </div>
                 <div class="btn-wrapper">
-                    <button class="left-menu-bar-button" name="command" value="view_orders">
+                    <button class="menu-bar-button" name="command" value="view_orders">
                         <fmt:message bundle="${bundle}" key="button.orders"/>
                     </button>
                 </div>
@@ -137,15 +139,24 @@
                     </thead>
                     <tbody>
                     <c:forEach var="car" items="${cars}">
-                        <tr>
-                            <td>${car.id}</td>
-                            <td>${car.carName}</td>
-                            <td>${car.registrationNumber}</td>
-                            <td>${car.driver.username}</td>
-                            <td>${car.loadCapacity}</td>
-                            <td>${car.passengerCapacity}</td>
-                            <td>${car.carStatus}</td>
-                        </tr>
+                            <tr>
+                                <td>${car.id}</td>
+                                <td>${car.carName}</td>
+                                <td>${car.registrationNumber}</td>
+                                <td>${car.driver.username}</td>
+                                <td>${car.loadCapacity}</td>
+                                <td>${car.passengerCapacity}</td>
+                                <td>${car.carStatus}</td>
+                                <td class="p-b-5 p-t-5 p-r-5 p-l-5">
+                                    <form action="${pageContext.request.contextPath}/controller"
+                                          method="post">
+                                    <input type="hidden" name="user_id" value="${user.id}"/>
+                                    <button class="table-btn" name="command" value="users_more">
+                                        <fmt:message bundle="${bundle}" key="button.details"/>
+                                    </button>
+                                    </form>
+                                </td>
+                            </tr>
                     </c:forEach>
                     </tbody>
                 </table>

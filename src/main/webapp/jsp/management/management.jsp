@@ -100,22 +100,22 @@
         <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller" method="post">
             <div class="menu-bar">
                 <div class="btn-wrapper">
-                    <button class="left-menu-bar-button" name="command" value="view_requests">
+                    <button class="menu-bar-button" name="command" value="view_requests">
                         <fmt:message bundle="${bundle}" key="button.requests"/>
                     </button>
                 </div>
                 <div class="btn-wrapper">
-                    <button class="left-menu-bar-button" name="command" value="view_users">
+                    <button class="menu-bar-button" name="command" value="view_users">
                         <fmt:message bundle="${bundle}" key="button.users"/>
                     </button>
                 </div>
                 <div class="btn-wrapper">
-                    <button class="left-menu-bar-button" name="command" value="view_cars">
+                    <button class="menu-bar-button" name="command" value="view_cars">
                         <fmt:message bundle="${bundle}" key="button.cars"/>
                     </button>
                 </div>
                 <div class="btn-wrapper">
-                    <button class="left-menu-bar-button" name="command" value="view_orders">
+                    <button class="menu-bar-button" name="command" value="view_orders">
                         <fmt:message bundle="${bundle}" key="button.orders"/>
                     </button>
                 </div>

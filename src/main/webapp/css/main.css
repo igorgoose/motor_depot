@@ -208,7 +208,7 @@ iframe {
     padding: 0 20px;
     height: 48px;
     background-color: #827ffe;
-    border-radius: 3px;
+    /*border-radius: 3px;*/
     -webkit-transition: all 0.4s;
     -o-transition: all 0.4s;
     -moz-transition: all 0.4s;
@@ -258,7 +258,7 @@ iframe {
     padding: 0 20px;
     height: 48px;
     background-color: #827ffe;
-    border-radius: 3px;
+    /*border-radius: 3px;*/
     -webkit-transition: all 0.4s;
     -o-transition: all 0.4s;
     -moz-transition: all 0.4s;
@@ -296,7 +296,6 @@ iframe {
     width: 100%;
     display: block;
 }
-
 
 /*------------------------------------------------------------------
 [ Input ]*/
