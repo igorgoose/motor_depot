@@ -16,10 +16,6 @@ public class LocaleFilter implements Filter {
 
     private static final String RUSSIAN = "ru";
 
-    @Override
-    public void init(FilterConfig filterConfig) {
-
-    }
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
@@ -41,8 +37,4 @@ public class LocaleFilter implements Filter {
         request.getRequestDispatcher(Page.HOME.getName()).forward(request, response);
     }
 
-
-    @Override
-    public void destroy() {
-    }
 }

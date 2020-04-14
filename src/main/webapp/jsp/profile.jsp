@@ -49,7 +49,7 @@
 <div class="limiter">
     <div class="toolbar-top-container">
         <div class="toolbar-top">
-            <form class="toolbar-top-form flex-sb flex-w" action="controller" method="post">
+            <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller" method="post">
                 <div class="dropdown toolbar-top-btn">
                     <button class="dropbtn" disabled><fmt:message bundle="${bundle}" key="button.language"/></button>
                     <div class="dropdown-content">
@@ -104,11 +104,11 @@
             </table>
         </div>
         <div class="wrap-content-unit p-t-10 p-b-10">
-            <form action="controller" method="post">
-                <button class="login100-form-btn" name="command" value="redirect">
+            <form action="${pageContext.request.contextPath}/controller" method="post">
+                <button class="login100-form-btn" name="address" value="HOME">
                     <fmt:message bundle="${bundle}" key="button.home"/>
                 </button>
-                <input class="invisible" name="address" value="HOME"/>
+<%--                <input class="invisible" name="address" value="HOME"/>--%>
             </form>
         </div>
     </div>

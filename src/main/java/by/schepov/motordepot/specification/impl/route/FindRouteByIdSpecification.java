@@ -45,6 +45,7 @@ public class FindRouteByIdSpecification implements Specification<Route> {
                         .withArrivalTime(Column.ARRIVAL_TIME)
                         .build());
             }
+            resultSet.close();
             return routes;
         } catch (ConnectionPoolException | SQLException e) {
             LOGGER.warn(e);

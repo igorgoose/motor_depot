@@ -6,6 +6,10 @@ import by.schepov.motordepot.entity.User;
 
 public class UserBuilder extends AbstractBuilder<User> {
 
+    public UserBuilder(){
+
+    }
+
     @Override
     public void reset() {
         object = new User();

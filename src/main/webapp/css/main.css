@@ -208,7 +208,7 @@ iframe {
     padding: 0 20px;
     height: 48px;
     background-color: #827ffe;
-    border-radius: 3px;
+    /*border-radius: 3px;*/
     -webkit-transition: all 0.4s;
     -o-transition: all 0.4s;
     -moz-transition: all 0.4s;
@@ -240,6 +240,13 @@ iframe {
     display: block;
 }
 
+.toolbar-top-btn-wrapper{
+    padding: 5px;
+    width: 20%;
+    float: left;
+}
+
+
 .toolbar-top-btn {
     font-family: Ubuntu-Bold;
     font-size: 16px;
@@ -251,7 +258,7 @@ iframe {
     padding: 0 20px;
     height: 48px;
     background-color: #827ffe;
-    border-radius: 3px;
+    /*border-radius: 3px;*/
     -webkit-transition: all 0.4s;
     -o-transition: all 0.4s;
     -moz-transition: all 0.4s;
@@ -289,7 +296,6 @@ iframe {
     width: 100%;
     display: block;
 }
-
 
 /*------------------------------------------------------------------
 [ Input ]*/
@@ -604,6 +610,7 @@ input:invalid + .form__error {
     width: 95%;
     background: #fff;
     border-radius: 10px;
+    border: 1px solid red;
     position: relative;
 }
 

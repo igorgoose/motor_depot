@@ -3,6 +3,8 @@ package by.schepov.motordepot.jsp;
 import by.schepov.motordepot.exception.InvalidParameterException;
 
 public enum JSPParameter {
+
+    USER_ID("user_id"),
     COMMAND("command"),
     LANGUAGE("language"),
     USERNAME("username"),
