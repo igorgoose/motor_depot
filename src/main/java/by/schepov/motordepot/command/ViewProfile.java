@@ -17,7 +17,7 @@ import java.util.Set;
 public class ViewProfile implements Executable {
 
     private final RequestRepositoryService requestService = RequestRepositoryService.getInstance();
-    private static final Logger LOGGER = LogManager.getLogger(SignUp.class);
+    private static final Logger LOGGER = LogManager.getLogger(ViewProfile.class);
 
     ViewProfile(){
 

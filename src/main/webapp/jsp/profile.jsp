@@ -80,27 +80,27 @@
     </div>
     <div class="container-login100">
         <div class="wrap-content-unit p-t-10 p-b-10">
-            <table class="profile-table">
+            <table class="table">
+                <thead>
                 <tr>
                     <th>Request ID</th>
                     <th>Departure location</th>
                     <th>Arrival location</th>
-                    <th>Departure time</th>
-                    <th>Arrival time</th>
                     <th>Passengers quantity</th>
-                    <th>Load(kg)</th>
+                    <th>Load Volume</th>
                 </tr>
+                </thead>
+                <tbody>
                 <c:forEach var="request" items="${requests}">
                     <tr>
                         <td>${request.id}</td>
-                        <td>${request.route.departureLocation}</td>
-                        <td>${request.route.arrivalLocation}</td>
-                        <td>${request.route.departureTime}</td>
-                        <td>${request.route.arrivalTime}</td>
+                        <td>${request.departureLocation}</td>
+                        <td>${request.arrivalLocation}</td>
                         <td>${request.passengersQuantity}</td>
                         <td>${request.load}</td>
                     </tr>
                 </c:forEach>
+                </tbody>
             </table>
         </div>
         <div class="wrap-content-unit p-t-10 p-b-10">

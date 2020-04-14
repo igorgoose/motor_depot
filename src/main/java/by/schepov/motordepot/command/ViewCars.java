@@ -19,7 +19,7 @@ import java.util.Set;
 
 public class ViewCars implements Executable{
 
-    private static final Logger LOGGER = LogManager.getLogger(ViewUsers.class);
+    private static final Logger LOGGER = LogManager.getLogger(ViewCars.class);
 
     //todo create ServiceFactory
     private final CarService carService = CarRepositoryService.getInstance();

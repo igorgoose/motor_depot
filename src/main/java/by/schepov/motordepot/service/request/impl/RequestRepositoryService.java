@@ -31,6 +31,16 @@ public class RequestRepositoryService extends RepositoryService<Request> impleme
     }
 
     @Override
+    public void insertRequest(Request request) throws RequestServiceException {
+        try {
+            repository.insert(request);
+        } catch (RepositoryException e) {
+            LOGGER.warn(e);
+            throw new RequestServiceException(e);
+        }
+    }
+
+    @Override
     public Set<Request> findRequestsByUserId(int id) throws RequestServiceException {
         try {
             return repository.execute(new FindRequestByUserIdSpecification(id));

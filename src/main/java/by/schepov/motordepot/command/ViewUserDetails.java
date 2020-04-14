@@ -26,7 +26,7 @@ import java.util.Set;
 
 public class ViewUserDetails implements Executable {
 
-    private static final Logger LOGGER = LogManager.getLogger(ViewUsers.class);
+    private static final Logger LOGGER = LogManager.getLogger(ViewUserDetails.class);
 
     //todo create ServiceFactory
     private final UserService userService = UserRepositoryService.getInstance();

@@ -78,6 +78,7 @@
                     <label>
                         <input class="input100" type="email" name="email" placeholder="Email"
                                pattern="^[A-Za-z0-9+_.-]+@(.+)(\.(.+))+$"
+                               required
                         >
                         <span class="form__error"> <fmt:message bundle="${bundle}" key="form.error.email"/></span>
                     </label>

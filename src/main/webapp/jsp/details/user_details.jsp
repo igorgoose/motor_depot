@@ -158,20 +158,16 @@
                         <th>Request ID</th>
                         <th>Departure location</th>
                         <th>Arrival location</th>
-                        <th>Departure time</th>
-                        <th>Arrival time</th>
                         <th>Passengers quantity</th>
-                        <th>Load(kg)</th>
+                        <th>Load Volume</th>
                     </tr>
                     </thead>
                     <tbody>
                     <c:forEach var="request" items="${requests}">
                         <tr>
                             <td>${request.id}</td>
-                            <td>${request.route.departureLocation}</td>
-                            <td>${request.route.arrivalLocation}</td>
-                            <td>${request.route.departureTime}</td>
-                            <td>${request.route.arrivalTime}</td>
+                            <td>${request.departureLocation}</td>
+                            <td>${request.arrivalLocation}</td>
                             <td>${request.passengersQuantity}</td>
                             <td>${request.load}</td>
                             <td class="p-b-5 p-t-5 p-r-5 p-l-5">
@@ -193,21 +189,22 @@
                     <thead>
                     <tr>
                         <th>Order ID</th>
-                        <th>From</th>
-                        <th>To</th>
-                        <th>Departure Time</th>
-                        <th>Arrival Time</th>
+                        <th>Departure location</th>
+                        <th>Arrival location</th>
+                        <th>Driver</th>
+                        <th>Car</th>
                         <th>Is Complete</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
                     <c:forEach var="order" items="${orders}">
                         <tr>
                             <td>${order.id}</td>
-                            <td>${order.route.departureLocation}</td>
-                            <td>${order.route.arrivalLocation}</td>
-                            <td>${order.route.departureTime}</td>
-                            <td>${order.route.arrivalTime}</td>
+                            <td>${order.departureLocation}</td>
+                            <td>${order.arrivalLocation}</td>
+                            <td>${order.driver.username}</td>
+                            <td>${order.car.carName}</td>
                             <td>${order.isComplete}</td>
                             <td class="p-b-5 p-t-5 p-r-5 p-l-5">
                                 <form action="${pageContext.request.contextPath}/controller"

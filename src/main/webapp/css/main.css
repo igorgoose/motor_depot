@@ -609,9 +609,7 @@ input:invalid + .form__error {
 .wrap-content-unit{
     /*border: 1px solid black;*/
     width: 95%;
-    background: #fff;
-    border-radius: 10px;
-    border: 1px solid red;
+    background: transparent;
     position: relative;
 }
 
