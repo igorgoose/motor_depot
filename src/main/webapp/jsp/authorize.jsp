@@ -99,7 +99,11 @@
                     <button class="login100-form-btn" name="address" value="SIGN_UP">
                         <fmt:message bundle="${bundle}" key="button.signup"/>
                     </button>
-<%--                    <input class="invisible" name="address" value="SIGN_UP"/>--%>
+                </div>
+                <div class="container-login100-form-btn m-t-17">
+                    <button class="login100-form-btn" name="address" value="HOME">
+                        <fmt:message bundle="${bundle}" key="button.home"/>
+                    </button>
                 </div>
             </form>
         </div>

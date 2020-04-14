@@ -29,6 +29,7 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="css/util.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
     <!--===============================================================================================-->
 </head>
 <body>
@@ -115,73 +116,91 @@
         </div>
     </div>
     <div class="container-login100">
-        <c:if test="${role == 4}">
         <div class="wrap-login100 p-t-50 p-b-90">
+            <c:if test="${role == 4}">
+                <div class="wrap-login100 p-t-50 p-b-90">
             <span class="login100-form-title p-b-51">
                     <fmt:message bundle="${bundle}" key="welcome.welcome"/>
             </span>
-            <span class="login100-form-title" style="font-size: 18px">
+                    <span class="login100-form-title" style="font-size: 18px">
                     <fmt:message bundle="${bundle}" key="welcome.advice"/>
             </span>
-        </div>
-        </c:if>
-        <c:if test="${role < 4}">
-            <form class="login100-form validate-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller" method="post">
+                </div>
+            </c:if>
+            <c:if test="${role < 4}">
+                <form class="login100-form validate-form flex-sb flex-w"
+                      action="${pageContext.request.contextPath}/controller" method="post">
 					<span class="login100-form-title p-b-51">
-						<fmt:message bundle="${bundle}" key="signup.title"/>
+						<fmt:message bundle="${bundle}" key="create_request.title"/>
 					</span>
+                    <span class="login100-form-title" style="font-size: 14px">
+                        <fmt:message bundle="${bundle}" key="create_request.advice"/>
+                    </span>
+                    <div class="container-login100-form-btn m-t-17">
+                        <label class="input-label p-l-5">
+                            <fmt:message bundle="${bundle}" key="create_request.from"/>
+                        </label>
+                        <div class="wrap-input100 validate-input m-b-16">
+                            <input class="input100" type="text" name="departure_location" placeholder="From"
+                                   required
+                            >
+                        </div>
+                    </div>
 
-                <div class="wrap-input100 validate-input m-b-16" data-validate = "Username is required">
-                    <label>
-                        <input class="input100" type="text" name="username" placeholder="Username"
-                               pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$"
-                               required
-                        >
-                        <span class="form__error"> <fmt:message bundle="${bundle}" key="form.error.username"/></span>
-                    </label>
-                    <span class="focus-input100"></span>
-                </div>
 
-                <div class="wrap-input100 validate-input m-b-16" data-validate = "Username is required">
-                    <label>
-                        <input class="input100" type="email" name="email" placeholder="Email"
-                               pattern="^[A-Za-z0-9+_.-]+@(.+)(\.(.+))+$"
-                        >
-                        <span class="form__error"> <fmt:message bundle="${bundle}" key="form.error.email"/></span>
-                    </label>
-                    <span class="focus-input100"></span>
-                </div>
+                    <div class="container-login100-form-btn m-t-17">
+                        <label class="input-label p-l-5">
+                            <fmt:message bundle="${bundle}" key="create_request.to"/>
+                        </label>
+                        <div class="wrap-input100 validate-input m-b-16">
+                            <input class="input100" type="text" name="arrival_location" placeholder="To"
+                                   required
+                            >
+                        </div>
+                    </div>
 
-                <div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
-                    <label>
-                        <input class="input100" type="password" name="password" placeholder="Password"
-                               pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
-                               required
-                        >
-                        <span class="form__error"> <fmt:message bundle="${bundle}" key="form.error.password"/></span>
-                    </label>
-                    <span class="focus-input100"></span>
-                </div>
+                    <div class="container-login100-form-btn m-t-17">
+                        <label class="input-label p-l-5">
+                            <fmt:message bundle="${bundle}" key="create_request.passengers"/>
+                        </label>
+                        <select name="passenger_quantity" class="custom-select my-select">
+                            <option value="ANY"><fmt:message bundle="${bundle}"
+                                                             key="create_request.option.any"/></option>
+                            <option value="FOUR">4</option>
+                            <option value="FIVE">5</option>
+                            <option value="SIX">6</option>
+                            <option value="SEVEN">7</option>
+                            <option value="EIGHT">8</option>
+                        </select>
+                    </div>
 
-                <div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
-                    <label>
-                        <input class="input100" type="password" name="repeat_password" placeholder="Repeat password"
-                               pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
-                               required
-                        >
-                        <span class="form__error"> <fmt:message bundle="${bundle}" key="form.error.password"/></span>
-                    </label>
-                    <span class="focus-input100"></span>
-                </div>
+                    <div class="container-login100-form-btn m-t-17">
+                        <label class="input-label p-l-5">
+                            <fmt:message bundle="${bundle}" key="create_request.load_volume"/>
+                        </label>
+                        <select name="load_volume" class="custom-select my-select">
+                            <option value="ANY"><fmt:message bundle="${bundle}"
+                                                             key="create_request.option.any"/></option>
+                            <option value="TWO_HUNDRED">200</option>
+                            <option value="THREE_HUNDRED">300</option>
+                            <option value="FOUR_HUNDRED">400</option>
+                            <option value="FIVE_HUNDRED">500</option>
+                            <option value="SIX_HUNDRED">600</option>
+                            <option value="SEVEN_HUNDRED">700</option>
+                            <option value="EIGHT_HUNDRED">800</option>
+                            <option value="NINE_HUNDRED">900</option>
+                        </select>
+                    </div>
 
-                <div class="container-login100-form-btn m-t-17">
-                    <button class="login100-form-btn" name="command" value="sign_up">
-                        <fmt:message bundle="${bundle}" key="button.signup"/>
-                    </button>
-                </div>
+                    <div class="container-login100-form-btn m-t-17">
+                        <button class="login100-form-btn" name="command" value="create_request">
+                            <fmt:message bundle="${bundle}" key="button.create_request"/>
+                        </button>
+                    </div>
 
-            </form>
-        </c:if>
+                </form>
+            </c:if>
+        </div>
     </div>
 </div>
 

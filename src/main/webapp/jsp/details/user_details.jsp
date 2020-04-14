@@ -127,27 +127,27 @@
         </form>
         <div class="content-container">
             <div class="content-unit-container">
-                <label class="info-label">
+                <label class="details-label">
                     ID: ${user.id}
                 </label>
             </div>
             <div class="content-unit-container">
-                <label class="info-label">
+                <label class="details-label">
                     Username: ${user.username}
                 </label>
             </div>
             <div class="content-unit-container">
-                <label class="info-label">
+                <label class="details-label">
                     Email: ${user.email}
                 </label>
             </div>
             <div class="content-unit-container">
-                <label class="info-label">
+                <label class="details-label">
                     Role: ${user.role}
                 </label>
             </div>
             <div class="content-unit-container">
-                <label class="info-label">
+                <label class="details-label">
                     Blocked: ${user.blocked}
                 </label>
             </div>
