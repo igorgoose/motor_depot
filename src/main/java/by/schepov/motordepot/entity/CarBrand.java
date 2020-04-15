@@ -3,7 +3,11 @@ package by.schepov.motordepot.entity;
 import by.schepov.motordepot.exception.InvalidParameterException;
 
 public enum CarBrand {
-    VOLKSWAGEN("Volkswagen");
+    VOLKSWAGEN("Volkswagen"),
+    FORD("Ford"),
+    SKODA("Skoda"),
+    HONDA("Honda"),
+    TOYOTA("Toyota");
 
     private String name;
 

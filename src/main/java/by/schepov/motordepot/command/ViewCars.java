@@ -37,8 +37,6 @@ public class ViewCars implements Executable{
         }
         try {
             Set<Car> cars = carService.getAllCars();
-            request.setAttribute(RequestAttribute.USERNAME.getName(), user.getUsername());
-            request.setAttribute(RequestAttribute.ROLE.getName(), user.getRole().getId());
             request.setAttribute(RequestAttribute.CARS.getName(), cars);
             request.setAttribute(RequestAttribute.MANAGEMENT_REQUEST.getName(), Command.VIEW_CARS.getName());
         } catch (CarServiceException e) {

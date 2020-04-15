@@ -34,10 +34,7 @@ public class ViewUsers implements Executable {
         }
         try {
             Set<User> users = userService.getAllUsers();
-            request.setAttribute(RequestAttribute.USERNAME.getName(), user.getUsername());
-            request.setAttribute(RequestAttribute.ROLE.getName(), user.getRole().getId());
             request.setAttribute(RequestAttribute.USERS.getName(), users);
-            request.setAttribute(RequestAttribute.MANAGEMENT_REQUEST.getName(), Command.VIEW_USERS.getName());
         } catch (UserServiceException e) {
             LOGGER.warn(e);
             return Page.ERROR;

@@ -44,8 +44,6 @@ public class CreateRequest implements Executable {
             Request userRequest = requestBuilder.withUser(user).withDepartureLocation(departureLocation)
                     .withPassengerQuantity(passengers).withArrivalLocation(arrivalLocation).withLoad(loadVolume).build();
             requestService.insertRequest(userRequest);
-            request.setAttribute(RequestAttribute.USERNAME.getName(), user.getUsername());
-            request.setAttribute(RequestAttribute.ROLE.getName(), user.getRole().getId());
         } catch (RequestServiceException e) {
             LOGGER.warn(e);
             return Page.ERROR;

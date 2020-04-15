@@ -4,7 +4,16 @@ import by.schepov.motordepot.exception.InvalidParameterException;
 
 public enum CarModel {
 
-    POLO("Polo");
+    POLO("Polo"),
+    JETTA("Jetta"),
+    GOLF("Golf"),
+    CADDY("Caddy"),
+    FOCUS("Focus"),
+    MONDEO("Mondeo"),
+    RAPID("Rapid"),
+    OCTAVIA("Octavia"),
+    CIVIC("Civic"),
+    PRIUS("Prius");
 
     private String name;
 

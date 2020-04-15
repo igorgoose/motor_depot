@@ -4,6 +4,7 @@ import by.schepov.motordepot.entity.Order;
 import by.schepov.motordepot.entity.Request;
 import by.schepov.motordepot.entity.User;
 import by.schepov.motordepot.exception.service.OrderServiceException;
+import by.schepov.motordepot.exception.service.RequestServiceException;
 import by.schepov.motordepot.exception.service.UserServiceException;
 import by.schepov.motordepot.jsp.JSPParameter;
 import by.schepov.motordepot.jsp.Page;
@@ -53,7 +54,7 @@ public class ViewUserDetails implements Executable {
             Set<Request> requests = requestService.getRequestsByUserId(id);
             request.setAttribute(RequestAttribute.REQUESTS.getName(), requests);
             request.setAttribute(RequestAttribute.ORDERS.getName(), orders);
-        } catch (UserServiceException | OrderServiceException | ServiceException e) {
+        } catch (UserServiceException | OrderServiceException | RequestServiceException e) {
             LOGGER.warn(e);
             return Page.ERROR;
         }

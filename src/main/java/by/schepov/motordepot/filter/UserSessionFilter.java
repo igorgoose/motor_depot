@@ -18,11 +18,15 @@ public class UserSessionFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpSession session = request.getSession();
         Role role = (Role) session.getAttribute(SessionAttribute.ROLE.getName());
+        User user = (User) session.getAttribute(SessionAttribute.USER.getName());
         if(role == null){
             role = Role.GUEST;
             session.setAttribute(SessionAttribute.ROLE.getName(), Role.GUEST);
         }
-        request.setAttribute(RequestAttribute.ROLE.getName(), role.getId());
+        if(user != null){
+            session.setAttribute(RequestAttribute.USERNAME.getName(), user.getUsername());
+        }
+        session.setAttribute(RequestAttribute.ROLE_ID.getName(), role.getId());
         chain.doFilter(req, resp);
     }
 }
