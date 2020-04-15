@@ -58,33 +58,37 @@
                 </div>
             </div>
             <div class="dropdown toolbar-top-btn">
-                <c:if test="${role == 4}">
+                <c:if test="${role_id == 4}">
                     <button class="dropbtn" disabled>
                         <fmt:message bundle="${bundle}" key="button.role.guest"/>
                     </button>
                     <div class="dropdown-content">
+                        <button name="address" value="HOME">
+                            <fmt:message bundle="${bundle}" key="button.home"/>
+                        </button>
                         <button name="address" value="AUTHORIZE">
                             <fmt:message bundle="${bundle}" key="button.authorize"/>
                         </button>
                     </div>
                 </c:if>
-                <c:if test="${role < 4}">
-                    <c:if test="${role == 3}">
-                        <button class="dropbtn" disabled>
+                <c:if test="${role_id < 4}">
+                    <button class="dropbtn" disabled>
+                            ${username}[
+                        <c:if test="${role_id == 3}">
                             <fmt:message bundle="${bundle}" key="button.role.user"/>
-                        </button>
-                    </c:if>
-                    <c:if test="${role == 2}">
-                        <button class="dropbtn" disabled>
+                        </c:if>
+                        <c:if test="${role_id == 2}">
                             <fmt:message bundle="${bundle}" key="button.role.driver"/>
-                        </button>
-                    </c:if>
-                    <c:if test="${role == 1}">
-                        <button class="dropbtn" disabled>
+                        </c:if>
+                        <c:if test="${role_id == 1}">
                             <fmt:message bundle="${bundle}" key="button.role.admin"/>
-                        </button>
-                    </c:if>
+                        </c:if>
+                        ]
+                    </button>
                     <div class="dropdown-content">
+                        <button name="address" value="HOME">
+                            <fmt:message bundle="${bundle}" key="button.create_request"/>
+                        </button>
                         <button name="command" value="view_profile">
                             <fmt:message bundle="${bundle}" key="button.profile"/>
                         </button>
@@ -122,36 +126,35 @@
             </div>
         </form>
         <div class="content-container">
-            <div class="content-unit-container">
-                <table class="profile-table">
+            <div class="content-unit-container pre-scrollable full-height">
+                <table class="table">
                     <thead>
                     <tr>
                         <th>Request ID</th>
+                        <th>User</th>
                         <th>Departure location</th>
                         <th>Arrival location</th>
-                        <th>Departure time</th>
-                        <th>Arrival time</th>
                         <th>Passengers quantity</th>
-                        <th>Load(kg)</th>
+                        <th>Load Volume</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
                     <c:forEach var="request" items="${requests}">
                         <tr>
                             <td>${request.id}</td>
-                            <td>${request.route.departureLocation}</td>
-                            <td>${request.route.arrivalLocation}</td>
-                            <td>${request.route.departureTime}</td>
-                            <td>${request.route.arrivalTime}</td>
+                            <td>${request.user.username}</td>
+                            <td>${request.departureLocation}</td>
+                            <td>${request.arrivalLocation}</td>
                             <td>${request.passengersQuantity}</td>
                             <td>${request.load}</td>
                             <td class="p-b-5 p-t-5 p-r-5 p-l-5">
                                 <form action="${pageContext.request.contextPath}/controller"
                                       method="post">
-                                <input type="hidden" name="user_id" value="${user.id}"/>
-                                <button class="table-btn" name="command" value="users_more">
-                                    <fmt:message bundle="${bundle}" key="button.details"/>
-                                </button>
+                                    <input type="hidden" name="user_id" value="${user.id}"/>
+                                    <button class="table-btn" name="command" value="users_more">
+                                        <fmt:message bundle="${bundle}" key="button.details"/>
+                                    </button>
                                 </form>
                             </td>
                         </tr>

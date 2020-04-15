@@ -2,6 +2,7 @@ package by.schepov.motordepot.command;
 
 import by.schepov.motordepot.entity.Request;
 import by.schepov.motordepot.entity.User;
+import by.schepov.motordepot.exception.service.RequestServiceException;
 import by.schepov.motordepot.jsp.Page;
 import by.schepov.motordepot.jsp.RequestAttribute;
 import by.schepov.motordepot.service.request.impl.RequestRepositoryService;
@@ -33,11 +34,9 @@ public class ViewRequests implements Executable {
         }
         try {
             Set<Request> requests = requestService.getAllRequests();
-            request.setAttribute(RequestAttribute.USERNAME.getName(), user.getUsername());
-            request.setAttribute(RequestAttribute.ROLE.getName(), user.getRole().getId());
             request.setAttribute(RequestAttribute.REQUESTS.getName(), requests);
             request.setAttribute(RequestAttribute.MANAGEMENT_REQUEST.getName(), Command.VIEW_REQUESTS.getName());
-        } catch (ServiceException e) {
+        } catch (RequestServiceException e) {
             LOGGER.warn(e);
             return Page.ERROR;
         }

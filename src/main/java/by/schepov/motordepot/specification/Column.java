@@ -12,7 +12,7 @@ public enum Column {
     ROUTE_ID("route_id"),
     ROLE("role"),
     PASSENGERS_QUANTITY("passengers_quantity"),
-    LOAD_KG("load_kg"),
+    LOAD_KG("load_capacity"),
     DEPARTURE_TIME("departure_time"),
     DEPARTURE_LOCATION("departure_location"),
     ARRIVAL_TIME("arrival_time"),

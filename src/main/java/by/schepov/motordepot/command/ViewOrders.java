@@ -32,10 +32,7 @@ public class ViewOrders implements Executable {
         }
         try{
             Set<Order> orders = orderService.getAllOrders();
-            request.setAttribute(RequestAttribute.USERNAME.getName(), user.getUsername());
-            request.setAttribute(RequestAttribute.ROLE.getName(), user.getRole().getId());
             request.setAttribute(RequestAttribute.ORDERS.getName(), orders);
-            request.setAttribute(RequestAttribute.MANAGEMENT_REQUEST.getName(), Command.VIEW_ORDERS.getName());
         } catch (OrderServiceException e) {
             LOGGER.warn(e);
             return Page.ERROR;

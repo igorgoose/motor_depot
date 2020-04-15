@@ -19,7 +19,7 @@ import java.util.Set;
 
 public class ViewCars implements Executable{
 
-    private static final Logger LOGGER = LogManager.getLogger(ViewUsers.class);
+    private static final Logger LOGGER = LogManager.getLogger(ViewCars.class);
 
     //todo create ServiceFactory
     private final CarService carService = CarRepositoryService.getInstance();
@@ -37,8 +37,6 @@ public class ViewCars implements Executable{
         }
         try {
             Set<Car> cars = carService.getAllCars();
-            request.setAttribute(RequestAttribute.USERNAME.getName(), user.getUsername());
-            request.setAttribute(RequestAttribute.ROLE.getName(), user.getRole().getId());
             request.setAttribute(RequestAttribute.CARS.getName(), cars);
             request.setAttribute(RequestAttribute.MANAGEMENT_REQUEST.getName(), Command.VIEW_CARS.getName());
         } catch (CarServiceException e) {

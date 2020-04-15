@@ -11,7 +11,7 @@ public enum Page {
     AUTHORIZE("/jsp/authorize.jsp"),
     SIGN_UP("/jsp/signup.jsp"),
     PROFILE("/jsp/profile.jsp"),
-    ERROR("/jsp/error.jsp"), USER_DETAILS("/jsp/details/user_details.jsp");
+    ERROR("/jsp/error.jsp"), USER_DETAILS("/jsp/functions/user_details.jsp");
 
     private String name;
 

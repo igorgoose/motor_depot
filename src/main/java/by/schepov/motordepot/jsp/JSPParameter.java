@@ -11,7 +11,10 @@ public enum JSPParameter {
     PASSWORD("password"),
     EMAIL("email"),
     ADDRESS("address"),
-    REPEAT_PASSWORD("repeat_password");
+    REPEAT_PASSWORD("repeat_password"),
+    DEPARTURE_LOCATION("departure_location"),
+    ARRIVAL_LOCATION("arrival_location"), PASSENGER_QUANTITY("passenger_quantity"),
+    LOAD_VOLUME("load_volume");
 
     private String value;
 

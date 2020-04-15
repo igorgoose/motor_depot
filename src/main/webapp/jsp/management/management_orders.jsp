@@ -47,7 +47,8 @@
 <body>
 <div class="limiter">
     <div class="toolbar-top">
-        <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller" method="post">
+        <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller"
+              method="post">
             <div class="dropdown toolbar-top-btn">
                 <button class="dropbtn" disabled>
                     <fmt:message bundle="${bundle}" key="button.language"/>
@@ -58,33 +59,37 @@
                 </div>
             </div>
             <div class="dropdown toolbar-top-btn">
-                <c:if test="${role == 4}">
+                <c:if test="${role_id == 4}">
                     <button class="dropbtn" disabled>
                         <fmt:message bundle="${bundle}" key="button.role.guest"/>
                     </button>
                     <div class="dropdown-content">
+                        <button name="address" value="HOME">
+                            <fmt:message bundle="${bundle}" key="button.home"/>
+                        </button>
                         <button name="address" value="AUTHORIZE">
                             <fmt:message bundle="${bundle}" key="button.authorize"/>
                         </button>
                     </div>
                 </c:if>
-                <c:if test="${role < 4}">
-                    <c:if test="${role == 3}">
-                        <button class="dropbtn" disabled>
+                <c:if test="${role_id < 4}">
+                    <button class="dropbtn" disabled>
+                            ${username}[
+                        <c:if test="${role_id == 3}">
                             <fmt:message bundle="${bundle}" key="button.role.user"/>
-                        </button>
-                    </c:if>
-                    <c:if test="${role == 2}">
-                        <button class="dropbtn" disabled>
+                        </c:if>
+                        <c:if test="${role_id == 2}">
                             <fmt:message bundle="${bundle}" key="button.role.driver"/>
-                        </button>
-                    </c:if>
-                    <c:if test="${role == 1}">
-                        <button class="dropbtn" disabled>
+                        </c:if>
+                        <c:if test="${role_id == 1}">
                             <fmt:message bundle="${bundle}" key="button.role.admin"/>
-                        </button>
-                    </c:if>
+                        </c:if>
+                        ]
+                    </button>
                     <div class="dropdown-content">
+                        <button name="address" value="HOME">
+                            <fmt:message bundle="${bundle}" key="button.create_request"/>
+                        </button>
                         <button name="command" value="view_profile">
                             <fmt:message bundle="${bundle}" key="button.profile"/>
                         </button>
@@ -97,7 +102,8 @@
         </form>
     </div>
     <div class="ultimate-container">
-        <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller" method="post">
+        <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller"
+              method="post">
             <div class="menu-bar">
                 <div class="btn-wrapper">
                     <button class="menu-bar-button" name="command" value="view_requests">
@@ -148,10 +154,10 @@
                             <td class="p-b-5 p-t-5 p-r-5 p-l-5">
                                 <form action="${pageContext.request.contextPath}/controller"
                                       method="post">
-                                <input type="hidden" name="user_id" value="${user.id}"/>
-                                <button class="table-btn" name="command" value="users_more">
-                                    <fmt:message bundle="${bundle}" key="button.details"/>
-                                </button>
+                                    <input type="hidden" name="user_id" value="${user.id}"/>
+                                    <button class="table-btn" name="command" value="users_more">
+                                        <fmt:message bundle="${bundle}" key="button.details"/>
+                                    </button>
                                 </form>
                             </td>
                         </tr>

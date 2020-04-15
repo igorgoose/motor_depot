@@ -3,7 +3,6 @@ package by.schepov.motordepot.builder.impl.order;
 import by.schepov.motordepot.builder.AbstractBuilder;
 import by.schepov.motordepot.entity.Car;
 import by.schepov.motordepot.entity.Order;
-import by.schepov.motordepot.entity.Route;
 import by.schepov.motordepot.entity.User;
 
 public class OrderBuilder extends AbstractBuilder<Order> {
@@ -33,8 +32,13 @@ public class OrderBuilder extends AbstractBuilder<Order> {
         return this;
     }
 
-    public OrderBuilder withRoute(Route route){
-        object.setRoute(route);
+    public OrderBuilder withDepartureLocation(String departureLocation){
+        object.setDepartureLocation(departureLocation);
+        return this;
+    }
+
+    public OrderBuilder withArrivalLocation(String arrivalLocation){
+        object.setArrivalLocation(arrivalLocation);
         return this;
     }
 

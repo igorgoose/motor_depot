@@ -44,16 +44,78 @@
         <div class="toolbar-top">
             <form class="toolbar-top-form flex-sb flex-w" action="controller" method="post">
                 <div class="dropdown toolbar-top-btn">
-                    <button class="dropbtn" disabled><fmt:message bundle="${bundle}" key="button.language"/></button>
+                    <button class="dropbtn" disabled>
+                        <fmt:message bundle="${bundle}" key="button.language"/>
+                    </button>
                     <div class="dropdown-content">
                         <button name="language" value="ru">Русский</button>
                         <button name="language" value="en">English</button>
                     </div>
                 </div>
                 <div class="dropdown toolbar-top-btn">
-                    <button class="dropbtn" disabled>
-                        <fmt:message bundle="${bundle}" key="button.role.guest"/>
-                    </button>
+                    <c:if test="${role_id == 4}">
+                        <button class="dropbtn" disabled>
+                            <fmt:message bundle="${bundle}" key="button.role.guest"/>
+                        </button>
+                        <div class="dropdown-content">
+                            <button name="address" value="HOME">
+                                <fmt:message bundle="${bundle}" key="button.home"/>
+                            </button>
+                        </div>
+                    </c:if>
+                    <c:if test="${role_id < 4}">
+                        <c:if test="${role_id == 3}">
+                            <button class="dropbtn" disabled>
+                                    ${username}[
+                                <fmt:message bundle="${bundle}" key="button.role.user"/>
+                                ]
+                            </button>
+                            <div class="dropdown-content">
+                                <button name="command" value="view_profile">
+                                    <fmt:message bundle="${bundle}" key="button.profile"/>
+                                </button>
+                                <button name="command" value="log_out">
+                                    <fmt:message bundle="${bundle}" key="button.logout"/>
+                                </button>
+                            </div>
+                        </c:if>
+                        <c:if test="${role_id == 2}">
+                            <button class="dropbtn" disabled>
+                                    ${username}[
+                                <fmt:message bundle="${bundle}" key="button.role.driver"/>
+                                ]
+                            </button>
+                            <div class="dropdown-content">
+                                <button name="command" value="view_profile">
+                                    <fmt:message bundle="${bundle}" key="button.profile"/>
+                                </button>
+                                <button name="address" value="MANAGEMENT">
+                                    <fmt:message bundle="${bundle}" key="button.management"/>
+                                </button>
+                                <button name="command" value="log_out">
+                                    <fmt:message bundle="${bundle}" key="button.logout"/>
+                                </button>
+                            </div>
+                        </c:if>
+                        <c:if test="${role_id == 1}">
+                            <button class="dropbtn" disabled>
+                                    ${username}[
+                                <fmt:message bundle="${bundle}" key="button.role.admin"/>
+                                ]
+                            </button>
+                            <div class="dropdown-content">
+                                <button name="command" value="view_profile">
+                                    <fmt:message bundle="${bundle}" key="button.profile"/>
+                                </button>
+                                <button name="address" value="MANAGEMENT">
+                                    <fmt:message bundle="${bundle}" key="button.management"/>
+                                </button>
+                                <button name="command" value="log_out">
+                                    <fmt:message bundle="${bundle}" key="button.logout"/>
+                                </button>
+                            </div>
+                        </c:if>
+                    </c:if>
                 </div>
             </form>
         </div>
@@ -99,7 +161,11 @@
                     <button class="login100-form-btn" name="address" value="SIGN_UP">
                         <fmt:message bundle="${bundle}" key="button.signup"/>
                     </button>
-<%--                    <input class="invisible" name="address" value="SIGN_UP"/>--%>
+                </div>
+                <div class="container-login100-form-btn m-t-17">
+                    <button class="login100-form-btn" name="address" value="HOME">
+                        <fmt:message bundle="${bundle}" key="button.home"/>
+                    </button>
                 </div>
             </form>
         </div>
