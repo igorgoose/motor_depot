@@ -21,7 +21,7 @@ import java.util.Set;
 
 public class GetAllRequestsSpecification implements Specification<Request> {
 
-    private static final Logger LOGGER = LogManager.getLogger(FindRequestByUserIdSpecification.class);
+    private static final Logger LOGGER = LogManager.getLogger(GetAllRequestsSpecification.class);
     private static final String QUERY =
             "SELECT reqs.id, passengers_quantity, load_capacity, departure_location, arrival_location," +
                     "user_id, login, password, role_id, email, is_blocked, role " +

@@ -2,6 +2,7 @@ package by.schepov.motordepot.jsp;
 
 public enum Page {
 
+    REQUEST_VERIFICATION("/jsp/functions/request_verification.jsp"),
     MANAGEMENT("/jsp/management/management.jsp"),
     MANAGEMENT_REQUESTS("/jsp/management/management_requests.jsp"),
     MANAGEMENT_USERS("/jsp/management/management_users.jsp"),

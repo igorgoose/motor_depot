@@ -22,23 +22,39 @@ import java.sql.SQLException;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class GetAllCarsSpecification implements Specification<Car> {
+public class FindFreeCarSpecification implements Specification<Car> {
 
-    private static final Logger LOGGER = LogManager.getLogger(GetAllCarsSpecification.class);
-
-    private static final String QUERY = "SELECT cars.id, driver_id, registration_number, name_id, load_capacity, " +
-            "passenger_capacity, status_id, " +
-            "st.status car_status, brand_id, model_id, brands.name brand_name, models.name model_name, " +
-            "login, password, is_blocked, role_id, email, role " +
-            "FROM motor_depot.cars as cars " +
-            "LEFT JOIN motor_depot.users as drivers on driver_id = drivers.id " +
-            "LEFT JOIN motor_depot.roles as roles on roles.id = role_id " +
-            "LEFT JOIN motor_depot.car_statuses as st on status_id = st.id " +
-            "LEFT JOIN motor_depot.car_names as names on name_id = names.id " +
-            "LEFT JOIN motor_depot.car_brands as brands on brand_id = brands.id " +
-            "LEFT JOIN motor_depot.car_models as models on model_id = models.id";
-
+    private int loadCapacityRequired;
+    private int passengerCapacityRequired;
     private ConnectionPool pool = ConnectionPool.INSTANCE;
+
+    private static final Logger LOGGER = LogManager.getLogger(FindFreeCarSpecification.class);
+
+    public static final String QUERY = "SELECT users.id id, user_id, departure_location, arrival_location, car_id, orders.driver_id driver_id," +
+            " users.login user_login, users.password user_password, users.role_id user_role_id," +
+            " users.email user_email, users.is_blocked user_blocked," +
+            " drivers.login driver_login, drivers.password driver_password, drivers.role_id driver_role_id," +
+            " drivers.email driver_email, drivers.is_blocked driver_blocked, " +
+            "user_roles.role user_role, driver_roles.role driver_role, " +
+            " registration_number, cars.name_id car_name_id, load_capacity, passenger_capacity, status_id, " +
+            " car_mds.name model_name, car_brds.name brand_name, " +
+            "cs.status car_status " +
+            "FROM motor_depot.orders as orders " +
+            "LEFT JOIN motor_depot.users as users on user_id = users.id " +
+            "LEFT JOIN motor_depot.users as drivers on driver_id = drivers.id " +
+            "LEFT JOIN motor_depot.roles as user_roles on user_roles.id = users.role_id " +
+            "LEFT JOIN motor_depot.roles as driver_roles on driver_roles.id = drivers.role_id " +
+            "LEFT JOIN motor_depot.cars as cars on car_id = cars.id " +
+            "LEFT JOIN motor_depot.car_statuses as cs on cars.status_id = cs.id " +
+            "LEFT JOIN motor_depot.car_names cn on cars.name_id = cn.id " +
+            "LEFT JOIN motor_depot.car_models car_mds on cn.model_id = car_mds.id " +
+            "LEFT JOIN motor_depot.car_brands car_brds on cn.brand_id = car_brds.id";
+
+
+    public FindFreeCarSpecification(int loadCapacityRequired, int passengerCapacityRequired){
+        this.loadCapacityRequired = loadCapacityRequired;
+        this.passengerCapacityRequired = passengerCapacityRequired;
+    }
 
     @Override
     public Set<Car> execute() throws SpecificationException {

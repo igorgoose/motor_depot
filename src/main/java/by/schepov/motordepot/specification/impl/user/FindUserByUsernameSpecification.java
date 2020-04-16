@@ -8,6 +8,8 @@ import by.schepov.motordepot.pool.ConnectionPool;
 import by.schepov.motordepot.pool.ProxyConnection;
 import by.schepov.motordepot.specification.Column;
 import by.schepov.motordepot.specification.Specification;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,6 +20,7 @@ import java.util.Set;
 public class FindUserByUsernameSpecification implements Specification<User> {
 
     private String login;
+    private static final Logger LOGGER = LogManager.getLogger(FindUserByUsernameSpecification.class);
     private static final String QUERY =
             "SELECT users.id, login, password, role_id, email, is_blocked, role FROM motor_depot.users as users " +
                     "LEFT JOIN motor_depot.roles as roles on role_id = roles.id " +
@@ -51,7 +54,7 @@ public class FindUserByUsernameSpecification implements Specification<User> {
             resultSet.close();
             return users;
         } catch (ConnectionPoolException | SQLException e) {
-            //todo log
+            LOGGER.warn(e);
             throw new SpecificationException(e);
         }
     }

@@ -25,7 +25,7 @@ import java.util.Set;
 
 public class FindOrdersByUserIdSpecification implements Specification<Order> {
 
-    private static final Logger LOGGER = LogManager.getLogger(GetAllOrdersSpecification.class);
+    private static final Logger LOGGER = LogManager.getLogger(FindOrdersByUserIdSpecification.class);
     private static final String QUERY =
             "SELECT users.id id, user_id, departure_location, arrival_location, car_id, orders.driver_id driver_id," +
                     " users.login user_login, users.password user_password, users.role_id user_role_id," +
