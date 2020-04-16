@@ -15,6 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class GetAllUsersSpecification implements Specification<User> {
@@ -31,7 +32,7 @@ public class GetAllUsersSpecification implements Specification<User> {
         try (ProxyConnection connection = pool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(QUERY)) {
             ResultSet resultSet = preparedStatement.executeQuery();
-            HashSet<User> users = new HashSet<>();
+            LinkedHashSet<User> users = new LinkedHashSet<>();
             ResultSetUserBuilder builder = new ResultSetUserBuilder(resultSet);
             while (resultSet.next()) {
                 builder.reset();

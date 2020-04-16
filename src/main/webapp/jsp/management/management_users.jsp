@@ -155,7 +155,7 @@
                                     <form action="${pageContext.request.contextPath}/controller"
                                           method="post">
                                     <input type="hidden" name="user_id" value="${user.id}"/>
-                                    <button class="table-btn" name="command" value="user_details">
+                                    <button class="table-btn-blue" name="command" value="user_details">
                                         <fmt:message bundle="${bundle}" key="button.details"/>
                                     </button>
                                     </form>

@@ -9,7 +9,7 @@ public class Order {
     private String arrivalLocation;
     private Car car;
     private User driver;
-    private boolean isComplete;
+    private boolean complete;
 
     public int getId() {
         return id;
@@ -60,11 +60,11 @@ public class Order {
     }
 
     public boolean isComplete() {
-        return isComplete;
+        return complete;
     }
 
     public void setComplete(boolean complete) {
-        isComplete = complete;
+        this.complete = complete;
     }
 
     @Override
@@ -73,7 +73,7 @@ public class Order {
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
         return id == order.id &&
-                isComplete == order.isComplete &&
+                complete == order.complete &&
                 Objects.equals(user, order.user) &&
                 Objects.equals(departureLocation, order.departureLocation) &&
                 Objects.equals(arrivalLocation, order.arrivalLocation) &&
@@ -83,7 +83,7 @@ public class Order {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, departureLocation, arrivalLocation, car, driver, isComplete);
+        return Objects.hash(id, user, departureLocation, arrivalLocation, car, driver, complete);
     }
 
     @Override
@@ -95,7 +95,7 @@ public class Order {
                 ", arrivalLocation='" + arrivalLocation + '\'' +
                 ", car=" + car +
                 ", driver=" + driver +
-                ", isComplete=" + isComplete +
+                ", isComplete=" + complete +
                 '}';
     }
 }

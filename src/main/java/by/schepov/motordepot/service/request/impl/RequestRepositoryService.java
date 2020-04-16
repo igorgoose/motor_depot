@@ -6,6 +6,7 @@ import by.schepov.motordepot.exception.service.RequestServiceException;
 import by.schepov.motordepot.repository.impl.request.RequestRepository;
 import by.schepov.motordepot.service.RepositoryService;
 import by.schepov.motordepot.service.request.RequestService;
+import by.schepov.motordepot.specification.impl.request.FindRequestByIdSpecification;
 import by.schepov.motordepot.specification.impl.request.FindRequestByUserIdSpecification;
 import by.schepov.motordepot.specification.impl.request.GetAllRequestsSpecification;
 import com.google.protobuf.ServiceException;
@@ -41,16 +42,6 @@ public class RequestRepositoryService extends RepositoryService<Request> impleme
     }
 
     @Override
-    public Set<Request> findRequestsByUserId(int id) throws RequestServiceException {
-        try {
-            return repository.execute(new FindRequestByUserIdSpecification(id));
-        } catch (RepositoryException e) {
-            LOGGER.warn(e);
-            throw new RequestServiceException(e);
-        }
-    }
-
-    @Override
     public Set<Request> getAllRequests() throws RequestServiceException {
         try {
             return repository.execute(new GetAllRequestsSpecification());
@@ -64,6 +55,16 @@ public class RequestRepositoryService extends RepositoryService<Request> impleme
     public Set<Request> getRequestsByUserId(int id) throws RequestServiceException {
         try {
             return repository.execute(new FindRequestByUserIdSpecification(id));
+        } catch (RepositoryException e) {
+            LOGGER.warn(e);
+            throw new RequestServiceException(e);
+        }
+    }
+
+    @Override
+    public Set<Request> getRequestById(int requestId) throws RequestServiceException {
+        try {
+            return repository.execute(new FindRequestByIdSpecification(requestId));
         } catch (RepositoryException e) {
             LOGGER.warn(e);
             throw new RequestServiceException(e);

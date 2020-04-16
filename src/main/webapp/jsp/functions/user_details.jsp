@@ -110,7 +110,7 @@
         </form>
     </div>
     <div class="ultimate-container">
-        <c:if test="${role_id == 1}">
+        <c:if test="${role_id == 1 && requestScope.user != null && sessionScope.user.id != requestScope.user.id}">
             <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller"
                   method="post">
                 <div class="menu-bar">
@@ -124,16 +124,6 @@
                             <fmt:message bundle="${bundle}" key="button.delete"/>
                         </button>
                     </div>
-                        <%--                <div class="btn-wrapper">--%>
-                        <%--                    <button class="menu-bar-button" name="command" value="view_users_requests">--%>
-                        <%--                        <fmt:message bundle="${bundle}" key="button.users_requests"/>--%>
-                        <%--                    </button>--%>
-                        <%--                </div>--%>
-                        <%--                <div class="btn-wrapper">--%>
-                        <%--                    <button class="menu-bar-button" name="command" value="view_users_orders">--%>
-                        <%--                        <fmt:message bundle="${bundle}" key="button.users_orders"/>--%>
-                        <%--                    </button>--%>
-                        <%--                </div>--%>
                 </div>
             </form>
         </c:if>
@@ -164,7 +154,7 @@
                 </label>
             </div>
             <c:if test="${not empty requests}">
-                <div class="content-unit-container pre-scrollable">
+                <div class="content-unit-container pre-scrollable black-border ">
                     <table class="table">
                         <thead>
                         <tr>
@@ -188,7 +178,7 @@
                                     <form action="${pageContext.request.contextPath}/controller"
                                           method="post">
                                         <input type="hidden" name="user_id" value="${user.id}"/>
-                                        <button class="table-btn" name="command" value="users_more">
+                                        <button class="table-btn-blue" name="command" value="users_more">
                                             <fmt:message bundle="${bundle}" key="button.details"/>
                                         </button>
                                     </form>
@@ -200,7 +190,7 @@
                 </div>
             </c:if>
             <c:if test="${not empty orders}">
-                <div class="content-unit-container pre-scrollable">
+                <div class="content-unit-container pre-scrollable black-border">
                     <table class="table">
                         <thead>
                         <tr>
@@ -223,13 +213,13 @@
                                 <td>${order.arrivalLocation}</td>
                                 <td>${order.driver.username}</td>
                                 <td>${order.car.carName}</td>
-                                <td>${order.isComplete}</td>
+                                <td>${order.complete}</td>
                                 <c:if test="${role_id == 1}">
                                     <td class="p-b-5 p-t-5 p-r-5 p-l-5">
                                         <form action="${pageContext.request.contextPath}/controller"
                                               method="post">
                                             <input type="hidden" name="user_id" value="${user.id}"/>
-                                            <button class="table-btn" name="command" value="users_more">
+                                            <button class="table-btn-blue" name="command" value="users_more">
                                                 <fmt:message bundle="${bundle}" key="button.details"/>
                                             </button>
                                         </form>

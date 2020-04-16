@@ -151,9 +151,11 @@
                             <td class="p-b-5 p-t-5 p-r-5 p-l-5">
                                 <form action="${pageContext.request.contextPath}/controller"
                                       method="post">
-                                    <input type="hidden" name="user_id" value="${user.id}"/>
-                                    <button class="table-btn" name="command" value="users_more">
-                                        <fmt:message bundle="${bundle}" key="button.details"/>
+                                    <input type="hidden" name="request_id" value="${request.id}"/>
+                                    <input type="hidden" name="load_volume" value="${request.load}"/>
+                                    <input type="hidden" name="passenger_quantity" value="${request.passengersQuantity}"/>
+                                    <button class="table-btn-green" name="command" value="verify_request">
+                                        <fmt:message bundle="${bundle}" key="button.create_order"/>
                                     </button>
                                 </form>
                             </td>

@@ -109,12 +109,7 @@
                 <div class="menu-bar">
                     <div class="btn-wrapper">
                         <button class="menu-bar-button-dangerous" name="command" value="block">
-                            <fmt:message bundle="${bundle}" key="button.block"/>
-                        </button>
-                    </div>
-                    <div class="btn-wrapper">
-                        <button class="menu-bar-button-dangerous" name="command" value="delete">
-                            <fmt:message bundle="${bundle}" key="button.delete"/>
+                            <fmt:message bundle="${bundle}" key="button.reject_request"/>
                         </button>
                     </div>
                 </div>
@@ -123,56 +118,65 @@
         <div class="content-container">
             <div class="content-unit-container">
                 <label class="details-label">
-                    ID: ${request.id}
+                    Request ID: ${request.id}
                 </label>
             </div>
             <div class="content-unit-container">
                 <label class="details-label">
-                    Username: ${request.username}
+                    Customer's username: ${request.user.username}
                 </label>
             </div>
             <div class="content-unit-container">
                 <label class="details-label">
-                    Email: ${user.email}
+                    From: ${request.departureLocation}
                 </label>
             </div>
             <div class="content-unit-container">
                 <label class="details-label">
-                    Role: ${user.role}
+                    To: ${request.arrivalLocation}
                 </label>
             </div>
             <div class="content-unit-container">
                 <label class="details-label">
-                    Blocked: ${user.blocked}
+                    Seats required: ${request.passengersQuantity}
                 </label>
             </div>
-            <c:if test="${not empty requests}">
-                <div class="content-unit-container pre-scrollable">
+            <div class="content-unit-container">
+                <label class="details-label">
+                    Room for baggage required: ${request.load}
+                </label>
+            </div>
+            <c:if test="${not empty cars}">
+                <div class="p-b-20 content-unit-container pre-scrollable black-border">
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>Request ID</th>
-                            <th>Departure location</th>
-                            <th>Arrival location</th>
-                            <th>Passengers quantity</th>
-                            <th>Load Volume</th>
+                            <th>Car ID</th>
+                            <th>Car Model</th>
+                            <th>Reg. Number</th>
+                            <th>Driver</th>
+                            <th>Load Capacity</th>
+                            <th>Passenger Capacity</th>
+                            <th>State</th>
                             <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                        <c:forEach var="request" items="${requests}">
+                        <c:forEach var="car" items="${cars}">
                             <tr>
-                                <td>${request.id}</td>
-                                <td>${request.departureLocation}</td>
-                                <td>${request.arrivalLocation}</td>
-                                <td>${request.passengersQuantity}</td>
-                                <td>${request.load}</td>
+                                <td>${car.id}</td>
+                                <td>${car.carName}</td>
+                                <td>${car.registrationNumber}</td>
+                                <td>${car.driver.username}</td>
+                                <td>${car.loadCapacity}</td>
+                                <td>${car.passengerCapacity}</td>
+                                <td>${car.carStatus}</td>
                                 <td class="p-b-5 p-t-5 p-r-5 p-l-5">
                                     <form action="${pageContext.request.contextPath}/controller"
                                           method="post">
                                         <input type="hidden" name="user_id" value="${user.id}"/>
-                                        <button class="table-btn" name="command" value="users_more">
-                                            <fmt:message bundle="${bundle}" key="button.details"/>
+                                        <button class="table-btn-green" name="command" value="users_more">
+                                            <fmt:message bundle="${bundle}" key="button.assign_car"/>
                                         </button>
                                     </form>
                                 </td>
@@ -182,47 +186,12 @@
                     </table>
                 </div>
             </c:if>
-            <c:if test="${not empty orders}">
-                <div class="content-unit-container pre-scrollable">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>Order ID</th>
-                            <th>Departure location</th>
-                            <th>Arrival location</th>
-                            <th>Driver</th>
-                            <th>Car</th>
-                            <th>Is Complete</th>
-                            <c:if test="${role_id == 1}">
-                                <th></th>
-                            </c:if>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach var="order" items="${orders}">
-                            <tr>
-                                <td>${order.id}</td>
-                                <td>${order.departureLocation}</td>
-                                <td>${order.arrivalLocation}</td>
-                                <td>${order.driver.username}</td>
-                                <td>${order.car.carName}</td>
-                                <td>${order.isComplete}</td>
-                                <c:if test="${role_id == 1}">
-                                    <td class="p-b-5 p-t-5 p-r-5 p-l-5">
-                                        <form action="${pageContext.request.contextPath}/controller"
-                                              method="post">
-                                            <input type="hidden" name="user_id" value="${user.id}"/>
-                                            <button class="table-btn" name="command" value="users_more">
-                                                <fmt:message bundle="${bundle}" key="button.details"/>
-                                            </button>
-                                        </form>
-                                    </td>
-                                </c:if>
-                            </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
+            <c:if test="${empty cars}">
+            <div class="content-unit-container">
+                <label class="details-label uppercase">
+                    There are no cars that match the request at the moment
+                </label>
+            </div>
             </c:if>
         </div>
     </div>

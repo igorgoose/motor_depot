@@ -12,7 +12,6 @@ import by.schepov.motordepot.pool.ConnectionPool;
 import by.schepov.motordepot.pool.ProxyConnection;
 import by.schepov.motordepot.specification.Column;
 import by.schepov.motordepot.specification.Specification;
-import by.schepov.motordepot.specification.impl.user.GetAllUsersSpecification;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,36 +21,32 @@ import java.sql.SQLException;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class FindFreeCarSpecification implements Specification<Car> {
+public class FindFreeCarsSpecification implements Specification<Car> {
 
     private int loadCapacityRequired;
     private int passengerCapacityRequired;
     private ConnectionPool pool = ConnectionPool.INSTANCE;
 
-    private static final Logger LOGGER = LogManager.getLogger(FindFreeCarSpecification.class);
+    private static final Logger LOGGER = LogManager.getLogger(FindFreeCarsSpecification.class);
 
-    public static final String QUERY = "SELECT users.id id, user_id, departure_location, arrival_location, car_id, orders.driver_id driver_id," +
-            " users.login user_login, users.password user_password, users.role_id user_role_id," +
-            " users.email user_email, users.is_blocked user_blocked," +
-            " drivers.login driver_login, drivers.password driver_password, drivers.role_id driver_role_id," +
-            " drivers.email driver_email, drivers.is_blocked driver_blocked, " +
-            "user_roles.role user_role, driver_roles.role driver_role, " +
-            " registration_number, cars.name_id car_name_id, load_capacity, passenger_capacity, status_id, " +
-            " car_mds.name model_name, car_brds.name brand_name, " +
+    public static final String QUERY = "select c.id id, status_id, c.driver_id driver_id, registration_number, name_id, " +
+            "load_capacity, passenger_capacity, cb.name brand_name, cm.name model_name, " +
+            "login, password, email, role, is_blocked, " +
             "cs.status car_status " +
-            "FROM motor_depot.orders as orders " +
-            "LEFT JOIN motor_depot.users as users on user_id = users.id " +
-            "LEFT JOIN motor_depot.users as drivers on driver_id = drivers.id " +
-            "LEFT JOIN motor_depot.roles as user_roles on user_roles.id = users.role_id " +
-            "LEFT JOIN motor_depot.roles as driver_roles on driver_roles.id = drivers.role_id " +
-            "LEFT JOIN motor_depot.cars as cars on car_id = cars.id " +
-            "LEFT JOIN motor_depot.car_statuses as cs on cars.status_id = cs.id " +
-            "LEFT JOIN motor_depot.car_names cn on cars.name_id = cn.id " +
-            "LEFT JOIN motor_depot.car_models car_mds on cn.model_id = car_mds.id " +
-            "LEFT JOIN motor_depot.car_brands car_brds on cn.brand_id = car_brds.id";
+            "from motor_depot.orders o " +
+            "right join motor_depot.cars c on c.id = o.car_id " +
+            "left join motor_depot.users dr on dr.id = c.driver_id " +
+            "left join motor_depot.roles r on dr.role_id = r.id " +
+            "left join motor_depot.car_names cn on cn.id = c.name_id " +
+            "left join motor_depot.car_models cm on cn.model_id = cm.id " +
+            "left join  motor_depot.car_brands cb on cb.id = cn.brand_id " +
+            "left join motor_depot.car_statuses cs on cs.id = c.status_id " +
+            "WHERE status_id = 1 and load_capacity > ? and passenger_capacity > ? " +
+            "group by id " +
+            "having count(*) = sum(is_complete) or sum(is_complete) is null";
 
 
-    public FindFreeCarSpecification(int loadCapacityRequired, int passengerCapacityRequired){
+    public FindFreeCarsSpecification(int loadCapacityRequired, int passengerCapacityRequired) {
         this.loadCapacityRequired = loadCapacityRequired;
         this.passengerCapacityRequired = passengerCapacityRequired;
     }
@@ -60,6 +55,8 @@ public class FindFreeCarSpecification implements Specification<Car> {
     public Set<Car> execute() throws SpecificationException {
         try (ProxyConnection connection = pool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(QUERY)) {
+            preparedStatement.setInt(1, loadCapacityRequired);
+            preparedStatement.setInt(2, passengerCapacityRequired);
             ResultSet resultSet = preparedStatement.executeQuery();
             ResultSetCarBuilder carBuilder = new ResultSetCarBuilder(resultSet);
             ResultSetUserBuilder driverBuilder = new ResultSetUserBuilder(resultSet);

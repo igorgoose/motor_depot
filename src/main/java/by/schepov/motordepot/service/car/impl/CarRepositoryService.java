@@ -6,6 +6,7 @@ import by.schepov.motordepot.exception.repository.RepositoryException;
 import by.schepov.motordepot.repository.impl.car.CarRepository;
 import by.schepov.motordepot.service.RepositoryService;
 import by.schepov.motordepot.service.car.CarService;
+import by.schepov.motordepot.specification.impl.car.FindFreeCarsSpecification;
 import by.schepov.motordepot.specification.impl.car.GetAllCarsSpecification;
 
 import java.util.Set;
@@ -29,6 +30,15 @@ public class CarRepositoryService extends RepositoryService<Car> implements CarS
     public Set<Car> getAllCars() throws CarServiceException {
         try {
             return repository.execute(new GetAllCarsSpecification());
+        } catch (RepositoryException e) {
+            throw new CarServiceException(e);
+        }
+    }
+
+    @Override
+    public Set<Car> findFreeCars(int loadCapacityRequired, int passengerCapacityRequired) throws CarServiceException {
+        try {
+            return repository.execute(new FindFreeCarsSpecification(loadCapacityRequired, passengerCapacityRequired));
         } catch (RepositoryException e) {
             throw new CarServiceException(e);
         }
