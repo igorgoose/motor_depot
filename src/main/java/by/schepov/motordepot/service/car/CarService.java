@@ -7,4 +7,6 @@ import java.util.Set;
 
 public interface CarService {
     Set<Car> getAllCars() throws CarServiceException;
+    Set<Car> findFreeCars(int loadCapacityRequired, int passengerCapacityRequired) throws CarServiceException;
+    Set<Car> findCarById(int id) throws CarServiceException;
 }

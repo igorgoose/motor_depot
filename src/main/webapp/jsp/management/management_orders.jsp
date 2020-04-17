@@ -128,17 +128,18 @@
             </div>
         </form>
         <div class="content-container">
-            <div class="content-unit-container">
-                <table class="profile-table">
+            <div class="content-unit-container pre-scrollable full-height">
+                <table class="table">
                     <thead>
                     <tr>
                         <th>Order ID</th>
                         <th>User</th>
+                        <th>Driver</th>
+                        <th>Car</th>
                         <th>From</th>
                         <th>To</th>
-                        <th>Departure Time</th>
-                        <th>Arrival Time</th>
                         <th>Is Complete</th>
+                        <th> </th>
                     </tr>
                     </thead>
                     <tbody>
@@ -146,16 +147,16 @@
                         <tr>
                             <td>${order.id}</td>
                             <td>${order.user.username}</td>
-                            <td>${order.route.departureLocation}</td>
-                            <td>${order.route.arrivalLocation}</td>
-                            <td>${order.route.departureTime}</td>
-                            <td>${order.route.arrivalTime}</td>
-                            <td>${order.isComplete}</td>
+                            <td>${order.driver.username}</td>
+                            <td>${order.car.carName}</td>
+                            <td>${order.departureLocation}</td>
+                            <td>${order.arrivalLocation}</td>
+                            <td>${order.complete}</td>
                             <td class="p-b-5 p-t-5 p-r-5 p-l-5">
                                 <form action="${pageContext.request.contextPath}/controller"
                                       method="post">
-                                    <input type="hidden" name="user_id" value="${user.id}"/>
-                                    <button class="table-btn" name="command" value="users_more">
+                                    <input type="hidden" name="user_id" value="${order.id}"/>
+                                    <button class="table-btn-blue" name="command" value="users_more">
                                         <fmt:message bundle="${bundle}" key="button.details"/>
                                     </button>
                                 </form>

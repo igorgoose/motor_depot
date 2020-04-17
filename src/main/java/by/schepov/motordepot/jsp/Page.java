@@ -2,6 +2,7 @@ package by.schepov.motordepot.jsp;
 
 public enum Page {
 
+    REQUEST_VERIFICATION("/jsp/functions/request_verification.jsp"),
     MANAGEMENT("/jsp/management/management.jsp"),
     MANAGEMENT_REQUESTS("/jsp/management/management_requests.jsp"),
     MANAGEMENT_USERS("/jsp/management/management_users.jsp"),
@@ -11,7 +12,9 @@ public enum Page {
     AUTHORIZE("/jsp/authorize.jsp"),
     SIGN_UP("/jsp/signup.jsp"),
     PROFILE("/jsp/profile.jsp"),
-    ERROR("/jsp/error.jsp"), USER_DETAILS("/jsp/functions/user_details.jsp");
+    ERROR("/jsp/error.jsp"),
+    USER_DETAILS("/jsp/functions/user_details.jsp"),
+    SUBMIT_ORDER("/jsp/functions/submit_order.jsp");
 
     private String name;
 

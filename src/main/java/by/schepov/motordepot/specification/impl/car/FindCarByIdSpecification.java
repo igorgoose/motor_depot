@@ -12,7 +12,7 @@ import by.schepov.motordepot.pool.ConnectionPool;
 import by.schepov.motordepot.pool.ProxyConnection;
 import by.schepov.motordepot.specification.Column;
 import by.schepov.motordepot.specification.Specification;
-import by.schepov.motordepot.specification.impl.user.GetAllUsersSpecification;
+import by.schepov.motordepot.specification.impl.request.FindRequestByIdSpecification;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,10 +22,10 @@ import java.sql.SQLException;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class GetAllCarsSpecification implements Specification<Car> {
+public class FindCarByIdSpecification implements Specification<Car> {
 
+    private int id;
     private static final Logger LOGGER = LogManager.getLogger(GetAllCarsSpecification.class);
-
     private static final String QUERY = "SELECT cars.id, driver_id, registration_number, name_id, load_capacity, " +
             "passenger_capacity, status_id, " +
             "st.status car_status, brand_id, model_id, brands.name brand_name, models.name model_name, " +
@@ -36,14 +36,19 @@ public class GetAllCarsSpecification implements Specification<Car> {
             "LEFT JOIN motor_depot.car_statuses as st on status_id = st.id " +
             "LEFT JOIN motor_depot.car_names as names on name_id = names.id " +
             "LEFT JOIN motor_depot.car_brands as brands on brand_id = brands.id " +
-            "LEFT JOIN motor_depot.car_models as models on model_id = models.id";
-
+            "LEFT JOIN motor_depot.car_models as models on model_id = models.id " +
+            "WHERE cars.id = ?";
     private ConnectionPool pool = ConnectionPool.INSTANCE;
+
+    public FindCarByIdSpecification(int id){
+        this.id = id;
+    }
 
     @Override
     public Set<Car> execute() throws SpecificationException {
         try (ProxyConnection connection = pool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(QUERY)) {
+            preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             ResultSetCarBuilder carBuilder = new ResultSetCarBuilder(resultSet);
             ResultSetUserBuilder driverBuilder = new ResultSetUserBuilder(resultSet);

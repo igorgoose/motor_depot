@@ -16,7 +16,7 @@ import org.apache.logging.log4j.Logger;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class FindRequestByUserIdSpecification implements Specification<Request> {
@@ -44,7 +44,7 @@ public class FindRequestByUserIdSpecification implements Specification<Request> 
             preparedStatement.setInt(1, userId);
             //todo resolve code duplication issue
             ResultSet resultSet = preparedStatement.executeQuery();
-            HashSet<Request> requests = new HashSet<>();
+            LinkedHashSet<Request> requests = new LinkedHashSet<>();
             ResultSetUserBuilder userBuilder = new ResultSetUserBuilder(resultSet);
             ResultSetRequestBuilder requestBuilder = new ResultSetRequestBuilder(resultSet);
             User user;
@@ -62,7 +62,7 @@ public class FindRequestByUserIdSpecification implements Specification<Request> 
                         .withDepartureLocation(Column.DEPARTURE_LOCATION)
                         .withArrivalLocation(Column.ARRIVAL_LOCATION)
                         .withUser(user)
-                        .withLoad(Column.LOAD_KG)
+                        .withLoad(Column.LOAD_CAPACITY)
                         .withPassengersQuantity(Column.PASSENGERS_QUANTITY)
                         .build());
             }

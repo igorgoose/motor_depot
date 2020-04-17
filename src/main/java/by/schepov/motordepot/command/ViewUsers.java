@@ -29,8 +29,8 @@ public class ViewUsers implements Executable {
     public Page execute(HttpServletRequest request, HttpServletResponse response) {
         User user = (User) request.getSession().getAttribute(SessionAttribute.USER.getName());
         if (user == null) {
-            LOGGER.error("Null user was provided by session!");
-            return Page.ERROR;
+            LOGGER.warn("Null user was provided by session!");
+            return Page.HOME;
         }
         try {
             Set<User> users = userService.getAllUsers();

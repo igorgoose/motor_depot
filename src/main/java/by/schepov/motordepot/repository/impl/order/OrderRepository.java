@@ -36,6 +36,10 @@ public enum OrderRepository implements Repository<Order> {
         }
     }
 
+    @Override
+    public void delete(Order item) {
+        throw new UnsupportedOperationException();
+    }
 
 
 }

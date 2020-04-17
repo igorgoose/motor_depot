@@ -155,7 +155,7 @@ iframe {
 
 .container-login100 {
     width: 100%;
-    min-height: 100vh;
+    min-height: 95vh;
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
@@ -164,7 +164,7 @@ iframe {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    padding: 0px;
+    padding: 0;
 
     /*temporary*/
     /*border: 1px solid black;*/
@@ -254,7 +254,7 @@ iframe {
     line-height: 1.2;
     text-transform: uppercase;
 
-    width: 33%;
+    width: 50%;
     padding: 0 20px;
     height: 48px;
     background-color: #827ffe;
