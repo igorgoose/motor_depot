@@ -31,6 +31,15 @@ public class OrderRepositoryService extends RepositoryService<Order> implements 
     }
 
     @Override
+    public void insertOrder(Order order) throws OrderServiceException {
+        try {
+            repository.insert(order);
+        } catch (RepositoryException e) {
+            throw new OrderServiceException(e);
+        }
+    }
+
+    @Override
     public Set<Order> getAllOrders() throws OrderServiceException {
         try {
             return repository.execute(new GetAllOrdersSpecification());

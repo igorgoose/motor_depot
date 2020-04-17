@@ -38,6 +38,10 @@ public enum UserRepository implements Repository<User> {
         }
     }
 
+    @Override
+    public void delete(User item) {
+        throw new UnsupportedOperationException();
+    }
 
 
 }

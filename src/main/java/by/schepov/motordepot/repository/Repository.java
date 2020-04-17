@@ -8,6 +8,7 @@ import java.util.Set;
 
 public interface Repository<T> {
     void insert(T item) throws RepositoryException;
+    void delete(T item) throws RepositoryException;
     default Set<T> execute(Specification<T> query) throws RepositoryException {
         try {
             return query.execute();

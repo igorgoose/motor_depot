@@ -174,8 +174,9 @@
                                 <td class="p-b-5 p-t-5 p-r-5 p-l-5">
                                     <form action="${pageContext.request.contextPath}/controller"
                                           method="post">
-                                        <input type="hidden" name="user_id" value="${user.id}"/>
-                                        <button class="table-btn-green" name="command" value="users_more">
+                                        <input type="hidden" name="request_id" value="${request.id}"/>
+                                        <input type="hidden" name="car_id" value="${car.id}"/>
+                                        <button class="table-btn-green" name="command" value="assign_car">
                                             <fmt:message bundle="${bundle}" key="button.assign_car"/>
                                         </button>
                                     </form>

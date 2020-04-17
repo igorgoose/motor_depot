@@ -42,6 +42,15 @@ public class RequestRepositoryService extends RepositoryService<Request> impleme
     }
 
     @Override
+    public void deleteRequest(Request request) throws RequestServiceException {
+        try {
+            repository.delete(request);
+        } catch (RepositoryException e) {
+            throw new RequestServiceException(e);
+        }
+    }
+
+    @Override
     public Set<Request> getAllRequests() throws RequestServiceException {
         try {
             return repository.execute(new GetAllRequestsSpecification());

@@ -42,5 +42,10 @@ public enum CarRepository implements Repository<Car> {
         }
     }
 
+    @Override
+    public void delete(Car item) {
+        throw new UnsupportedOperationException();
+    }
+
 
 }

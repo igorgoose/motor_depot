@@ -12,7 +12,9 @@ public enum Page {
     AUTHORIZE("/jsp/authorize.jsp"),
     SIGN_UP("/jsp/signup.jsp"),
     PROFILE("/jsp/profile.jsp"),
-    ERROR("/jsp/error.jsp"), USER_DETAILS("/jsp/functions/user_details.jsp");
+    ERROR("/jsp/error.jsp"),
+    USER_DETAILS("/jsp/functions/user_details.jsp"),
+    SUBMIT_ORDER("/jsp/functions/submit_order.jsp");
 
     private String name;
 

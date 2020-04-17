@@ -14,7 +14,7 @@ public enum JSPParameter {
     REPEAT_PASSWORD("repeat_password"),
     DEPARTURE_LOCATION("departure_location"),
     ARRIVAL_LOCATION("arrival_location"), PASSENGER_QUANTITY("passenger_quantity"),
-    LOAD_VOLUME("load_volume"), REQUEST_ID("request_id");
+    LOAD_VOLUME("load_volume"), REQUEST_ID("request_id"), CAR_ID("car_id");
 
     private String value;
 

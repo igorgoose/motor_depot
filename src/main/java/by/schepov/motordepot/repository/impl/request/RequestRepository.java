@@ -21,8 +21,9 @@ public enum RequestRepository implements Repository<Request> {
     private ConnectionPool pool = ConnectionPool.INSTANCE;
 
     private static final Logger LOGGER = LogManager.getLogger(RequestRepository.class);
-    private static final String INSERT_QUERY = "INSERT INTO requests(user_id, departure_location, arrival_location, passengers_quantity, load_capacity)" +
+    private static final String INSERT_QUERY = "INSERT INTO motor_depot.requests(user_id, departure_location, arrival_location, passengers_quantity, load_capacity)" +
             " VALUES(?, ?, ?, ?, ?)";
+    public static final String DELETE_QUERY = "DELETE FROM motor_depot.requests WHERE id = ?";
 
     @Override
     public void insert(Request item) throws RepositoryException {
@@ -33,6 +34,18 @@ public enum RequestRepository implements Repository<Request> {
             preparedStatement.setString(3, item.getArrivalLocation());
             preparedStatement.setInt(4, item.getPassengersQuantity());
             preparedStatement.setInt(5, item.getLoad());
+            preparedStatement.executeUpdate();
+        } catch (ConnectionPoolException | SQLException e) {
+            LOGGER.warn(e);
+            throw new RepositoryException(e);
+        }
+    }
+
+    @Override
+    public void delete(Request item) throws RepositoryException {
+        try (ProxyConnection connection = pool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_QUERY)) {
+            preparedStatement.setInt(1, item.getId());
             preparedStatement.executeUpdate();
         } catch (ConnectionPoolException | SQLException e) {
             LOGGER.warn(e);

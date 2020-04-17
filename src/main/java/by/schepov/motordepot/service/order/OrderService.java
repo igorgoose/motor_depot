@@ -6,6 +6,7 @@ import by.schepov.motordepot.exception.service.OrderServiceException;
 import java.util.Set;
 
 public interface OrderService {
+    void insertOrder(Order order) throws OrderServiceException;
     Set<Order> getAllOrders() throws OrderServiceException;
     Set<Order> getOrdersByUserId(int id) throws OrderServiceException;
 }

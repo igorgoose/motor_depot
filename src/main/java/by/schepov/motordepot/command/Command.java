@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 
 public enum Command {
 
+    SUBMIT_ORDER("submit_order", new SubmitOrder(), 1),
+    ASSIGN_CAR("assign_car", new AssignCar(), 1),
     VERIFY_REQUEST("verify_request", new VerifyRequest(), 1),
     CREATE_REQUEST("create_request", new CreateRequest(), 3),
     VIEW_USER_DETAILS("user_details", new ViewUserDetails(), 1),

@@ -21,17 +21,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Iterator;
 import java.util.Set;
 
-public class VerifyRequest implements Executable {
+public class AssignCar implements Executable {
 
-    private static final Logger LOGGER = LogManager.getLogger(ViewCars.class);
+    private static final Logger LOGGER = LogManager.getLogger(AssignCar.class);
 
     //todo create ServiceFactory
-    private final CarService carService = CarRepositoryService.getInstance();
     private final RequestService requestService = RequestRepositoryService.getInstance();
-
-    VerifyRequest(){
-
-    }
+    private final CarService carService = CarRepositoryService.getInstance();
 
     @Override
     public Page execute(HttpServletRequest request, HttpServletResponse response) {
@@ -40,24 +36,33 @@ public class VerifyRequest implements Executable {
             LOGGER.warn("Null user was provided by session!");
             return Page.HOME;
         }
-        try {
+        try{
+            int carId = Integer.parseInt(request.getParameter(JSPParameter.CAR_ID.getName()));
             int requestId = Integer.parseInt(request.getParameter(JSPParameter.REQUEST_ID.getName()));
             Set<Request> requests = requestService.getRequestById(requestId);
-            Iterator<Request> iterator = requests.iterator();
+            Iterator<Request> requestIterator = requests.iterator();
             Request foundRequest;
-            if(iterator.hasNext()){
-                foundRequest = iterator.next();
+            if(requestIterator.hasNext()){
+                foundRequest = requestIterator.next();
             } else {
+                LOGGER.warn("Request hasn't been found(id=" + requestId + ")");
                 return Page.ERROR;
             }
+            Set<Car> cars = carService.findCarById(carId);
+            Iterator<Car> carIterator = cars.iterator();
+            Car foundCar;
+            if(carIterator.hasNext()){
+                foundCar = carIterator.next();
+            } else {
+                LOGGER.warn("Car hasn't been found(id=" + carId + ")");
+                return Page.ERROR;
+            }
+            request.setAttribute(RequestAttribute.CAR.getName(), foundCar);
             request.setAttribute(RequestAttribute.REQUEST.getName(), foundRequest);
-            Set<Car> cars = carService.findFreeCars(foundRequest.getLoad(), foundRequest.getPassengersQuantity());
-            request.setAttribute(RequestAttribute.CARS.getName(), cars);
-        } catch (CarServiceException | RequestServiceException e) {
+            return Page.SUBMIT_ORDER;
+        } catch (RequestServiceException | CarServiceException e) {
             LOGGER.warn(e);
             return Page.ERROR;
         }
-        return Page.REQUEST_VERIFICATION;
     }
-
 }
