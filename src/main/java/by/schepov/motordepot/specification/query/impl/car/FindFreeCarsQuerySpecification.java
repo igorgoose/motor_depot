@@ -41,7 +41,7 @@ public class FindFreeCarsQuerySpecification implements QuerySpecification<Car> {
             "left join motor_depot.car_models cm on cn.model_id = cm.id " +
             "left join  motor_depot.car_brands cb on cb.id = cn.brand_id " +
             "left join motor_depot.car_statuses cs on cs.id = c.status_id " +
-            "WHERE status_id = 1 and load_capacity > ? and passenger_capacity > ? " +
+            "WHERE status_id = 1 and load_capacity >= ? and passenger_capacity >= ? " +
             "group by id " +
             "having count(*) = sum(is_complete) or sum(is_complete) is null";
 
