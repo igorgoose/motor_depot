@@ -1,12 +1,18 @@
 package by.schepov.motordepot.command;
 
+import by.schepov.motordepot.entity.Order;
 import by.schepov.motordepot.entity.Request;
 import by.schepov.motordepot.entity.User;
+import by.schepov.motordepot.exception.service.OrderServiceException;
 import by.schepov.motordepot.exception.service.RequestServiceException;
 import by.schepov.motordepot.jsp.Page;
 import by.schepov.motordepot.jsp.RequestAttribute;
-import by.schepov.motordepot.service.impl.RequestService;
+import by.schepov.motordepot.service.order.OrderService;
+import by.schepov.motordepot.service.order.impl.OrderRepositoryService;
+import by.schepov.motordepot.service.request.RequestService;
+import by.schepov.motordepot.service.request.impl.RequestRepositoryService;
 import by.schepov.motordepot.session.SessionAttribute;
+import com.google.protobuf.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,8 +22,9 @@ import java.util.Set;
 
 public class ViewProfile implements Executable {
 
-    private final RequestService requestService = RequestService.getInstance();
-    private static final Logger LOGGER = LogManager.getLogger(SignUp.class);
+    private final OrderService orderService = OrderRepositoryService.getInstance();
+    private final RequestService requestService = RequestRepositoryService.getInstance();
+    private static final Logger LOGGER = LogManager.getLogger(ViewProfile.class);
 
     ViewProfile(){
 
@@ -27,18 +34,19 @@ public class ViewProfile implements Executable {
     public Page execute(HttpServletRequest request, HttpServletResponse response) {
         User user = (User) request.getSession().getAttribute(SessionAttribute.USER.getName());
         if(user == null){
-            LOGGER.error("Null user was provided by session!");
-            return Page.ERROR;
+            LOGGER.warn("Null user was provided by session!");
+            return Page.HOME;
         }
         try {
-            Set<Request> requests = requestService.findRequestsByUserId(user.getId());
-            request.setAttribute(RequestAttribute.USERNAME.getName(), user.getUsername());
-            request.setAttribute(RequestAttribute.ROLE.getName(), user.getRole().getId());
+            int id = user.getId();
+            Set<Order> orders = orderService.getOrdersByUserId(id);
+            Set<Request> requests = requestService.getRequestsByUserId(id);
             request.setAttribute(RequestAttribute.REQUESTS.getName(), requests);
-        } catch (RequestServiceException e) {
+            request.setAttribute(RequestAttribute.ORDERS.getName(), orders);
+        } catch (OrderServiceException | RequestServiceException e) {
             LOGGER.warn(e);
             return Page.ERROR;
         }
-        return Page.PROFILE;
+        return Page.USER_DETAILS;
     }
 }

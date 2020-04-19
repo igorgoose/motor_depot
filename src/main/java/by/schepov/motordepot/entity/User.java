@@ -9,7 +9,7 @@ public class User implements Serializable {
     private String password;
     private Role role;
     private String email;
-    private boolean isBlocked;
+    private boolean blocked;
 
     public int getId() {
         return id;
@@ -52,11 +52,11 @@ public class User implements Serializable {
     }
 
     public boolean isBlocked() {
-        return isBlocked;
+        return blocked;
     }
 
     public void setBlocked(boolean blocked) {
-        isBlocked = blocked;
+        this.blocked = blocked;
     }
 
     @Override
@@ -65,7 +65,7 @@ public class User implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
         return id == user.id &&
-                isBlocked == user.isBlocked &&
+                blocked == user.blocked &&
                 Objects.equals(username, user.username) &&
                 Objects.equals(password, user.password) &&
                 role == user.role &&
@@ -74,7 +74,7 @@ public class User implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password, role, email, isBlocked);
+        return Objects.hash(id, username, password, role, email, blocked);
     }
 
     @Override
@@ -85,7 +85,7 @@ public class User implements Serializable {
                 ", password='" + password + '\'' +
                 ", role=" + role +
                 ", email='" + email + '\'' +
-                ", isBlocked=" + isBlocked +
+                ", isBlocked=" + blocked +
                 '}';
     }
 }

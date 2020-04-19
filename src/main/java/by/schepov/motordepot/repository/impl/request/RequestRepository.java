@@ -7,7 +7,7 @@ import by.schepov.motordepot.exception.specification.SpecificationException;
 import by.schepov.motordepot.pool.ConnectionPool;
 import by.schepov.motordepot.pool.ProxyConnection;
 import by.schepov.motordepot.repository.Repository;
-import by.schepov.motordepot.specification.Specification;
+import by.schepov.motordepot.specification.query.QuerySpecification;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,16 +21,19 @@ public enum RequestRepository implements Repository<Request> {
     private ConnectionPool pool = ConnectionPool.INSTANCE;
 
     private static final Logger LOGGER = LogManager.getLogger(RequestRepository.class);
-    private static final String INSERT_QUERY = "INSERT INTO requests(user_id, route_id, passengers_quantity, load_kg) VALUES(?, ?, ?, ?)";
+    private static final String INSERT_QUERY = "INSERT INTO motor_depot.requests(user_id, departure_location, arrival_location, passengers_quantity, load_capacity)" +
+            " VALUES(?, ?, ?, ?, ?)";
+    public static final String DELETE_QUERY = "DELETE FROM motor_depot.requests WHERE id = ?";
 
     @Override
     public void insert(Request item) throws RepositoryException {
         try (ProxyConnection connection = pool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_QUERY)) {
             preparedStatement.setInt(1, item.getUser().getId());
-            preparedStatement.setInt(2, item.getRoute().getId());
-            preparedStatement.setInt(3, item.getPassengersQuantity());
-            preparedStatement.setInt(4, item.getLoad());
+            preparedStatement.setString(2, item.getDepartureLocation());
+            preparedStatement.setString(3, item.getArrivalLocation());
+            preparedStatement.setInt(4, item.getPassengersQuantity());
+            preparedStatement.setInt(5, item.getLoad());
             preparedStatement.executeUpdate();
         } catch (ConnectionPoolException | SQLException e) {
             LOGGER.warn(e);
@@ -39,7 +42,19 @@ public enum RequestRepository implements Repository<Request> {
     }
 
     @Override
-    public Set<Request> execute(Specification<Request> query) throws RepositoryException {
+    public void delete(Request item) throws RepositoryException {
+        try (ProxyConnection connection = pool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_QUERY)) {
+            preparedStatement.setInt(1, item.getId());
+            preparedStatement.executeUpdate();
+        } catch (ConnectionPoolException | SQLException e) {
+            LOGGER.warn(e);
+            throw new RepositoryException(e);
+        }
+    }
+
+    @Override
+    public Set<Request> executeQuery(QuerySpecification<Request> query) throws RepositoryException {
         try {
             return query.execute();
         } catch (SpecificationException e) {

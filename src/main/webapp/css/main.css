@@ -155,7 +155,7 @@ iframe {
 
 .container-login100 {
     width: 100%;
-    min-height: 100vh;
+    min-height: 95vh;
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
@@ -164,7 +164,7 @@ iframe {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    padding: 0px;
+    padding: 0;
 
     /*temporary*/
     /*border: 1px solid black;*/
@@ -208,7 +208,7 @@ iframe {
     padding: 0 20px;
     height: 48px;
     background-color: #827ffe;
-    border-radius: 3px;
+    /*border-radius: 3px;*/
     -webkit-transition: all 0.4s;
     -o-transition: all 0.4s;
     -moz-transition: all 0.4s;
@@ -240,6 +240,13 @@ iframe {
     display: block;
 }
 
+.toolbar-top-btn-wrapper{
+    padding: 5px;
+    width: 20%;
+    float: left;
+}
+
+
 .toolbar-top-btn {
     font-family: Ubuntu-Bold;
     font-size: 16px;
@@ -251,7 +258,7 @@ iframe {
     padding: 0 20px;
     height: 48px;
     background-color: #827ffe;
-    border-radius: 3px;
+    /*border-radius: 3px;*/
     -webkit-transition: all 0.4s;
     -o-transition: all 0.4s;
     -moz-transition: all 0.4s;
@@ -290,7 +297,6 @@ iframe {
     display: block;
 }
 
-
 /*------------------------------------------------------------------
 [ Input ]*/
 
@@ -298,7 +304,7 @@ iframe {
     width: 100%;
     position: relative;
     background-color: #e6e6e6;
-    border: 1px solid black;
+    border: 1px solid transparent;
     border-radius: 3px;
     align-items: center;
 }
@@ -311,15 +317,15 @@ iframe {
     display: none;
 }
 
-input:valid:not(:placeholder-shown){
+input:valid{
     border: 1px solid green;
 }
 
-input:invalid:not(:placeholder-shown){
+input:invalid{
     border: 1px solid red;
 }
 
-input:invalid:not(:placeholder-shown) + .form__error {
+input:invalid + .form__error {
     display: block;
 }
 
@@ -338,9 +344,10 @@ input:invalid:not(:placeholder-shown) + .form__error {
     padding: 0 20px 0 38px;
 }
 
-.input100-label {
+.input-label {
     font-family: Ubuntu-Bold;
     color: #403866;
+    text-transform: uppercase;
     font-size: 14px;
 }
 
@@ -602,8 +609,7 @@ input:invalid:not(:placeholder-shown) + .form__error {
 .wrap-content-unit{
     /*border: 1px solid black;*/
     width: 95%;
-    background: #fff;
-    border-radius: 10px;
+    background: transparent;
     position: relative;
 }
 

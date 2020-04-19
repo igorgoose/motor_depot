@@ -1,17 +1,11 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: igorg
-  Date: 22.03.2020
-  Time: 13:57
-  To change this template use File | Settings | File Templates.
---%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <fmt:setLocale value="${locale}"/>
 <fmt:setBundle basename="locale" var="bundle" />
 <html>
 <head>
-    <title>Login</title>
+    <title><fmt:message bundle="${bundle}" key="signup.title"/></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -44,21 +38,85 @@
         <div class="toolbar-top">
             <form class="toolbar-top-form flex-sb flex-w" action="controller" method="post">
                 <div class="dropdown toolbar-top-btn">
-                    <button class="dropbtn" disabled><fmt:message bundle="${bundle}" key="button.language"/></button>
+                    <button class="dropbtn" disabled>
+                        <fmt:message bundle="${bundle}" key="button.language"/>
+                    </button>
                     <div class="dropdown-content">
                         <button name="language" value="ru">Русский</button>
                         <button name="language" value="en">English</button>
                     </div>
                 </div>
                 <div class="dropdown toolbar-top-btn">
-                    <button class="dropbtn" disabled><fmt:message bundle="${bundle}" key="button.role.guest"/></button>
+                    <c:if test="${role_id == 4}">
+                        <button class="dropbtn" disabled>
+                            <fmt:message bundle="${bundle}" key="button.role.guest"/>
+                        </button>
+                        <div class="dropdown-content">
+                            <button name="address" value="HOME">
+                                <fmt:message bundle="${bundle}" key="button.home"/>
+                            </button>
+                        </div>
+                    </c:if>
+                    <c:if test="${role_id < 4}">
+                        <c:if test="${role_id == 3}">
+                            <button class="dropbtn" disabled>
+                                    ${username}[
+                                <fmt:message bundle="${bundle}" key="button.role.user"/>
+                                ]
+                            </button>
+                            <div class="dropdown-content">
+                                <button name="address" value="USER_DETAILS">
+                                    <fmt:message bundle="${bundle}" key="button.profile"/>
+                                </button>
+                                <button name="command" value="log_out">
+                                    <fmt:message bundle="${bundle}" key="button.logout"/>
+                                </button>
+                            </div>
+                        </c:if>
+                        <c:if test="${role_id == 2}">
+                            <button class="dropbtn" disabled>
+                                    ${username}[
+                                <fmt:message bundle="${bundle}" key="button.role.driver"/>
+                                ]
+                            </button>
+                            <div class="dropdown-content">
+                                <button name="address" value="USER_DETAILS">
+                                    <fmt:message bundle="${bundle}" key="button.profile"/>
+                                </button>
+                                <button name="address" value="MANAGEMENT">
+                                    <fmt:message bundle="${bundle}" key="button.management"/>
+                                </button>
+                                <button name="command" value="log_out">
+                                    <fmt:message bundle="${bundle}" key="button.logout"/>
+                                </button>
+                            </div>
+                        </c:if>
+                        <c:if test="${role_id == 1}">
+                            <button class="dropbtn" disabled>
+                                    ${username}[
+                                <fmt:message bundle="${bundle}" key="button.role.admin"/>
+                                ]
+                            </button>
+                            <div class="dropdown-content">
+                                <button name="address" value="USER_DETAILS">
+                                    <fmt:message bundle="${bundle}" key="button.profile"/>
+                                </button>
+                                <button name="address" value="MANAGEMENT">
+                                    <fmt:message bundle="${bundle}" key="button.management"/>
+                                </button>
+                                <button name="command" value="log_out">
+                                    <fmt:message bundle="${bundle}" key="button.logout"/>
+                                </button>
+                            </div>
+                        </c:if>
+                    </c:if>
                 </div>
             </form>
         </div>
     </div>
     <div class="container-login100">
         <div class="wrap-login100 p-t-50 p-b-90">
-            <form class="login100-form validate-form flex-sb flex-w" action="controller" method="post">
+            <form class="login100-form validate-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller" method="post">
 					<span class="login100-form-title p-b-51">
 						<fmt:message bundle="${bundle}" key="signup.title"/>
 					</span>
@@ -66,7 +124,9 @@
                 <div class="wrap-input100 validate-input m-b-16" data-validate = "Username is required">
                     <label>
                         <input class="input100" type="text" name="username" placeholder="Username"
-                               pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$">
+                               pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$"
+                               required
+                        >
                         <span class="form__error"> <fmt:message bundle="${bundle}" key="form.error.username"/></span>
                     </label>
                     <span class="focus-input100"></span>
@@ -75,7 +135,9 @@
                 <div class="wrap-input100 validate-input m-b-16" data-validate = "Username is required">
                     <label>
                         <input class="input100" type="email" name="email" placeholder="Email"
-                               pattern="^[A-Za-z0-9+_.-]+@(.+)(\.(.+))+$">
+                               pattern="^[A-Za-z0-9+_.-]+@(.+)(\.(.+))+$"
+                               required
+                        >
                         <span class="form__error"> <fmt:message bundle="${bundle}" key="form.error.email"/></span>
                     </label>
                     <span class="focus-input100"></span>
@@ -85,6 +147,7 @@
                     <label>
                         <input class="input100" type="password" name="password" placeholder="Password"
                                pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+                               required
                         >
                         <span class="form__error"> <fmt:message bundle="${bundle}" key="form.error.password"/></span>
                     </label>
@@ -95,6 +158,7 @@
                     <label>
                         <input class="input100" type="password" name="repeat_password" placeholder="Repeat password"
                                pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+                               required
                         >
                         <span class="form__error"> <fmt:message bundle="${bundle}" key="form.error.password"/></span>
                     </label>
@@ -107,11 +171,13 @@
                     </button>
                 </div>
 
+            </form>
+            <form class="login100-form validate-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller" method="post">
                 <div class="container-login100-form-btn m-t-17">
-                    <button class="login100-form-btn" name="command" value="redirect">
+                    <button class="login100-form-btn" name="address" value="HOME">
                         <fmt:message bundle="${bundle}" key="button.home"/>
                     </button>
-                    <input class="invisible" name="address" value="HOME"/>
+<%--                    <input class="invisible" name="address" value="HOME"/>--%>
                 </div>
             </form>
         </div>

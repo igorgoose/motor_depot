@@ -3,9 +3,19 @@ package by.schepov.motordepot.jsp;
 import by.schepov.motordepot.exception.InvalidParameterException;
 
 public enum RequestAttribute {
+
+    USER("user"),
+    MANAGEMENT_REQUEST("management_request"),
     ROLE("role"),
+    ROLE_ID("role_id"),
     USERNAME("username"),
-    REQUESTS("requests");
+    REQUESTS("requests"),
+    USERS("users"),
+    CARS("cars"),
+    ORDERS("orders"),
+    REQUEST("request"),
+    CAR("car"),
+    ORDER("order");
 
     private String value;
 

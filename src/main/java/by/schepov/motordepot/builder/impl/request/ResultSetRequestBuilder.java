@@ -2,7 +2,6 @@ package by.schepov.motordepot.builder.impl.request;
 
 import by.schepov.motordepot.builder.Builder;
 import by.schepov.motordepot.entity.Request;
-import by.schepov.motordepot.entity.Route;
 import by.schepov.motordepot.entity.User;
 import by.schepov.motordepot.specification.Column;
 
@@ -33,13 +32,18 @@ public class ResultSetRequestBuilder implements Builder<Request> {
         return this;
     }
 
-    public ResultSetRequestBuilder withUser(User user) throws SQLException {
+    public ResultSetRequestBuilder withUser(User user) {
         requestBuilder.withUser(user);
         return this;
     }
 
-    public ResultSetRequestBuilder withRoute(Route route) throws SQLException {
-        requestBuilder.withRoute(route);
+    public ResultSetRequestBuilder withDepartureLocation(Column departureLocationColumn) throws SQLException {
+        requestBuilder.withDepartureLocation(resultSet.getString(departureLocationColumn.getName()));
+        return this;
+    }
+
+    public ResultSetRequestBuilder withArrivalLocation(Column arrivalLocationColumn) throws SQLException {
+        requestBuilder.withArrivalLocation(resultSet.getString(arrivalLocationColumn.getName()));
         return this;
     }
 

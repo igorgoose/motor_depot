@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Login</title>
+    <title>a</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -10,7 +10,7 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href=fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+    <link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
     <!--===============================================================================================-->
@@ -24,93 +24,66 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="css/util.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+
     <!--===============================================================================================-->
 </head>
 <body>
 
 <div class="limiter">
-    <div class="toolbar-top-container">
-        <div class="toolbar-top">
-            <form class="toolbar-top-form flex-sb flex-w" action="controller" method="post">
-<!--                <button class="toolbar-top-btn" name="language" required>-->
-<!--                    <option>Русский</option>-->
-<!--                    <option>English</option>-->
-<!--                </button>-->
-                <div class="dropdown_ toolbar-top-btn">
-                    <button class="dropbtn">Language</button>
-                    <div class="dropdown-content">
-                        <button>Русский</button>
-                        <button>English</button>
-                    </div>
+    <div class="toolbar-top">
+        <form class="toolbar-top-form flex-sb flex-w" action="controller" method="post">
+            <div class="dropdown toolbar-top-btn">
+                <button class="dropbtn" disabled>
+                    "button.language"
+                </button>
+                <div class="dropdown-content">
+                    <button name="language" value="ru">Русский</button>
+                    <button name="language" value="en">English</button>
                 </div>
-                <div class="dropdown_ toolbar-top-btn">
-                    <button class="dropbtn">user</button>
-                    <div class="dropdown-content">
-                        <button>Profile</button>
-                        <button>log out</button>
-                    </div>
-                </div>
-<!--                <button class="toolbar-top-btn five">-->
-<!--                    &lt;!&ndash;                        <fmt:message bundle="${bundle}" key="home.login.button"/>&ndash;&gt;-->
-<!--                    button2-->
-<!--                </button>-->
-            </form>
-        </div>
-    </div>
-
-    <div class="container-login100">
-        <div class="wrap-login100 p-t-50 p-b-90">
-            <form class="login100-form validate-form flex-sb flex-w" action="controller" method="post">
-					<span class="login100-form-title p-b-51">
-<!--						<fmt:message bundle="${bundle}" key="home.login.label"/>-->
-                        home.login.label
-					</span>
-
-
-                <div class="wrap-input100 validate-input m-b-16" data-validate="Username is required">
-                    <label>
-                        <input class="input100" type="text" name="username">
-                        <label class="input100-label m-l-4">
-                            <!--                            <fmt:message bundle="${bundle}" key="home.username"/>-->
-                            home.username
-                        </label>
-
-                    </label>
-                    <span class="focus-input100"></span>
-                </div>
-
-
-                <div class="wrap-input100 validate-input m-b-16" data-validate="Password is required">
-                    <label>
-                        <input class="input100" type="password" name="pass">
-                        <label class="input100-label m-l-4">
-                            <!--                            <fmt:message bundle="${bundle}" key="home.password"/>-->
-                            home.password
-                        </label>
-                    </label>
-                    <span class="focus-input100"></span>
-                </div>
-
-                <div class="container-login100-form-btn m-t-17">
-                    <button class="login100-form-btn">
-                        <!--                        <fmt:message bundle="${bundle}" key="home.login.button"/>-->
-                        home.login.button
+            </div>
+            <div class="dropdown toolbar-top-btn">
+                <button class="dropbtn" disabled>
+                    button.role.admin
+                </button>
+                <div class="dropdown-content">
+                    <button name="command" value="view_profile">
+                        button.profile
+                    </button>
+                    <button name="command" value="log_out">
+                        button.logout
                     </button>
                 </div>
+            </div>
+        </form>
+    </div>
+    <div class="container-login100">
+        <div class="wrap-login100 p-t-50 p-b-90">
 
-                <div class="container-login100-form-btn m-t-17">
-<!--                    <%&#45;&#45;                    <button class="login100-form-btn" name="command" value="redirect">&#45;&#45;%>-->
-<!--                    <%&#45;&#45;                        <fmt:message bundle="${bundle}" key="button.signup"/>&#45;&#45;%>-->
-<!--                    <%&#45;&#45;                    </button>&#45;&#45;%>-->
-                    <a class="login100-form-btn" href="/jsp/signup.jsp">
-                        signup
-                    </a>
+            <div class="container-login100-form-btn m-t-17">
+                <label class="input-label p-l-5">
+                    Passengers:
+                </label>
+                <select name = "passenger_quantity" class="custom-select my-select">
+                    <option value="1">Less than 4</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                </select>
+            </div>
 
-                </div>
+            <div class="container-login100-form-btn m-t-17">
+                <button class="login100-form-btn" name="command" value="sign_up">
+                    button.signup
+                </button>
+            </div>
 
-            </form>
         </div>
     </div>
 </div>
+
+
 </body>
 </html>

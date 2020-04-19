@@ -6,7 +6,7 @@ import by.schepov.motordepot.entity.User;
 import by.schepov.motordepot.exception.service.UserServiceException;
 import by.schepov.motordepot.jsp.JSPParameter;
 import by.schepov.motordepot.jsp.Page;
-import by.schepov.motordepot.service.impl.UserService;
+import by.schepov.motordepot.service.user.impl.UserRepositoryService;
 import by.schepov.motordepot.session.SessionAttribute;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 public class SignUp implements Executable {
 
     private final UserBuilder userBuilder = new UserBuilder();
-    private final UserService userService = UserService.getInstance();
+    private final UserRepositoryService userService = UserRepositoryService.getInstance();
     private static final Logger LOGGER = LogManager.getLogger(SignUp.class);
 
     SignUp(){
