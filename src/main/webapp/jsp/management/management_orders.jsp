@@ -183,7 +183,7 @@
                                     <form action="${pageContext.request.contextPath}/controller"
                                           method="post">
                                         <input type="hidden" name="order_id" value="${order.id}"/>
-                                        <button class="table-btn-blue" name="command" value="users_more">
+                                        <button class="table-btn-green" name="command" value="report_order_completion">
                                             <fmt:message bundle="${bundle}" key="button.finish_order"/>
                                         </button>
                                     </form>

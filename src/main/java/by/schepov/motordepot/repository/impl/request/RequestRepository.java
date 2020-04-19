@@ -7,7 +7,7 @@ import by.schepov.motordepot.exception.specification.SpecificationException;
 import by.schepov.motordepot.pool.ConnectionPool;
 import by.schepov.motordepot.pool.ProxyConnection;
 import by.schepov.motordepot.repository.Repository;
-import by.schepov.motordepot.specification.Specification;
+import by.schepov.motordepot.specification.query.QuerySpecification;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -54,7 +54,7 @@ public enum RequestRepository implements Repository<Request> {
     }
 
     @Override
-    public Set<Request> execute(Specification<Request> query) throws RepositoryException {
+    public Set<Request> executeQuery(QuerySpecification<Request> query) throws RepositoryException {
         try {
             return query.execute();
         } catch (SpecificationException e) {

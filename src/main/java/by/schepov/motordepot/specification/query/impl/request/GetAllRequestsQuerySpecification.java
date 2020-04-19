@@ -1,4 +1,4 @@
-package by.schepov.motordepot.specification.impl.request;
+package by.schepov.motordepot.specification.query.impl.request;
 
 import by.schepov.motordepot.builder.impl.request.ResultSetRequestBuilder;
 import by.schepov.motordepot.builder.impl.user.ResultSetUserBuilder;
@@ -9,7 +9,7 @@ import by.schepov.motordepot.exception.specification.SpecificationException;
 import by.schepov.motordepot.pool.ConnectionPool;
 import by.schepov.motordepot.pool.ProxyConnection;
 import by.schepov.motordepot.specification.Column;
-import by.schepov.motordepot.specification.Specification;
+import by.schepov.motordepot.specification.query.QuerySpecification;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,30 +19,23 @@ import java.sql.SQLException;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class FindRequestByIdSpecification implements Specification<Request> {
+public class GetAllRequestsQuerySpecification implements QuerySpecification<Request> {
 
-    private int id;
-    private static final Logger LOGGER = LogManager.getLogger(FindRequestByIdSpecification.class);
+    private static final Logger LOGGER = LogManager.getLogger(GetAllRequestsQuerySpecification.class);
     private static final String QUERY =
             "SELECT reqs.id, passengers_quantity, load_capacity, departure_location, arrival_location," +
                     "user_id, login, password, role_id, email, is_blocked, role " +
                     "FROM motor_depot.requests as reqs " +
                     "LEFT JOIN motor_depot.users as users on user_id = users.id " +
-                    "LEFT JOIN motor_depot.roles as roles on role_id = roles.id " +
-                    "WHERE reqs.id = ?";
+                    "LEFT JOIN motor_depot.roles as roles on role_id = roles.id ";
 
     private final ConnectionPool pool = ConnectionPool.INSTANCE;
-
-    public FindRequestByIdSpecification(int id){
-        this.id = id;
-    }
 
     @Override
     public Set<Request> execute() throws SpecificationException {
         try (ProxyConnection connection = pool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(QUERY)) {
             //todo resolve code duplication issue
-            preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             LinkedHashSet<Request> requests = new LinkedHashSet<>();
             ResultSetUserBuilder userBuilder = new ResultSetUserBuilder(resultSet);

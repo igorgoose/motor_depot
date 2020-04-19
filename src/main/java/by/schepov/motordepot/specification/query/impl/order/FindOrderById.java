@@ -1,7 +1,8 @@
-package by.schepov.motordepot.specification.impl.order;
+package by.schepov.motordepot.specification.query.impl.order;
 
 import by.schepov.motordepot.builder.impl.car.ResultSetCarBuilder;
 import by.schepov.motordepot.builder.impl.carname.ResultSetCarNameBuilder;
+import by.schepov.motordepot.builder.impl.order.OrderBuilder;
 import by.schepov.motordepot.builder.impl.order.ResultSetOrderBuilder;
 import by.schepov.motordepot.builder.impl.user.ResultSetUserBuilder;
 import by.schepov.motordepot.entity.Car;
@@ -13,7 +14,7 @@ import by.schepov.motordepot.exception.specification.SpecificationException;
 import by.schepov.motordepot.pool.ConnectionPool;
 import by.schepov.motordepot.pool.ProxyConnection;
 import by.schepov.motordepot.specification.Column;
-import by.schepov.motordepot.specification.Specification;
+import by.schepov.motordepot.specification.query.QuerySpecification;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,11 +24,10 @@ import java.sql.SQLException;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class FindOrderByDriverIdAndIsCompletedSpecification implements Specification<Order> {
+public class FindOrderById implements QuerySpecification<Order> {
 
-    private int driverId;
-    private boolean isCompleted;
-    private static final Logger LOGGER = LogManager.getLogger(FindOrdersByUserIdSpecification.class);
+    private int id;
+    private static final Logger LOGGER = LogManager.getLogger(GetAllOrdersQuerySpecification.class);
     private static final String QUERY =
             "SELECT orders.id id, user_id, departure_location, arrival_location, car_id, orders.driver_id driver_id, is_complete, " +
                     " users.login user_login, users.password user_password, users.role_id user_role_id," +
@@ -48,20 +48,20 @@ public class FindOrderByDriverIdAndIsCompletedSpecification implements Specifica
                     "LEFT JOIN motor_depot.car_names cn on cars.name_id = cn.id " +
                     "LEFT JOIN motor_depot.car_models car_mds on cn.model_id = car_mds.id " +
                     "LEFT JOIN motor_depot.car_brands car_brds on cn.brand_id = car_brds.id " +
-                    "WHERE orders.driver_id = ? AND is_complete = ?";
-    private final ConnectionPool pool = ConnectionPool.INSTANCE;
+                    "WHERE orders.id = ?";
 
-    public FindOrderByDriverIdAndIsCompletedSpecification(int driverId, boolean isCompleted) {
-        this.isCompleted = isCompleted;
-        this.driverId = driverId;
+    private final ConnectionPool pool = ConnectionPool.INSTANCE;
+    private final OrderBuilder orderBuilder = new OrderBuilder();
+
+    public FindOrderById(int id){
+        this.id = id;
     }
 
     @Override
     public Set<Order> execute() throws SpecificationException {
-        try (ProxyConnection connection = pool.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(QUERY)) {
-            preparedStatement.setInt(1, driverId);
-            preparedStatement.setBoolean(2, isCompleted);
+        try(ProxyConnection connection = pool.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERY)){
+            preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             ResultSetUserBuilder userBuilder = new ResultSetUserBuilder(resultSet);
             ResultSetCarBuilder carBuilder = new ResultSetCarBuilder(resultSet);
@@ -90,7 +90,7 @@ public class FindOrderByDriverIdAndIsCompletedSpecification implements Specifica
                 orders.add(order);
             }
             return orders;
-        } catch (SQLException | ConnectionPoolException e) {
+        } catch (ConnectionPoolException | SQLException e) {
             LOGGER.warn(e);
             throw new SpecificationException(e);
         }

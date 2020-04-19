@@ -1,4 +1,4 @@
-package by.schepov.motordepot.specification.impl.car;
+package by.schepov.motordepot.specification.query.impl.car;
 
 import by.schepov.motordepot.builder.impl.car.ResultSetCarBuilder;
 import by.schepov.motordepot.builder.impl.carname.ResultSetCarNameBuilder;
@@ -11,7 +11,7 @@ import by.schepov.motordepot.exception.specification.SpecificationException;
 import by.schepov.motordepot.pool.ConnectionPool;
 import by.schepov.motordepot.pool.ProxyConnection;
 import by.schepov.motordepot.specification.Column;
-import by.schepov.motordepot.specification.Specification;
+import by.schepov.motordepot.specification.query.QuerySpecification;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,10 +21,10 @@ import java.sql.SQLException;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class FindCarsByDriverIdSpecification implements Specification<Car> {
+public class FindCarsByDriverIdQuerySpecification implements QuerySpecification<Car> {
 
     private int driverId;
-    private static final Logger LOGGER = LogManager.getLogger(GetAllCarsSpecification.class);
+    private static final Logger LOGGER = LogManager.getLogger(GetAllCarsQuerySpecification.class);
     private static final String QUERY = "SELECT cars.id, driver_id, registration_number, name_id, load_capacity, " +
             "passenger_capacity, status_id, " +
             "st.status car_status, brand_id, model_id, brands.name brand_name, models.name model_name, " +
@@ -40,7 +40,7 @@ public class FindCarsByDriverIdSpecification implements Specification<Car> {
 
     private ConnectionPool pool = ConnectionPool.INSTANCE;
 
-    public FindCarsByDriverIdSpecification(int driverId){
+    public FindCarsByDriverIdQuerySpecification(int driverId){
         this.driverId = driverId;
     }
 

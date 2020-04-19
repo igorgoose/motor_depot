@@ -12,7 +12,10 @@ public enum RequestAttribute {
     REQUESTS("requests"),
     USERS("users"),
     CARS("cars"),
-    ORDERS("orders"), REQUEST("request"), CAR("car");
+    ORDERS("orders"),
+    REQUEST("request"),
+    CAR("car"),
+    ORDER("order");
 
     private String value;
 
