@@ -89,7 +89,7 @@
                         <button name="address" value="HOME">
                             <fmt:message bundle="${bundle}" key="button.create_request"/>
                         </button>
-                        <button name="command" value="view_profile">
+                        <button name="address" value="USER_DETAILS">
                             <fmt:message bundle="${bundle}" key="button.profile"/>
                         </button>
                         <button name="command" value="log_out">
@@ -101,32 +101,53 @@
         </form>
     </div>
     <div class="ultimate-container">
-        <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller" method="post">
-            <div class="menu-bar">
-                <div class="btn-wrapper">
-                    <button class="menu-bar-button" name="command" value="view_requests">
-                        <fmt:message bundle="${bundle}" key="button.requests"/>
-                    </button>
+        <c:if test="${role_id == 1}">
+            <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller" method="post">
+                <div class="menu-bar">
+                    <div class="btn-wrapper">
+                        <button class="menu-bar-button" name="command" value="view_requests">
+                            <fmt:message bundle="${bundle}" key="button.requests"/>
+                        </button>
+                    </div>
+                    <div class="btn-wrapper">
+                        <button class="menu-bar-button" name="command" value="view_users">
+                            <fmt:message bundle="${bundle}" key="button.users"/>
+                        </button>
+                    </div>
+                    <div class="btn-wrapper">
+                        <button class="menu-bar-button" name="command" value="view_cars">
+                            <fmt:message bundle="${bundle}" key="button.cars"/>
+                        </button>
+                    </div>
+                    <div class="btn-wrapper">
+                        <button class="menu-bar-button" name="command" value="view_orders">
+                            <fmt:message bundle="${bundle}" key="button.orders"/>
+                        </button>
+                    </div>
                 </div>
-                <div class="btn-wrapper">
-                    <button class="menu-bar-button" name="command" value="view_users">
-                        <fmt:message bundle="${bundle}" key="button.users"/>
-                    </button>
+            </form>
+        </c:if>
+        <c:if test="${role_id == 2}">
+            <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller" method="post">
+                <div class="menu-bar">
+                    <div class="btn-wrapper">
+                        <button class="menu-bar-button" name="command" value="view_current_order">
+                            <fmt:message bundle="${bundle}" key="button.current_order"/>
+                        </button>
+                    </div>
+                    <div class="btn-wrapper">
+                        <button class="menu-bar-button" name="command" value="view_completed_orders">
+                            <fmt:message bundle="${bundle}" key="button.completed_orders"/>
+                        </button>
+                    </div>
+                    <div class="btn-wrapper">
+                        <button class="menu-bar-button" name="command" value="view_my_cars">
+                            <fmt:message bundle="${bundle}" key="button.my_cars"/>
+                        </button>
+                    </div>
                 </div>
-                <div class="btn-wrapper">
-                    <button class="menu-bar-button" name="command" value="view_cars">
-                        <fmt:message bundle="${bundle}" key="button.cars"/>
-                    </button>
-                </div>
-                <div class="btn-wrapper">
-                    <button class="menu-bar-button" name="command" value="view_orders">
-                        <fmt:message bundle="${bundle}" key="button.orders"/>
-                    </button>
-                </div>
-            </div>
-        </form>
-        <div class="content-container">
-        </div>
+            </form>
+        </c:if>
     </div>
 </div>
 

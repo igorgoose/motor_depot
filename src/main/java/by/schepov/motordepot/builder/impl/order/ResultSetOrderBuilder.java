@@ -59,4 +59,9 @@ public class ResultSetOrderBuilder implements Builder<Order> {
         return this;
     }
 
+    public ResultSetOrderBuilder withComplete(Column completeColumn) throws SQLException {
+        orderBuilder.withComplete(resultSet.getBoolean(completeColumn.getName()));
+        return this;
+    }
+
 }

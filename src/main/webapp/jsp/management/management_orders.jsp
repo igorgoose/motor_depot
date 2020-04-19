@@ -90,7 +90,7 @@
                         <button name="address" value="HOME">
                             <fmt:message bundle="${bundle}" key="button.create_request"/>
                         </button>
-                        <button name="command" value="view_profile">
+                        <button name="address" value="USER_DETAILS">
                             <fmt:message bundle="${bundle}" key="button.profile"/>
                         </button>
                         <button name="command" value="log_out">
@@ -102,31 +102,55 @@
         </form>
     </div>
     <div class="ultimate-container">
-        <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller"
-              method="post">
-            <div class="menu-bar">
-                <div class="btn-wrapper">
-                    <button class="menu-bar-button" name="command" value="view_requests">
-                        <fmt:message bundle="${bundle}" key="button.requests"/>
-                    </button>
+        <c:if test="${role_id == 1}">
+            <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller"
+                  method="post">
+                <div class="menu-bar">
+                    <div class="btn-wrapper">
+                        <button class="menu-bar-button" name="command" value="view_requests">
+                            <fmt:message bundle="${bundle}" key="button.requests"/>
+                        </button>
+                    </div>
+                    <div class="btn-wrapper">
+                        <button class="menu-bar-button" name="command" value="view_users">
+                            <fmt:message bundle="${bundle}" key="button.users"/>
+                        </button>
+                    </div>
+                    <div class="btn-wrapper">
+                        <button class="menu-bar-button" name="command" value="view_cars">
+                            <fmt:message bundle="${bundle}" key="button.cars"/>
+                        </button>
+                    </div>
+                    <div class="btn-wrapper">
+                        <button class="menu-bar-button" name="command" value="view_orders">
+                            <fmt:message bundle="${bundle}" key="button.orders"/>
+                        </button>
+                    </div>
                 </div>
-                <div class="btn-wrapper">
-                    <button class="menu-bar-button" name="command" value="view_users">
-                        <fmt:message bundle="${bundle}" key="button.users"/>
-                    </button>
+            </form>
+        </c:if>
+        <c:if test="${role_id == 2}">
+            <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller"
+                  method="post">
+                <div class="menu-bar">
+                    <div class="btn-wrapper">
+                        <button class="menu-bar-button" name="command" value="view_current_order">
+                            <fmt:message bundle="${bundle}" key="button.current_order"/>
+                        </button>
+                    </div>
+                    <div class="btn-wrapper">
+                        <button class="menu-bar-button" name="command" value="view_completed_orders">
+                            <fmt:message bundle="${bundle}" key="button.completed_orders"/>
+                        </button>
+                    </div>
+                    <div class="btn-wrapper">
+                        <button class="menu-bar-button" name="command" value="view_my_cars">
+                            <fmt:message bundle="${bundle}" key="button.my_cars"/>
+                        </button>
+                    </div>
                 </div>
-                <div class="btn-wrapper">
-                    <button class="menu-bar-button" name="command" value="view_cars">
-                        <fmt:message bundle="${bundle}" key="button.cars"/>
-                    </button>
-                </div>
-                <div class="btn-wrapper">
-                    <button class="menu-bar-button" name="command" value="view_orders">
-                        <fmt:message bundle="${bundle}" key="button.orders"/>
-                    </button>
-                </div>
-            </div>
-        </form>
+            </form>
+        </c:if>
         <div class="content-container">
             <div class="content-unit-container pre-scrollable full-height">
                 <table class="table">
@@ -139,7 +163,9 @@
                         <th>From</th>
                         <th>To</th>
                         <th>Is Complete</th>
-                        <th> </th>
+                        <c:if test="${role_id == 2}">
+                            <th></th>
+                        </c:if>
                     </tr>
                     </thead>
                     <tbody>
@@ -152,18 +178,19 @@
                             <td>${order.departureLocation}</td>
                             <td>${order.arrivalLocation}</td>
                             <td>${order.complete}</td>
-                            <td class="p-b-5 p-t-5 p-r-5 p-l-5">
-                                <form action="${pageContext.request.contextPath}/controller"
-                                      method="post">
-                                    <input type="hidden" name="user_id" value="${order.id}"/>
-                                    <button class="table-btn-blue" name="command" value="users_more">
-                                        <fmt:message bundle="${bundle}" key="button.details"/>
-                                    </button>
-                                </form>
-                            </td>
+                            <c:if test="${role_id == 2 && !order.complete}">
+                                <td class="p-b-5 p-t-5 p-r-5 p-l-5">
+                                    <form action="${pageContext.request.contextPath}/controller"
+                                          method="post">
+                                        <input type="hidden" name="order_id" value="${order.id}"/>
+                                        <button class="table-btn-blue" name="command" value="users_more">
+                                            <fmt:message bundle="${bundle}" key="button.finish_order"/>
+                                        </button>
+                                    </form>
+                                </td>
+                            </c:if>
                         </tr>
                     </c:forEach>
-
                     </tbody>
                 </table>
             </div>

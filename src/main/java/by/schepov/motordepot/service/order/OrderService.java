@@ -9,4 +9,5 @@ public interface OrderService {
     void insertOrder(Order order) throws OrderServiceException;
     Set<Order> getAllOrders() throws OrderServiceException;
     Set<Order> getOrdersByUserId(int id) throws OrderServiceException;
+    Set<Order> getOrdersByDriverIdAndIsCompleted(int id, boolean isCompleted)throws OrderServiceException;
 }

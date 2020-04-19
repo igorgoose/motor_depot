@@ -7,6 +7,7 @@ import by.schepov.motordepot.repository.impl.car.CarRepository;
 import by.schepov.motordepot.service.RepositoryService;
 import by.schepov.motordepot.service.car.CarService;
 import by.schepov.motordepot.specification.impl.car.FindCarByIdSpecification;
+import by.schepov.motordepot.specification.impl.car.FindCarsByDriverIdSpecification;
 import by.schepov.motordepot.specification.impl.car.FindFreeCarsSpecification;
 import by.schepov.motordepot.specification.impl.car.GetAllCarsSpecification;
 
@@ -49,6 +50,15 @@ public class CarRepositoryService extends RepositoryService<Car> implements CarS
     public Set<Car> findCarById(int id) throws CarServiceException {
         try {
             return repository.execute(new FindCarByIdSpecification(id));
+        } catch (RepositoryException e) {
+            throw new CarServiceException(e);
+        }
+    }
+
+    @Override
+    public Set<Car> getCarsByDriverId(int id) throws CarServiceException {
+        try {
+            return repository.execute(new FindCarsByDriverIdSpecification(id));
         } catch (RepositoryException e) {
             throw new CarServiceException(e);
         }

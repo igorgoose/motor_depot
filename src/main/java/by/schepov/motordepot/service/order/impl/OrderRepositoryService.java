@@ -7,6 +7,7 @@ import by.schepov.motordepot.repository.Repository;
 import by.schepov.motordepot.repository.impl.order.OrderRepository;
 import by.schepov.motordepot.service.RepositoryService;
 import by.schepov.motordepot.service.order.OrderService;
+import by.schepov.motordepot.specification.impl.order.FindOrderByDriverIdAndIsCompletedSpecification;
 import by.schepov.motordepot.specification.impl.order.FindOrdersByUserIdSpecification;
 import by.schepov.motordepot.specification.impl.order.GetAllOrdersSpecification;
 import org.apache.logging.log4j.LogManager;
@@ -53,6 +54,16 @@ public class OrderRepositoryService extends RepositoryService<Order> implements 
     public Set<Order> getOrdersByUserId(int id) throws OrderServiceException {
         try {
             return repository.execute(new FindOrdersByUserIdSpecification(id));
+        } catch (RepositoryException e) {
+            LOGGER.warn(e);
+            throw new OrderServiceException(e);
+        }
+    }
+
+    @Override
+    public Set<Order> getOrdersByDriverIdAndIsCompleted(int id, boolean isCompleted) throws OrderServiceException {
+        try {
+            return repository.execute(new FindOrderByDriverIdAndIsCompletedSpecification(id, isCompleted));
         } catch (RepositoryException e) {
             LOGGER.warn(e);
             throw new OrderServiceException(e);

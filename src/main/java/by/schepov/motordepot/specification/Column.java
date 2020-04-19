@@ -34,7 +34,7 @@ public enum Column {
     DRIVER_ROLE("driver_role"), DRIVER_BLOCKED("driver_blocked"),
     CAR_ID("car_id"),
     MODEL_NAME("model_name"), BRAND_NAME("brand_name"), CAR_NAME_ID("car_name_id"),
-    CAR_STATUS("car_status");
+    CAR_STATUS("car_status"), IS_COMPLETE("is_complete");
 
     private String name;
 

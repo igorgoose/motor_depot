@@ -42,4 +42,8 @@ public class OrderBuilder extends AbstractBuilder<Order> {
         return this;
     }
 
+    public OrderBuilder withComplete(boolean complete){
+        object.setComplete(complete);
+        return this;
+    }
 }

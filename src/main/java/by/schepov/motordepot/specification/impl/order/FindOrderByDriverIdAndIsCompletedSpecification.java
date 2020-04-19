@@ -23,8 +23,10 @@ import java.sql.SQLException;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class FindOrdersByUserIdSpecification implements Specification<Order> {
+public class FindOrderByDriverIdAndIsCompletedSpecification implements Specification<Order> {
 
+    private int driverId;
+    private boolean isCompleted;
     private static final Logger LOGGER = LogManager.getLogger(FindOrdersByUserIdSpecification.class);
     private static final String QUERY =
             "SELECT orders.id id, user_id, departure_location, arrival_location, car_id, orders.driver_id driver_id, is_complete, " +
@@ -46,20 +48,20 @@ public class FindOrdersByUserIdSpecification implements Specification<Order> {
                     "LEFT JOIN motor_depot.car_names cn on cars.name_id = cn.id " +
                     "LEFT JOIN motor_depot.car_models car_mds on cn.model_id = car_mds.id " +
                     "LEFT JOIN motor_depot.car_brands car_brds on cn.brand_id = car_brds.id " +
-                    "WHERE user_id = ?";
-
+                    "WHERE orders.driver_id = ? AND is_complete = ?";
     private final ConnectionPool pool = ConnectionPool.INSTANCE;
-    private int id;
 
-    public FindOrdersByUserIdSpecification(int id) {
-        this.id = id;
+    public FindOrderByDriverIdAndIsCompletedSpecification(int driverId, boolean isCompleted) {
+        this.isCompleted = isCompleted;
+        this.driverId = driverId;
     }
 
     @Override
     public Set<Order> execute() throws SpecificationException {
         try (ProxyConnection connection = pool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(QUERY)) {
-            preparedStatement.setInt(1, id);
+            preparedStatement.setInt(1, driverId);
+            preparedStatement.setBoolean(2, isCompleted);
             ResultSet resultSet = preparedStatement.executeQuery();
             ResultSetUserBuilder userBuilder = new ResultSetUserBuilder(resultSet);
             ResultSetCarBuilder carBuilder = new ResultSetCarBuilder(resultSet);
@@ -93,5 +95,4 @@ public class FindOrdersByUserIdSpecification implements Specification<Order> {
             throw new SpecificationException(e);
         }
     }
-
 }

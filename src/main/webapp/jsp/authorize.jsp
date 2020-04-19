@@ -71,7 +71,7 @@
                                 ]
                             </button>
                             <div class="dropdown-content">
-                                <button name="command" value="view_profile">
+                                <button name="address" value="USER_DETAILS">
                                     <fmt:message bundle="${bundle}" key="button.profile"/>
                                 </button>
                                 <button name="command" value="log_out">
@@ -86,7 +86,7 @@
                                 ]
                             </button>
                             <div class="dropdown-content">
-                                <button name="command" value="view_profile">
+                                <button name="address" value="USER_DETAILS">
                                     <fmt:message bundle="${bundle}" key="button.profile"/>
                                 </button>
                                 <button name="address" value="MANAGEMENT">
@@ -104,7 +104,7 @@
                                 ]
                             </button>
                             <div class="dropdown-content">
-                                <button name="command" value="view_profile">
+                                <button name="address" value="USER_DETAILS">
                                     <fmt:message bundle="${bundle}" key="button.profile"/>
                                 </button>
                                 <button name="address" value="MANAGEMENT">
@@ -160,11 +160,6 @@
                 <div class="container-login100-form-btn m-t-17">
                     <button class="login100-form-btn" name="address" value="SIGN_UP">
                         <fmt:message bundle="${bundle}" key="button.signup"/>
-                    </button>
-                </div>
-                <div class="container-login100-form-btn m-t-17">
-                    <button class="login100-form-btn" name="address" value="HOME">
-                        <fmt:message bundle="${bundle}" key="button.home"/>
                     </button>
                 </div>
             </form>

@@ -28,7 +28,7 @@ public class GetAllOrdersSpecification implements Specification<Order> {
 
     private static final Logger LOGGER = LogManager.getLogger(GetAllOrdersSpecification.class);
     private static final String QUERY =
-            "SELECT orders.id id, user_id, departure_location, arrival_location, car_id, orders.driver_id driver_id," +
+            "SELECT orders.id id, user_id, departure_location, arrival_location, car_id, orders.driver_id driver_id, is_complete, " +
                     " users.login user_login, users.password user_password, users.role_id user_role_id," +
                     " users.email user_email, users.is_blocked user_blocked," +
                     " drivers.login driver_login, drivers.password driver_password, drivers.role_id driver_role_id," +
@@ -79,7 +79,7 @@ public class GetAllOrdersSpecification implements Specification<Order> {
                         .withPassengerCapacity(Column.PASSENGER_CAPACITY).withCarName(carName).withRegistrationNumber(Column.REGISTRATION_NUMBER)
                         .withCarStatus(Column.CAR_STATUS).build();
                 Order order = orderBuilder.withId(Column.ID).withDepartureLocation(Column.DEPARTURE_LOCATION).withArrivalLocation(Column.ARRIVAL_LOCATION)
-                        .withDriver(driver).withUser(user).withCar(car).build();
+                        .withDriver(driver).withUser(user).withCar(car).withComplete(Column.IS_COMPLETE).build();
                 orders.add(order);
             }
             return orders;
