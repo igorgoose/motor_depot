@@ -1,7 +1,8 @@
-package by.schepov.motordepot.specification.impl.order;
+package by.schepov.motordepot.specification.query.impl.order;
 
 import by.schepov.motordepot.builder.impl.car.ResultSetCarBuilder;
 import by.schepov.motordepot.builder.impl.carname.ResultSetCarNameBuilder;
+import by.schepov.motordepot.builder.impl.order.OrderBuilder;
 import by.schepov.motordepot.builder.impl.order.ResultSetOrderBuilder;
 import by.schepov.motordepot.builder.impl.user.ResultSetUserBuilder;
 import by.schepov.motordepot.entity.Car;
@@ -13,7 +14,7 @@ import by.schepov.motordepot.exception.specification.SpecificationException;
 import by.schepov.motordepot.pool.ConnectionPool;
 import by.schepov.motordepot.pool.ProxyConnection;
 import by.schepov.motordepot.specification.Column;
-import by.schepov.motordepot.specification.Specification;
+import by.schepov.motordepot.specification.query.QuerySpecification;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,11 +24,12 @@ import java.sql.SQLException;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class FindOrdersByUserIdSpecification implements Specification<Order> {
+public class FindOrderById implements QuerySpecification<Order> {
 
-    private static final Logger LOGGER = LogManager.getLogger(FindOrdersByUserIdSpecification.class);
+    private int id;
+    private static final Logger LOGGER = LogManager.getLogger(GetAllOrdersQuerySpecification.class);
     private static final String QUERY =
-            "SELECT orders.id id, user_id, departure_location, arrival_location, car_id, orders.driver_id driver_id," +
+            "SELECT orders.id id, user_id, departure_location, arrival_location, car_id, orders.driver_id driver_id, is_complete, " +
                     " users.login user_login, users.password user_password, users.role_id user_role_id," +
                     " users.email user_email, users.is_blocked user_blocked," +
                     " drivers.login driver_login, drivers.password driver_password, drivers.role_id driver_role_id," +
@@ -46,19 +48,19 @@ public class FindOrdersByUserIdSpecification implements Specification<Order> {
                     "LEFT JOIN motor_depot.car_names cn on cars.name_id = cn.id " +
                     "LEFT JOIN motor_depot.car_models car_mds on cn.model_id = car_mds.id " +
                     "LEFT JOIN motor_depot.car_brands car_brds on cn.brand_id = car_brds.id " +
-                    "WHERE user_id = ?";
+                    "WHERE orders.id = ?";
 
     private final ConnectionPool pool = ConnectionPool.INSTANCE;
-    private int id;
+    private final OrderBuilder orderBuilder = new OrderBuilder();
 
-    public FindOrdersByUserIdSpecification(int id) {
+    public FindOrderById(int id){
         this.id = id;
     }
 
     @Override
     public Set<Order> execute() throws SpecificationException {
-        try (ProxyConnection connection = pool.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(QUERY)) {
+        try(ProxyConnection connection = pool.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERY)){
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             ResultSetUserBuilder userBuilder = new ResultSetUserBuilder(resultSet);
@@ -84,14 +86,13 @@ public class FindOrdersByUserIdSpecification implements Specification<Order> {
                         .withPassengerCapacity(Column.PASSENGER_CAPACITY).withCarName(carName).withRegistrationNumber(Column.REGISTRATION_NUMBER)
                         .withCarStatus(Column.CAR_STATUS).build();
                 Order order = orderBuilder.withId(Column.ID).withDepartureLocation(Column.DEPARTURE_LOCATION).withArrivalLocation(Column.ARRIVAL_LOCATION)
-                        .withDriver(driver).withUser(user).withCar(car).build();
+                        .withDriver(driver).withUser(user).withCar(car).withComplete(Column.IS_COMPLETE).build();
                 orders.add(order);
             }
             return orders;
-        } catch (SQLException | ConnectionPoolException e) {
+        } catch (ConnectionPoolException | SQLException e) {
             LOGGER.warn(e);
             throw new SpecificationException(e);
         }
     }
-
 }

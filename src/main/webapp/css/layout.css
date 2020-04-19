@@ -146,6 +146,13 @@
     font-size: 24px;
 }
 
+.details-label-warn {
+    font-family: Consolas;
+    font-size: 24px;
+    color: red;
+    text-transform: uppercase;
+}
+
 .table-btn-green {
     font-family: Ubuntu-Bold;
     font-size: 16px;

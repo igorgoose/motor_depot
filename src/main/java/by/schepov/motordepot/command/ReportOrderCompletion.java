@@ -1,22 +1,13 @@
 package by.schepov.motordepot.command;
 
 import by.schepov.motordepot.entity.Order;
-import by.schepov.motordepot.entity.Request;
 import by.schepov.motordepot.entity.User;
 import by.schepov.motordepot.exception.service.OrderServiceException;
-import by.schepov.motordepot.exception.service.RequestServiceException;
-import by.schepov.motordepot.exception.service.UserServiceException;
 import by.schepov.motordepot.jsp.JSPParameter;
 import by.schepov.motordepot.jsp.Page;
 import by.schepov.motordepot.jsp.RequestAttribute;
-import by.schepov.motordepot.service.order.OrderService;
 import by.schepov.motordepot.service.order.impl.OrderRepositoryService;
-import by.schepov.motordepot.service.request.RequestService;
-import by.schepov.motordepot.service.request.impl.RequestRepositoryService;
-import by.schepov.motordepot.service.user.UserService;
-import by.schepov.motordepot.service.user.impl.UserRepositoryService;
 import by.schepov.motordepot.session.SessionAttribute;
-import com.google.protobuf.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -25,12 +16,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Iterator;
 import java.util.Set;
 
-public class ViewUserDetails implements Executable {
+public class ReportOrderCompletion implements Executable {
 
-    private static final Logger LOGGER = LogManager.getLogger(ViewUserDetails.class);
+    private final OrderRepositoryService orderService = OrderRepositoryService.getInstance();
+    private static final Logger LOGGER = LogManager.getLogger(ReportOrderCompletion.class);
 
-    //todo create ServiceFactory
-    private final UserService userService = UserRepositoryService.getInstance();
+    ReportOrderCompletion(){
+
+    }
 
     @Override
     public Page execute(HttpServletRequest request, HttpServletResponse response) {
@@ -40,19 +33,20 @@ public class ViewUserDetails implements Executable {
             return Page.HOME;
         }
         try{
-            int id = Integer.parseInt(request.getParameter(JSPParameter.USER_ID.getName()));
-            Set<User> users = userService.getUsersById(id);
-            Iterator<User> iterator = users.iterator();
+            int orderId = Integer.parseInt(request.getParameter(JSPParameter.ORDER_ID.getName()));
+            Set<Order> orders = orderService.getOrderById(orderId);
+            Iterator<Order> iterator = orders.iterator();
+            Order foundOrder;
             if(iterator.hasNext()){
-                request.setAttribute(RequestAttribute.USER.getName(), iterator.next());
+                foundOrder = iterator.next();
             } else {
                 return Page.ERROR;
             }
-        } catch (UserServiceException e) {
+            request.setAttribute(RequestAttribute.ORDER.getName(), foundOrder);
+        } catch (OrderServiceException e) {
             LOGGER.warn(e);
             return Page.ERROR;
         }
-        return Page.USER_DETAILS;
+        return Page.FINISH_ORDER;
     }
-
 }

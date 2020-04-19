@@ -91,7 +91,7 @@
                                 <fmt:message bundle="${bundle}" key="button.management"/>
                             </button>
                         </c:if>
-                        <button name="command" value="view_profile">
+                        <button name="address" value="USER_DETAILS">
                             <fmt:message bundle="${bundle}" key="button.profile"/>
                         </button>
                         <button name="command" value="log_out">
@@ -108,7 +108,7 @@
                   method="post">
                 <div class="menu-bar">
                     <div class="btn-wrapper">
-                        <button class="menu-bar-button-dangerous" name="command" value="block">
+                        <button class="menu-bar-button-dangerous" name="command" value="reject_request">
                             <fmt:message bundle="${bundle}" key="button.reject_request"/>
                         </button>
                     </div>
@@ -189,7 +189,7 @@
             </c:if>
             <c:if test="${empty cars}">
             <div class="content-unit-container">
-                <label class="details-label uppercase">
+                <label class="details-label-warn">
                     There are no cars that match the request at the moment
                 </label>
             </div>

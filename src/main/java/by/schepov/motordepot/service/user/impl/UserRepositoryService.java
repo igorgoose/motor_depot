@@ -6,9 +6,9 @@ import by.schepov.motordepot.exception.service.UserServiceException;
 import by.schepov.motordepot.repository.impl.user.UserRepository;
 import by.schepov.motordepot.service.RepositoryService;
 import by.schepov.motordepot.service.user.UserService;
-import by.schepov.motordepot.specification.impl.user.FindUserByIdSpecification;
-import by.schepov.motordepot.specification.impl.user.FindUserByUsernameSpecification;
-import by.schepov.motordepot.specification.impl.user.GetAllUsersSpecification;
+import by.schepov.motordepot.specification.query.impl.user.FindUserByIdQuerySpecification;
+import by.schepov.motordepot.specification.query.impl.user.FindUserByUsernameQuerySpecification;
+import by.schepov.motordepot.specification.query.impl.user.GetAllUsersQuerySpecification;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -33,7 +33,7 @@ public class UserRepositoryService extends RepositoryService<User> implements Us
     @Override
     public void insertUser(User user) throws UserServiceException {
         try {
-            Set<User> similarLoginUsers = repository.execute(new FindUserByUsernameSpecification(user.getUsername()));
+            Set<User> similarLoginUsers = repository.executeQuery(new FindUserByUsernameQuerySpecification(user.getUsername()));
             if(similarLoginUsers.size() > 0){
                 throw new UserServiceException("The username is already used");
             }
@@ -47,7 +47,7 @@ public class UserRepositoryService extends RepositoryService<User> implements Us
     @Override
     public void authorizeUser(User user) throws UserServiceException {
         try {
-            Set<User> foundUsers = repository.execute(new FindUserByUsernameSpecification(user.getUsername()));
+            Set<User> foundUsers = repository.executeQuery(new FindUserByUsernameQuerySpecification(user.getUsername()));
             for (User foundUser : foundUsers) {
                 if(foundUser.getPassword().equals(user.getPassword())){
                     user.setId(foundUser.getId());
@@ -66,7 +66,7 @@ public class UserRepositoryService extends RepositoryService<User> implements Us
     @Override
     public Set<User> getAllUsers() throws UserServiceException {
         try {
-            return repository.execute(new GetAllUsersSpecification());
+            return repository.executeQuery(new GetAllUsersQuerySpecification());
         } catch (RepositoryException e) {
             LOGGER.warn(e);
             throw new UserServiceException(e);
@@ -76,7 +76,7 @@ public class UserRepositoryService extends RepositoryService<User> implements Us
     @Override
     public Set<User> getUsersById(int id) throws UserServiceException {
         try {
-            return repository.execute(new FindUserByIdSpecification(id));
+            return repository.executeQuery(new FindUserByIdQuerySpecification(id));
         } catch (RepositoryException e) {
             throw new UserServiceException(e);
         }

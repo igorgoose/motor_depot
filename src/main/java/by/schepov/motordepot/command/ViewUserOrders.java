@@ -16,7 +16,6 @@ import by.schepov.motordepot.service.request.impl.RequestRepositoryService;
 import by.schepov.motordepot.service.user.UserService;
 import by.schepov.motordepot.service.user.impl.UserRepositoryService;
 import by.schepov.motordepot.session.SessionAttribute;
-import com.google.protobuf.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -25,12 +24,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Iterator;
 import java.util.Set;
 
-public class ViewUserDetails implements Executable {
-
+public class ViewUserOrders implements Executable {
     private static final Logger LOGGER = LogManager.getLogger(ViewUserDetails.class);
 
     //todo create ServiceFactory
     private final UserService userService = UserRepositoryService.getInstance();
+    private final OrderService orderService = OrderRepositoryService.getInstance();
+
+    ViewUserOrders(){
+
+    }
 
     @Override
     public Page execute(HttpServletRequest request, HttpServletResponse response) {
@@ -48,7 +51,9 @@ public class ViewUserDetails implements Executable {
             } else {
                 return Page.ERROR;
             }
-        } catch (UserServiceException e) {
+            Set<Order> orders = orderService.getOrdersByUserId(id);
+            request.setAttribute(RequestAttribute.ORDERS.getName(), orders);
+        } catch (UserServiceException | OrderServiceException e) {
             LOGGER.warn(e);
             return Page.ERROR;
         }

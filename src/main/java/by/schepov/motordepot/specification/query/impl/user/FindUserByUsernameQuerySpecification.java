@@ -1,4 +1,4 @@
-package by.schepov.motordepot.specification.impl.user;
+package by.schepov.motordepot.specification.query.impl.user;
 
 import by.schepov.motordepot.builder.impl.user.ResultSetUserBuilder;
 import by.schepov.motordepot.entity.User;
@@ -7,7 +7,7 @@ import by.schepov.motordepot.exception.specification.SpecificationException;
 import by.schepov.motordepot.pool.ConnectionPool;
 import by.schepov.motordepot.pool.ProxyConnection;
 import by.schepov.motordepot.specification.Column;
-import by.schepov.motordepot.specification.Specification;
+import by.schepov.motordepot.specification.query.QuerySpecification;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,24 +15,31 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class GetAllUsersSpecification implements Specification<User> {
+public class FindUserByUsernameQuerySpecification implements QuerySpecification<User> {
 
-    private static final Logger LOGGER = LogManager.getLogger(GetAllUsersSpecification.class);
-
+    private String login;
+    private static final Logger LOGGER = LogManager.getLogger(FindUserByUsernameQuerySpecification.class);
     private static final String QUERY =
             "SELECT users.id, login, password, role_id, email, is_blocked, role FROM motor_depot.users as users " +
-                    "LEFT JOIN motor_depot.roles as roles on role_id = roles.id";
+                    "LEFT JOIN motor_depot.roles as roles on role_id = roles.id " +
+                    "WHERE users.login = ?";
     private final ConnectionPool pool = ConnectionPool.INSTANCE;
+
+    public FindUserByUsernameQuerySpecification(String login) {
+        this.login = login;
+    }
+
 
     @Override
     public Set<User> execute() throws SpecificationException {
         try (ProxyConnection connection = pool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(QUERY)) {
+            preparedStatement.setString(1, login);
+            //todo resolve code duplication issue
             ResultSet resultSet = preparedStatement.executeQuery();
-            LinkedHashSet<User> users = new LinkedHashSet<>();
+            HashSet<User> users = new HashSet<>();
             ResultSetUserBuilder builder = new ResultSetUserBuilder(resultSet);
             while (resultSet.next()) {
                 builder.reset();
@@ -46,7 +53,7 @@ public class GetAllUsersSpecification implements Specification<User> {
             }
             resultSet.close();
             return users;
-        } catch (SQLException | ConnectionPoolException e) {
+        } catch (ConnectionPoolException | SQLException e) {
             LOGGER.warn(e);
             throw new SpecificationException(e);
         }

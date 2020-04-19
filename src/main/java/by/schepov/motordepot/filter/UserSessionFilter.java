@@ -2,6 +2,7 @@ package by.schepov.motordepot.filter;
 
 import by.schepov.motordepot.entity.Role;
 import by.schepov.motordepot.entity.User;
+import by.schepov.motordepot.jsp.Page;
 import by.schepov.motordepot.jsp.RequestAttribute;
 import by.schepov.motordepot.session.SessionAttribute;
 

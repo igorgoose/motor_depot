@@ -95,7 +95,7 @@
                         <button name="address" value="HOME">
                             <fmt:message bundle="${bundle}" key="button.create_request"/>
                         </button>
-                        <button name="command" value="view_profile">
+                        <button name="address" value="USER_DETAILS">
                             <fmt:message bundle="${bundle}" key="button.profile"/>
                         </button>
                         <button name="command" value="log_out">

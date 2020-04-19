@@ -6,10 +6,9 @@ import by.schepov.motordepot.exception.service.RequestServiceException;
 import by.schepov.motordepot.repository.impl.request.RequestRepository;
 import by.schepov.motordepot.service.RepositoryService;
 import by.schepov.motordepot.service.request.RequestService;
-import by.schepov.motordepot.specification.impl.request.FindRequestByIdSpecification;
-import by.schepov.motordepot.specification.impl.request.FindRequestByUserIdSpecification;
-import by.schepov.motordepot.specification.impl.request.GetAllRequestsSpecification;
-import com.google.protobuf.ServiceException;
+import by.schepov.motordepot.specification.query.impl.request.FindRequestByIdQuerySpecification;
+import by.schepov.motordepot.specification.query.impl.request.FindRequestByUserIdQuerySpecification;
+import by.schepov.motordepot.specification.query.impl.request.GetAllRequestsQuerySpecification;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -53,7 +52,7 @@ public class RequestRepositoryService extends RepositoryService<Request> impleme
     @Override
     public Set<Request> getAllRequests() throws RequestServiceException {
         try {
-            return repository.execute(new GetAllRequestsSpecification());
+            return repository.executeQuery(new GetAllRequestsQuerySpecification());
         } catch (RepositoryException e) {
             LOGGER.warn(e);
             throw new RequestServiceException(e);
@@ -63,7 +62,7 @@ public class RequestRepositoryService extends RepositoryService<Request> impleme
     @Override
     public Set<Request> getRequestsByUserId(int id) throws RequestServiceException {
         try {
-            return repository.execute(new FindRequestByUserIdSpecification(id));
+            return repository.executeQuery(new FindRequestByUserIdQuerySpecification(id));
         } catch (RepositoryException e) {
             LOGGER.warn(e);
             throw new RequestServiceException(e);
@@ -73,7 +72,7 @@ public class RequestRepositoryService extends RepositoryService<Request> impleme
     @Override
     public Set<Request> getRequestById(int requestId) throws RequestServiceException {
         try {
-            return repository.execute(new FindRequestByIdSpecification(requestId));
+            return repository.executeQuery(new FindRequestByIdQuerySpecification(requestId));
         } catch (RepositoryException e) {
             LOGGER.warn(e);
             throw new RequestServiceException(e);
