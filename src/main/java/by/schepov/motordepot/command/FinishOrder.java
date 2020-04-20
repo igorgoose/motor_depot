@@ -40,12 +40,9 @@ public class FinishOrder implements Executable {
         try {
             int orderId = Integer.parseInt(request.getParameter(JSPParameter.ORDER_ID.getName()));
             CarStatus carStatus = CarStatus.valueOf(request.getParameter(JSPParameter.CAR_STATE.getName()));
-            Set<Order> orders = orderService.getOrderById(orderId);
-            Iterator<Order> iterator = orders.iterator();
-            Order foundOrder;
-            if(iterator.hasNext()){
-                foundOrder = iterator.next();
-            } else {
+            Order foundOrder= orderService.getOrderById(orderId);
+            if(foundOrder == null){
+                LOGGER.warn("Order hasn't been found by id " + orderId);
                 return Page.ERROR;
             }
             carService.updateCarStatus(foundOrder.getCar().getId(), carStatus);
