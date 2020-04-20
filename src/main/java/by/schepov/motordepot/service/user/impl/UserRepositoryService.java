@@ -9,6 +9,7 @@ import by.schepov.motordepot.service.user.UserService;
 import by.schepov.motordepot.specification.query.impl.user.FindUserByIdQuerySpecification;
 import by.schepov.motordepot.specification.query.impl.user.FindUserByUsernameQuerySpecification;
 import by.schepov.motordepot.specification.query.impl.user.GetAllUsersQuerySpecification;
+import by.schepov.motordepot.specification.update.user.UpdateUserBlockedSpecification;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -57,6 +58,16 @@ public class UserRepositoryService extends RepositoryService<User> implements Us
                 }
             }
             throw new UserServiceException("Invalid user data");
+        } catch (RepositoryException e) {
+            LOGGER.warn(e);
+            throw new UserServiceException(e);
+        }
+    }
+
+    @Override
+    public void updateIsBlockedById(int id, boolean isBlocked) throws UserServiceException {
+        try {
+            repository.executeUpdate(new UpdateUserBlockedSpecification(id, isBlocked));
         } catch (RepositoryException e) {
             LOGGER.warn(e);
             throw new UserServiceException(e);

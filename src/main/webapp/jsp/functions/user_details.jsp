@@ -131,14 +131,17 @@
                         </button>
                     </div>
                     <div class="btn-wrapper">
-                        <button class="menu-bar-button-dangerous" name="command" value="block">
-                            <fmt:message bundle="${bundle}" key="button.block"/>
-                        </button>
-                    </div>
-                    <div class="btn-wrapper">
-                        <button class="menu-bar-button-dangerous" name="command" value="delete">
-                            <fmt:message bundle="${bundle}" key="button.delete"/>
-                        </button>
+                        <input type="hidden" name="user_id" value="${user.id}"/>
+                        <c:if test="${!user.blocked}">
+                            <button class="menu-bar-button-dangerous" name="command" value="block">
+                                <fmt:message bundle="${bundle}" key="button.block"/>
+                            </button>
+                        </c:if>
+                        <c:if test="${user.blocked}">
+                            <button class="menu-bar-button-green" name="command" value="unblock">
+                                <fmt:message bundle="${bundle}" key="button.unblock"/>
+                            </button>
+                        </c:if>
                     </div>
                 </div>
             </form>

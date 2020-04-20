@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 
 public enum Command {
 
+    UNBLOCK_USER("unblock", new UnblockUser(), 1),
+    BLOCK_USER("block", new BlockUser(), 1),
     FINISH_ORDER("finish_order", new FinishOrder(), 2),
     REPORT_ORDER_COMPLETION("report_order_completion", new ReportOrderCompletion(), 2),
     VIEW_MY_CARS("view_my_cars", new ViewMyCars(), 2),
