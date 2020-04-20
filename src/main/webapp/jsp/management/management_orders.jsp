@@ -152,48 +152,58 @@
             </form>
         </c:if>
         <div class="content-container">
-            <div class="content-unit-container pre-scrollable full-height">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>Order ID</th>
-                        <th>User</th>
-                        <th>Driver</th>
-                        <th>Car</th>
-                        <th>From</th>
-                        <th>To</th>
-                        <th>Is Complete</th>
-                        <c:if test="${role_id == 2}">
-                            <th></th>
-                        </c:if>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach var="order" items="${orders}">
+            <c:if test="${not empty orders}">
+                <div class="content-unit-container pre-scrollable full-height">
+                    <table class="table">
+                        <thead>
                         <tr>
-                            <td>${order.id}</td>
-                            <td>${order.user.username}</td>
-                            <td>${order.driver.username}</td>
-                            <td>${order.car.carName}</td>
-                            <td>${order.departureLocation}</td>
-                            <td>${order.arrivalLocation}</td>
-                            <td>${order.complete}</td>
-                            <c:if test="${role_id == 2 && !order.complete}">
-                                <td class="p-b-5 p-t-5 p-r-5 p-l-5">
-                                    <form action="${pageContext.request.contextPath}/controller"
-                                          method="post">
-                                        <input type="hidden" name="order_id" value="${order.id}"/>
-                                        <button class="table-btn-green" name="command" value="report_order_completion">
-                                            <fmt:message bundle="${bundle}" key="button.finish_order"/>
-                                        </button>
-                                    </form>
-                                </td>
+                            <th>Order ID</th>
+                            <th>User</th>
+                            <th>Driver</th>
+                            <th>Car</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Is Complete</th>
+                            <c:if test="${role_id == 2}">
+                                <th></th>
                             </c:if>
                         </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody>
+                        <c:forEach var="order" items="${orders}">
+                            <tr>
+                                <td>${order.id}</td>
+                                <td>${order.user.username}</td>
+                                <td>${order.driver.username}</td>
+                                <td>${order.car.carName}</td>
+                                <td>${order.departureLocation}</td>
+                                <td>${order.arrivalLocation}</td>
+                                <td>${order.complete}</td>
+                                <c:if test="${role_id == 2 && !order.complete}">
+                                    <td class="p-b-5 p-t-5 p-r-5 p-l-5">
+                                        <form action="${pageContext.request.contextPath}/controller"
+                                              method="post">
+                                            <input type="hidden" name="order_id" value="${order.id}"/>
+                                            <button class="table-btn-green" name="command"
+                                                    value="report_order_completion">
+                                                <fmt:message bundle="${bundle}" key="button.finish_order"/>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </c:if>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+            </c:if>
+            <c:if test="${empty orders}">
+                <div class="content-unit-container">
+                    <label class="details-label">
+                        <fmt:message bundle="${bundle}" key="management.no_orders"/>
+                    </label>
+                </div>
+            </c:if>
         </div>
     </div>
 </div>

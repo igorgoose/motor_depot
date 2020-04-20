@@ -152,44 +152,53 @@
             </form>
         </c:if>
         <div class="content-container">
-            <div class="content-unit-container pre-scrollable full-height">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>Car ID</th>
-                        <th>Car Model</th>
-                        <th>Reg. Number</th>
-                        <th>Driver</th>
-                        <th>Load Capacity</th>
-                        <th>Passenger Capacity</th>
-                        <th>State</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach var="car" items="${cars}">
+            <c:if test="${not empty cars}">
+                <div class="content-unit-container pre-scrollable full-height">
+                    <table class="table">
+                        <thead>
                         <tr>
-                            <td>${car.id}</td>
-                            <td>${car.carName}</td>
-                            <td>${car.registrationNumber}</td>
-                            <td>${car.driver.username}</td>
-                            <td>${car.loadCapacity}</td>
-                            <td>${car.passengerCapacity}</td>
-                            <td>${car.carStatus}</td>
-                            <td class="p-b-5 p-t-5 p-r-5 p-l-5">
-                                <form action="${pageContext.request.contextPath}/controller"
-                                      method="post">
-                                    <input type="hidden" name="user_id" value="${user.id}"/>
-                                    <button class="table-btn-blue" name="command" value="users_more">
-                                        <fmt:message bundle="${bundle}" key="button.details"/>
-                                    </button>
-                                </form>
-                            </td>
+                            <th>Car ID</th>
+                            <th>Car Model</th>
+                            <th>Reg. Number</th>
+                            <th>Driver</th>
+                            <th>Load Capacity</th>
+                            <th>Passenger Capacity</th>
+                            <th>State</th>
+                                <%--                        <th></th>--%>
                         </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody>
+                        <c:forEach var="car" items="${cars}">
+                            <tr>
+                                <td>${car.id}</td>
+                                <td>${car.carName}</td>
+                                <td>${car.registrationNumber}</td>
+                                <td>${car.driver.username}</td>
+                                <td>${car.loadCapacity}</td>
+                                <td>${car.passengerCapacity}</td>
+                                <td>${car.carStatus}</td>
+                                    <%--                            <td class="p-b-5 p-t-5 p-r-5 p-l-5">--%>
+                                    <%--                                <form action="${pageContext.request.contextPath}/controller"--%>
+                                    <%--                                      method="post">--%>
+                                    <%--                                    <input type="hidden" name="user_id" value="${user.id}"/>--%>
+                                    <%--                                    <button class="table-btn-blue" name="command" value="users_more">--%>
+                                    <%--                                        <fmt:message bundle="${bundle}" key="button.details"/>--%>
+                                    <%--                                    </button>--%>
+                                    <%--                                </form>--%>
+                                    <%--                            </td>--%>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+            </c:if>
+            <c:if test="${empty cars}">
+                <div class="content-unit-container">
+                    <label class="details-label">
+                        <fmt:message bundle="${bundle}" key="management.no_cars"/>
+                    </label>
+                </div>
+            </c:if>
         </div>
     </div>
 </div>

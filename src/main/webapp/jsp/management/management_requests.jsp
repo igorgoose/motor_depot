@@ -47,7 +47,8 @@
 <body>
 <div class="limiter">
     <div class="toolbar-top">
-        <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller" method="post">
+        <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller"
+              method="post">
             <div class="dropdown toolbar-top-btn">
                 <button class="dropbtn" disabled>
                     <fmt:message bundle="${bundle}" key="button.language"/>
@@ -101,7 +102,8 @@
         </form>
     </div>
     <div class="ultimate-container">
-        <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller" method="post">
+        <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller"
+              method="post">
             <div class="menu-bar">
                 <div class="btn-wrapper">
                     <button class="menu-bar-button" name="command" value="view_requests">
@@ -126,44 +128,54 @@
             </div>
         </form>
         <div class="content-container">
-            <div class="content-unit-container pre-scrollable full-height">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>Request ID</th>
-                        <th>User</th>
-                        <th>Departure location</th>
-                        <th>Arrival location</th>
-                        <th>Passengers quantity</th>
-                        <th>Load Volume</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach var="request" items="${requests}">
+            <c:if test="${not empty requests}">
+                <div class="content-unit-container pre-scrollable full-height">
+                    <table class="table">
+                        <thead>
                         <tr>
-                            <td>${request.id}</td>
-                            <td>${request.user.username}</td>
-                            <td>${request.departureLocation}</td>
-                            <td>${request.arrivalLocation}</td>
-                            <td>${request.passengersQuantity}</td>
-                            <td>${request.load}</td>
-                            <td class="p-b-5 p-t-5 p-r-5 p-l-5">
-                                <form action="${pageContext.request.contextPath}/controller"
-                                      method="post">
-                                    <input type="hidden" name="request_id" value="${request.id}"/>
-                                    <input type="hidden" name="load_volume" value="${request.load}"/>
-                                    <input type="hidden" name="passenger_quantity" value="${request.passengersQuantity}"/>
-                                    <button class="table-btn-green" name="command" value="verify_request">
-                                        <fmt:message bundle="${bundle}" key="button.create_order"/>
-                                    </button>
-                                </form>
-                            </td>
+                            <th>Request ID</th>
+                            <th>User</th>
+                            <th>Departure location</th>
+                            <th>Arrival location</th>
+                            <th>Passengers quantity</th>
+                            <th>Load Volume</th>
+                            <th></th>
                         </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody>
+                        <c:forEach var="request" items="${requests}">
+                            <tr>
+                                <td>${request.id}</td>
+                                <td>${request.user.username}</td>
+                                <td>${request.departureLocation}</td>
+                                <td>${request.arrivalLocation}</td>
+                                <td>${request.passengersQuantity}</td>
+                                <td>${request.load}</td>
+                                <td class="p-b-5 p-t-5 p-r-5 p-l-5">
+                                    <form action="${pageContext.request.contextPath}/controller"
+                                          method="post">
+                                        <input type="hidden" name="request_id" value="${request.id}"/>
+                                        <input type="hidden" name="load_volume" value="${request.load}"/>
+                                        <input type="hidden" name="passenger_quantity"
+                                               value="${request.passengersQuantity}"/>
+                                        <button class="table-btn-green" name="command" value="verify_request">
+                                            <fmt:message bundle="${bundle}" key="button.create_order"/>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+            </c:if>
+            <c:if test="${empty requests}">
+                <div class="content-unit-container">
+                    <label class="details-label">
+                        <fmt:message bundle="${bundle}" key="management.no_requests"/>
+                    </label>
+                </div>
+            </c:if>
         </div>
     </div>
 </div>
