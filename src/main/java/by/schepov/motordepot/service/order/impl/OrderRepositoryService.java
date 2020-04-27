@@ -1,6 +1,7 @@
 package by.schepov.motordepot.service.order.impl;
 
 import by.schepov.motordepot.entity.Order;
+import by.schepov.motordepot.exception.OrderValidatorException;
 import by.schepov.motordepot.exception.repository.RepositoryException;
 import by.schepov.motordepot.exception.service.OrderServiceException;
 import by.schepov.motordepot.repository.impl.order.OrderRepository;
@@ -11,6 +12,7 @@ import by.schepov.motordepot.specification.query.impl.order.FindOrderById;
 import by.schepov.motordepot.specification.query.impl.order.FindOrdersByUserIdQuerySpecification;
 import by.schepov.motordepot.specification.query.impl.order.GetAllOrdersQuerySpecification;
 import by.schepov.motordepot.specification.update.order.UpdateOrderStatus;
+import by.schepov.motordepot.validator.OrderValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -36,8 +38,9 @@ public class OrderRepositoryService extends RepositoryService<Order> implements 
     @Override
     public void insertOrder(Order order) throws OrderServiceException {
         try {
+            OrderValidator.validateOrder(order);
             repository.insert(order);
-        } catch (RepositoryException e) {
+        } catch (RepositoryException | OrderValidatorException e) {
             throw new OrderServiceException(e);
         }
     }
