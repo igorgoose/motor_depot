@@ -1,9 +1,7 @@
 package by.schepov.motordepot.command;
 
-import by.schepov.motordepot.entity.Order;
 import by.schepov.motordepot.entity.Request;
 import by.schepov.motordepot.entity.User;
-import by.schepov.motordepot.exception.service.OrderServiceException;
 import by.schepov.motordepot.exception.service.RequestServiceException;
 import by.schepov.motordepot.exception.service.UserServiceException;
 import by.schepov.motordepot.jsp.JSPParameter;
@@ -41,15 +39,14 @@ public class ViewUserRequests implements Executable {
             return Page.HOME;
         }
         try {
-            int id = Integer.parseInt(request.getParameter(JSPParameter.USER_ID.getName()));
-            Set<User> users = userService.getUsersById(id);
-            Iterator<User> iterator = users.iterator();
-            if (iterator.hasNext()) {
-                request.setAttribute(RequestAttribute.USER.getName(), iterator.next());
-            } else {
+            int user_id = Integer.parseInt(request.getParameter(JSPParameter.USER_ID.getName()));
+            User foundUser = userService.getUserById(user_id);
+            if (foundUser == null) {
+                LOGGER.warn("No users have been found by id " + user_id);
                 return Page.ERROR;
             }
-            Set<Request> requests = requestService.getRequestsByUserId(id);
+            request.setAttribute(RequestAttribute.USER.getName(), foundUser);
+            Set<Request> requests = requestService.getRequestsByUserId(user_id);
             request.setAttribute(RequestAttribute.REQUESTS.getName(), requests);
         } catch (RequestServiceException | UserServiceException e) {
             LOGGER.warn(e);

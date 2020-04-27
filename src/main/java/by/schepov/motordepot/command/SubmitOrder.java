@@ -45,21 +45,13 @@ public class SubmitOrder implements Executable{
         try{
             int requestId = Integer.parseInt(request.getParameter(JSPParameter.REQUEST_ID.getName()));
             int carId = Integer.parseInt(request.getParameter(JSPParameter.CAR_ID.getName()));
-            Set<Request> requests = requestService.getRequestById(requestId);
-            Iterator<Request> requestIterator = requests.iterator();
-            Request foundRequest;
-            if(requestIterator.hasNext()){
-                foundRequest = requestIterator.next();
-            } else {
+            Request foundRequest = requestService.getRequestById(requestId);
+            if(foundRequest == null) {
                 LOGGER.warn("Request hasn't been found(id=" + requestId + ")");
                 return Page.ERROR;
             }
-            Set<Car> cars = carService.findCarById(carId);
-            Iterator<Car> carIterator = cars.iterator();
-            Car foundCar;
-            if(carIterator.hasNext()){
-                foundCar = carIterator.next();
-            } else {
+            Car foundCar = carService.findCarById(carId);
+            if(foundCar == null){
                 LOGGER.warn("Car hasn't been found(id=" + carId + ")");
                 return Page.ERROR;
             }

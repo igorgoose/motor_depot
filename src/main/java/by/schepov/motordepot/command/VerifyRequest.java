@@ -42,12 +42,9 @@ public class VerifyRequest implements Executable {
         }
         try {
             int requestId = Integer.parseInt(request.getParameter(JSPParameter.REQUEST_ID.getName()));
-            Set<Request> requests = requestService.getRequestById(requestId);
-            Iterator<Request> iterator = requests.iterator();
-            Request foundRequest;
-            if(iterator.hasNext()){
-                foundRequest = iterator.next();
-            } else {
+            Request foundRequest = requestService.getRequestById(requestId);
+            if(foundRequest == null) {
+                LOGGER.warn("Request hasn't been found(id=" + requestId + ")");
                 return Page.ERROR;
             }
             request.setAttribute(RequestAttribute.REQUEST.getName(), foundRequest);

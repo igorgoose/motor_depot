@@ -229,9 +229,9 @@
                                     <td class="p-b-5 p-t-5 p-r-5 p-l-5">
                                         <form action="${pageContext.request.contextPath}/controller"
                                               method="post">
-                                            <input type="hidden" name="user_id" value="${user.id}"/>
-                                            <button class="table-btn-blue" name="command" value="users_more">
-                                                <fmt:message bundle="${bundle}" key="button.details"/>
+                                            <input type="hidden" name="request_id" value="${request.id}"/>
+                                            <button class="table-btn-green" name="command" value="verify_request">
+                                                <fmt:message bundle="${bundle}" key="button.create_order"/>
                                             </button>
                                         </form>
                                     </td>
@@ -261,9 +261,9 @@
                                 <th>Driver</th>
                                 <th>Car</th>
                                 <th>Is Complete</th>
-                                <c:if test="${role_id == 1}">
-                                    <th></th>
-                                </c:if>
+<%--                                <c:if test="${role_id == 1}">--%>
+                                    <%--                                    <th></th>--%>
+                                    <%--                                </c:if>--%>
                             </tr>
                             </thead>
                             <tbody>
@@ -275,17 +275,17 @@
                                     <td>${order.driver.username}</td>
                                     <td>${order.car.carName}</td>
                                     <td>${order.complete}</td>
-                                    <c:if test="${role_id == 1}">
-                                        <td class="p-b-5 p-t-5 p-r-5 p-l-5">
-                                            <form action="${pageContext.request.contextPath}/controller"
-                                                  method="post">
-                                                <input type="hidden" name="user_id" value="${user.id}"/>
-                                                <button class="table-btn-blue" name="command" value="users_more">
-                                                    <fmt:message bundle="${bundle}" key="button.details"/>
-                                                </button>
-                                            </form>
-                                        </td>
-                                    </c:if>
+<%--                                    <c:if test="${role_id == 1}">--%>
+<%--                                        <td class="p-b-5 p-t-5 p-r-5 p-l-5">--%>
+<%--                                            <form action="${pageContext.request.contextPath}/controller"--%>
+<%--                                                  method="post">--%>
+<%--                                                <input type="hidden" name="user_id" value="${user.id}"/>--%>
+<%--                                                <button class="table-btn-blue" name="command" value="users_more">--%>
+<%--                                                    <fmt:message bundle="${bundle}" key="button.details"/>--%>
+<%--                                                </button>--%>
+<%--                                            </form>--%>
+<%--                                        </td>--%>
+<%--                                    </c:if>--%>
                                 </tr>
                             </c:forEach>
                             </tbody>

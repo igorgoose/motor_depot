@@ -10,5 +10,5 @@ public interface UserService {
     void authorizeUser(User user) throws UserServiceException;
     void updateIsBlockedById(int id, boolean isBlocked) throws UserServiceException;
     Set<User> getAllUsers() throws UserServiceException;
-    Set<User> getUsersById(int id) throws UserServiceException;
+    User getUserById(int id) throws UserServiceException;
 }

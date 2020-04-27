@@ -12,6 +12,7 @@ import by.schepov.motordepot.specification.query.impl.request.GetAllRequestsQuer
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Iterator;
 import java.util.Set;
 
 public class RequestRepositoryService extends RepositoryService<Request> implements RequestService {
@@ -70,9 +71,11 @@ public class RequestRepositoryService extends RepositoryService<Request> impleme
     }
 
     @Override
-    public Set<Request> getRequestById(int requestId) throws RequestServiceException {
+    public Request getRequestById(int requestId) throws RequestServiceException {
         try {
-            return repository.executeQuery(new FindRequestByIdQuerySpecification(requestId));
+            Set<Request> requests = repository.executeQuery(new FindRequestByIdQuerySpecification(requestId));
+            Iterator<Request> iterator = requests.iterator();
+            return iterator.hasNext() ? iterator.next() : null;
         } catch (RepositoryException e) {
             LOGGER.warn(e);
             throw new RequestServiceException(e);

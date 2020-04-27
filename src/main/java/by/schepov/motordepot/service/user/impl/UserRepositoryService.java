@@ -13,6 +13,7 @@ import by.schepov.motordepot.specification.update.user.UpdateUserBlockedSpecific
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Iterator;
 import java.util.Set;
 
 public class UserRepositoryService extends RepositoryService<User> implements UserService {
@@ -85,9 +86,11 @@ public class UserRepositoryService extends RepositoryService<User> implements Us
     }
 
     @Override
-    public Set<User> getUsersById(int id) throws UserServiceException {
+    public User getUserById(int id) throws UserServiceException {
         try {
-            return repository.executeQuery(new FindUserByIdQuerySpecification(id));
+            Set<User> users = repository.executeQuery(new FindUserByIdQuerySpecification(id));
+            Iterator<User> iterator = users.iterator();
+            return iterator.hasNext() ? iterator.next() : null;
         } catch (RepositoryException e) {
             throw new UserServiceException(e);
         }

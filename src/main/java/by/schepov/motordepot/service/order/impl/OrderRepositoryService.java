@@ -14,6 +14,7 @@ import by.schepov.motordepot.specification.update.order.UpdateOrderStatus;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Iterator;
 import java.util.Set;
 
 public class OrderRepositoryService extends RepositoryService<Order> implements OrderService {
@@ -72,9 +73,11 @@ public class OrderRepositoryService extends RepositoryService<Order> implements 
     }
 
     @Override
-    public Set<Order> getOrderById(int id) throws OrderServiceException {
+    public Order getOrderById(int id) throws OrderServiceException {
         try {
-            return repository.executeQuery(new FindOrderById(id));
+            Set<Order> orders = repository.executeQuery(new FindOrderById(id));
+            Iterator<Order> iterator = orders.iterator();
+            return iterator.hasNext() ? iterator.next() : null;
         } catch (RepositoryException e) {
             LOGGER.warn(e);
             throw new OrderServiceException(e);

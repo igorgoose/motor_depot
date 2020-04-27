@@ -1,18 +1,14 @@
 package by.schepov.motordepot.command;
 
 import by.schepov.motordepot.entity.Order;
-import by.schepov.motordepot.entity.Request;
 import by.schepov.motordepot.entity.User;
 import by.schepov.motordepot.exception.service.OrderServiceException;
-import by.schepov.motordepot.exception.service.RequestServiceException;
 import by.schepov.motordepot.exception.service.UserServiceException;
 import by.schepov.motordepot.jsp.JSPParameter;
 import by.schepov.motordepot.jsp.Page;
 import by.schepov.motordepot.jsp.RequestAttribute;
 import by.schepov.motordepot.service.order.OrderService;
 import by.schepov.motordepot.service.order.impl.OrderRepositoryService;
-import by.schepov.motordepot.service.request.RequestService;
-import by.schepov.motordepot.service.request.impl.RequestRepositoryService;
 import by.schepov.motordepot.service.user.UserService;
 import by.schepov.motordepot.service.user.impl.UserRepositoryService;
 import by.schepov.motordepot.session.SessionAttribute;
@@ -43,15 +39,14 @@ public class ViewUserOrders implements Executable {
             return Page.HOME;
         }
         try{
-            int id = Integer.parseInt(request.getParameter(JSPParameter.USER_ID.getName()));
-            Set<User> users = userService.getUsersById(id);
-            Iterator<User> iterator = users.iterator();
-            if(iterator.hasNext()){
-                request.setAttribute(RequestAttribute.USER.getName(), iterator.next());
-            } else {
+            int user_id = Integer.parseInt(request.getParameter(JSPParameter.USER_ID.getName()));
+            User foundUser = userService.getUserById(user_id);
+            if (foundUser == null) {
+                LOGGER.warn("No users have been found by id " + user_id);
                 return Page.ERROR;
             }
-            Set<Order> orders = orderService.getOrdersByUserId(id);
+            request.setAttribute(RequestAttribute.USER.getName(), foundUser);
+            Set<Order> orders = orderService.getOrdersByUserId(user_id);
             request.setAttribute(RequestAttribute.ORDERS.getName(), orders);
         } catch (UserServiceException | OrderServiceException e) {
             LOGGER.warn(e);

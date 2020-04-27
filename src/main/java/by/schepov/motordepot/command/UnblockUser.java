@@ -34,14 +34,12 @@ public class UnblockUser implements Executable {
         try {
             int user_id = Integer.parseInt(request.getParameter(JSPParameter.USER_ID.getName()));
             userService.updateIsBlockedById(user_id, false);
-            Set<User> users = userService.getUsersById(user_id);
-            Iterator<User> iterator = users.iterator();
-            if(iterator.hasNext()){
-                request.setAttribute(RequestAttribute.USER.getName(), iterator.next());
-            } else {
+            User foundUser = userService.getUserById(user_id);
+            if (foundUser == null) {
                 LOGGER.warn("No users have been found by id " + user_id);
                 return Page.ERROR;
             }
+            request.setAttribute(RequestAttribute.USER.getName(), foundUser);
         } catch (UserServiceException e) {
             LOGGER.warn(e);
             return Page.ERROR;

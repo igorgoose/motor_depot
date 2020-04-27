@@ -13,6 +13,7 @@ import by.schepov.motordepot.specification.query.impl.car.FindFreeCarsQuerySpeci
 import by.schepov.motordepot.specification.query.impl.car.GetAllCarsQuerySpecification;
 import by.schepov.motordepot.specification.update.car.UpdateCarStateSpecification;
 
+import java.util.Iterator;
 import java.util.Set;
 
 public class CarRepositoryService extends RepositoryService<Car> implements CarService {
@@ -22,11 +23,11 @@ public class CarRepositoryService extends RepositoryService<Car> implements CarS
     }
 
 
-    public static class InstanceHolder{
+    public static class InstanceHolder {
         public static final CarRepositoryService INSTANCE = new CarRepositoryService();
     }
 
-    public static CarRepositoryService getInstance(){
+    public static CarRepositoryService getInstance() {
         return CarRepositoryService.InstanceHolder.INSTANCE;
     }
 
@@ -49,9 +50,11 @@ public class CarRepositoryService extends RepositoryService<Car> implements CarS
     }
 
     @Override
-    public Set<Car> findCarById(int id) throws CarServiceException {
+    public Car findCarById(int id) throws CarServiceException {
         try {
-            return repository.executeQuery(new FindCarByIdQuerySpecification(id));
+            Set<Car> cars = repository.executeQuery(new FindCarByIdQuerySpecification(id));
+            Iterator<Car> carIterator = cars.iterator();
+            return carIterator.hasNext() ? carIterator.next() : null;
         } catch (RepositoryException e) {
             throw new CarServiceException(e);
         }
