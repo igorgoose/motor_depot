@@ -30,6 +30,7 @@ public class SignUp implements Executable {
         String username = request.getParameter(JSPParameter.USERNAME.getName());
         String password = request.getParameter(JSPParameter.PASSWORD.getName());
         String email = request.getParameter(JSPParameter.EMAIL.getName());
+        String repeatedPassword = request.getParameter(JSPParameter.REPEAT_PASSWORD.getName());
         userBuilder.reset();
         User user = userBuilder.withLogin(username)
                 .withPassword(password)
@@ -38,7 +39,7 @@ public class SignUp implements Executable {
                 .build();
         request.setAttribute(JSPParameter.USERNAME.getName(), username);
         try {
-            userService.insertUser(user);
+            userService.signUpUser(user, repeatedPassword);
             request.getSession().setAttribute(SessionAttribute.USER.getName(), user);
         } catch (UserServiceException e) {
             LOGGER.warn(e);

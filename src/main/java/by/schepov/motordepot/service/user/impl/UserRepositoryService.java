@@ -1,6 +1,7 @@
 package by.schepov.motordepot.service.user.impl;
 
 import by.schepov.motordepot.entity.User;
+import by.schepov.motordepot.exception.UserValidatorException;
 import by.schepov.motordepot.exception.repository.RepositoryException;
 import by.schepov.motordepot.exception.service.UserServiceException;
 import by.schepov.motordepot.repository.impl.user.UserRepository;
@@ -10,6 +11,7 @@ import by.schepov.motordepot.specification.query.impl.user.FindUserByIdQuerySpec
 import by.schepov.motordepot.specification.query.impl.user.FindUserByUsernameQuerySpecification;
 import by.schepov.motordepot.specification.query.impl.user.GetAllUsersQuerySpecification;
 import by.schepov.motordepot.specification.update.user.UpdateUserBlockedSpecification;
+import by.schepov.motordepot.validator.UserValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -33,14 +35,16 @@ public class UserRepositoryService extends RepositoryService<User> implements Us
     }
 
     @Override
-    public void insertUser(User user) throws UserServiceException {
+    public void signUpUser(User user, String repeatedPassword) throws UserServiceException {
         try {
+            UserValidator.validateUser(user);
+            UserValidator.validatePasswordRepetition(user.getPassword(), repeatedPassword);
             Set<User> similarLoginUsers = repository.executeQuery(new FindUserByUsernameQuerySpecification(user.getUsername()));
             if(similarLoginUsers.size() > 0){
-                throw new UserServiceException("The username is already used");
+                throw new UserServiceException("The username is already taken");
             }
             repository.insert(user);
-        } catch (RepositoryException e) {
+        } catch (RepositoryException | UserValidatorException e) {
             LOGGER.warn(e);
             throw new UserServiceException(e);
         }
@@ -49,6 +53,7 @@ public class UserRepositoryService extends RepositoryService<User> implements Us
     @Override
     public void authorizeUser(User user) throws UserServiceException {
         try {
+            UserValidator.validateUsernameAndPassword(user);
             Set<User> foundUsers = repository.executeQuery(new FindUserByUsernameQuerySpecification(user.getUsername()));
             for (User foundUser : foundUsers) {
                 if(foundUser.getPassword().equals(user.getPassword())){
@@ -59,7 +64,7 @@ public class UserRepositoryService extends RepositoryService<User> implements Us
                 }
             }
             throw new UserServiceException("Invalid user data");
-        } catch (RepositoryException e) {
+        } catch (RepositoryException | UserValidatorException e) {
             LOGGER.warn(e);
             throw new UserServiceException(e);
         }

@@ -1,6 +1,7 @@
 package by.schepov.motordepot.service.request.impl;
 
 import by.schepov.motordepot.entity.Request;
+import by.schepov.motordepot.exception.RequestValidatorException;
 import by.schepov.motordepot.exception.repository.RepositoryException;
 import by.schepov.motordepot.exception.service.RequestServiceException;
 import by.schepov.motordepot.repository.impl.request.RequestRepository;
@@ -9,6 +10,7 @@ import by.schepov.motordepot.service.request.RequestService;
 import by.schepov.motordepot.specification.query.impl.request.FindRequestByIdQuerySpecification;
 import by.schepov.motordepot.specification.query.impl.request.FindRequestByUserIdQuerySpecification;
 import by.schepov.motordepot.specification.query.impl.request.GetAllRequestsQuerySpecification;
+import by.schepov.motordepot.validator.RequestValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -34,8 +36,9 @@ public class RequestRepositoryService extends RepositoryService<Request> impleme
     @Override
     public void insertRequest(Request request) throws RequestServiceException {
         try {
+            RequestValidator.validateRequest(request);
             repository.insert(request);
-        } catch (RepositoryException e) {
+        } catch (RepositoryException | RequestValidatorException e) {
             LOGGER.warn(e);
             throw new RequestServiceException(e);
         }
