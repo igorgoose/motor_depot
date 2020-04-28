@@ -30,10 +30,7 @@ public class CreateRequest implements Executable {
     @Override
     public Page execute(HttpServletRequest request, HttpServletResponse response) {
         User user = (User) request.getSession().getAttribute(SessionAttribute.USER.getName());
-        if (user == null) {
-            LOGGER.warn("Null user was provided by session!");
-            return Page.HOME;
-        }
+
         try {
             String departureLocation = request.getParameter(JSPParameter.DEPARTURE_LOCATION.getName());
             String arrivalLocation = request.getParameter(JSPParameter.ARRIVAL_LOCATION.getName());

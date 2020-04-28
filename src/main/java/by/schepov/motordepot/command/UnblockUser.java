@@ -26,11 +26,6 @@ public class UnblockUser implements Executable {
 
     @Override
     public Page execute(HttpServletRequest request, HttpServletResponse response) {
-        User user = (User) request.getSession().getAttribute(SessionAttribute.USER.getName());
-        if (user == null) {
-            LOGGER.warn("Null user was provided by session!");
-            return Page.HOME;
-        }
         try {
             int user_id = Integer.parseInt(request.getParameter(JSPParameter.USER_ID.getName()));
             userService.updateIsBlockedById(user_id, false);

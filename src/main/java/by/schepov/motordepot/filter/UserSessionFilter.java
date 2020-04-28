@@ -17,17 +17,25 @@ public class UserSessionFilter implements Filter {
     @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
+        if(session == null){
+            session = request.getSession();
+            session.setAttribute(SessionAttribute.ROLE.getName(), Role.GUEST);
+            request.setAttribute(RequestAttribute.ROLE_ID.getName(), Role.GUEST.getId());
+            request.getRequestDispatcher(Page.HOME.getName()).forward(request, resp);
+            return;
+        }
         Role role = (Role) session.getAttribute(SessionAttribute.ROLE.getName());
         User user = (User) session.getAttribute(SessionAttribute.USER.getName());
         if(role == null){
             role = Role.GUEST;
             session.setAttribute(SessionAttribute.ROLE.getName(), Role.GUEST);
+            request.getRequestDispatcher(Page.HOME.getName());
         }
         if(user != null){
             session.setAttribute(RequestAttribute.USERNAME.getName(), user.getUsername());
         }
-        session.setAttribute(RequestAttribute.ROLE_ID.getName(), role.getId());
+        request.setAttribute(RequestAttribute.ROLE_ID.getName(), role.getId());
         chain.doFilter(req, resp);
     }
 }

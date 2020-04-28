@@ -60,12 +60,18 @@
                         <fmt:message bundle="${bundle}" key="button.role.guest"/>
                     </button>
                     <div class="dropdown-content">
-                        <button name="address" value="HOME">
-                            <fmt:message bundle="${bundle}" key="button.home"/>
-                        </button>
-                        <button name="address" value="AUTHORIZE">
-                            <fmt:message bundle="${bundle}" key="button.authorize"/>
-                        </button>
+                        <form action="${pageContext.request.contextPath}/controller">
+                            <input type="hidden" name="address" value="HOME">
+                            <button name="command" value="redirect">
+                                <fmt:message bundle="${bundle}" key="button.create_request"/>
+                            </button>
+                        </form>
+                        <form action="${pageContext.request.contextPath}/controller">
+                            <input type="hidden" name="address" value="AUTHORIZE">
+                            <button name="command" value="redirect">
+                                <fmt:message bundle="${bundle}" key="button.authorize"/>
+                            </button>
+                        </form>
                     </div>
                 </c:if>
                 <c:if test="${role_id < 4}">
@@ -83,17 +89,26 @@
                         ]
                     </button>
                     <div class="dropdown-content">
-                        <button name="address" value="HOME">
-                            <fmt:message bundle="${bundle}" key="button.create_request"/>
-                        </button>
-                        <c:if test="${role_id == 1}">
-                            <button name="address" value="MANAGEMENT">
-                                <fmt:message bundle="${bundle}" key="button.management"/>
+                        <form action="${pageContext.request.contextPath}/controller">
+                            <input type="hidden" name="address" value="HOME">
+                            <button name="command" value="redirect">
+                                <fmt:message bundle="${bundle}" key="button.create_request"/>
                             </button>
+                        </form>
+                        <c:if test="${role_id == 1}">
+                            <form action="${pageContext.request.contextPath}/controller">
+                                <input type="hidden" name="address" value="MANAGEMENT">
+                                <button name="command" value="redirect">
+                                    <fmt:message bundle="${bundle}" key="button.management"/>
+                                </button>
+                            </form>
                         </c:if>
-                        <button name="address" value="USER_DETAILS">
-                            <fmt:message bundle="${bundle}" key="button.profile"/>
-                        </button>
+                        <form action="${pageContext.request.contextPath}/controller">
+                            <input type="hidden" name="address" value="USER_DETAILS">
+                            <button name="command" value="redirect">
+                                <fmt:message bundle="${bundle}" key="button.profile"/>
+                            </button>
+                        </form>
                         <button name="command" value="log_out">
                             <fmt:message bundle="${bundle}" key="button.logout"/>
                         </button>

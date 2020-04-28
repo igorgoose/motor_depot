@@ -34,11 +34,6 @@ public class AssignCar implements Executable {
 
     @Override
     public Page execute(HttpServletRequest request, HttpServletResponse response) {
-        User user = (User) request.getSession().getAttribute(SessionAttribute.USER.getName());
-        if (user == null) {
-            LOGGER.warn("Null user was provided by session!");
-            return Page.HOME;
-        }
         try{
             int carId = Integer.parseInt(request.getParameter(JSPParameter.CAR_ID.getName()));
             int requestId = Integer.parseInt(request.getParameter(JSPParameter.REQUEST_ID.getName()));

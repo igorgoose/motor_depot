@@ -52,11 +52,14 @@
                         <button class="dropbtn" disabled>
                             <fmt:message bundle="${bundle}" key="button.role.guest"/>
                         </button>
-                        <div class="dropdown-content">
-                            <button name="address" value="AUTHORIZE">
-                                <fmt:message bundle="${bundle}" key="button.authorize"/>
-                            </button>
-                        </div>
+                        <form action="controller" method="post">
+                            <div class="dropdown-content">
+                                <input type="hidden" name="address" value="AUTHORIZE">
+                                <button name="command" value="redirect">
+                                    <fmt:message bundle="${bundle}" key="button.authorize"/>
+                                </button>
+                            </div>
+                        </form>
                     </c:if>
                     <c:if test="${role_id < 4}">
                         <c:if test="${role_id == 3}">
@@ -66,12 +69,15 @@
                                 ]
                             </button>
                             <div class="dropdown-content">
-                                <button name="address" value="USER_DETAILS">
-                                    <fmt:message bundle="${bundle}" key="button.profile"/>
-                                </button>
-                                <button name="command" value="log_out">
-                                    <fmt:message bundle="${bundle}" key="button.logout"/>
-                                </button>
+                                <form action="controller" method="post">
+                                    <input type="hidden" name="address" value="USER_DETAILS"/>
+                                    <button name="command" value="redirect">
+                                        <fmt:message bundle="${bundle}" key="button.profile"/>
+                                    </button>
+                                    <button name="command" value="log_out">
+                                        <fmt:message bundle="${bundle}" key="button.logout"/>
+                                    </button>
+                                </form>
                             </div>
                         </c:if>
                         <c:if test="${role_id == 2}">
@@ -81,15 +87,21 @@
                                 ]
                             </button>
                             <div class="dropdown-content">
-                                <button name="address" value="USER_DETAILS">
-                                    <fmt:message bundle="${bundle}" key="button.profile"/>
-                                </button>
-                                <button name="address" value="MANAGEMENT">
-                                    <fmt:message bundle="${bundle}" key="button.management"/>
-                                </button>
-                                <button name="command" value="log_out">
-                                    <fmt:message bundle="${bundle}" key="button.logout"/>
-                                </button>
+                                <form action="controller" method="post">
+                                    <input type="hidden" name="address" value="USER_DETAILS"/>
+                                    <button name="command" value="redirect">
+                                        <fmt:message bundle="${bundle}" key="button.profile"/>
+                                    </button>
+                                </form>
+                                <form action="controller" method="post">
+                                    <input type="hidden" name="address" value="MANAGEMENT"/>
+                                    <button name="command" value="redirect">
+                                        <fmt:message bundle="${bundle}" key="button.management"/>
+                                    </button>
+                                    <button name="command" value="log_out">
+                                        <fmt:message bundle="${bundle}" key="button.logout"/>
+                                    </button>
+                                </form>
                             </div>
                         </c:if>
                         <c:if test="${role_id == 1}">
@@ -99,15 +111,21 @@
                                 ]
                             </button>
                             <div class="dropdown-content">
-                                <button name="address" value="USER_DETAILS">
-                                    <fmt:message bundle="${bundle}" key="button.profile"/>
-                                </button>
-                                <button name="address" value="MANAGEMENT">
-                                    <fmt:message bundle="${bundle}" key="button.management"/>
-                                </button>
-                                <button name="command" value="log_out">
-                                    <fmt:message bundle="${bundle}" key="button.logout"/>
-                                </button>
+                                <form action="controller" method="post">
+                                    <input type="hidden" name="address" value="USER_DETAILS"/>
+                                    <button name="command" value="redirect">
+                                        <fmt:message bundle="${bundle}" key="button.profile"/>
+                                    </button>
+                                </form>
+                                <form action="controller" method="post">
+                                    <input type="hidden" name="address" value="MANAGEMENT"/>
+                                    <button name="command" value="redirect">
+                                        <fmt:message bundle="${bundle}" key="button.management"/>
+                                    </button>
+                                    <button name="command" value="log_out">
+                                        <fmt:message bundle="${bundle}" key="button.logout"/>
+                                    </button>
+                                </form>
                             </div>
                         </c:if>
                     </c:if>
