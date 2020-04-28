@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
-    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/icons/favicon.ico"/>
+    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/icons/car-icon.png"/>
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css"
           href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css">

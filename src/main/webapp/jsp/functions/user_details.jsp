@@ -5,11 +5,13 @@
 <fmt:setBundle basename="locale" var="bundle"/>
 <html>
 <head>
-    <title><fmt:message bundle="${bundle}" key="home.title"/></title>
+    <title>
+        ${user.username}'s <fmt:message bundle="${bundle}" key="button.profile"/>
+    </title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
-    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/icons/favicon.ico"/>
+    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/icons/car-icon.png"/>
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css"
           href="${pageContext.request.contextPath}/bootstrap-4.4.1-dist/css/bootstrap.min.css">
