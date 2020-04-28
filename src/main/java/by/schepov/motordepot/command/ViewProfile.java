@@ -33,10 +33,6 @@ public class ViewProfile implements Executable {
     @Override
     public Page execute(HttpServletRequest request, HttpServletResponse response) {
         User user = (User) request.getSession().getAttribute(SessionAttribute.USER.getName());
-        if(user == null){
-            LOGGER.warn("Null user was provided by session!");
-            return Page.HOME;
-        }
         try {
             int id = user.getId();
             Set<Order> orders = orderService.getOrdersByUserId(id);

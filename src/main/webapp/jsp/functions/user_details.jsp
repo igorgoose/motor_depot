@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Asus
-  Date: 07.04.2020
-  Time: 22:00
-  To change this template use File | Settings | File Templates.
---%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
@@ -67,12 +60,18 @@
                         <fmt:message bundle="${bundle}" key="button.role.guest"/>
                     </button>
                     <div class="dropdown-content">
-                        <button name="address" value="HOME">
-                            <fmt:message bundle="${bundle}" key="button.home"/>
-                        </button>
-                        <button name="address" value="AUTHORIZE">
-                            <fmt:message bundle="${bundle}" key="button.authorize"/>
-                        </button>
+                        <form action="${pageContext.request.contextPath}/controller">
+                            <input type="hidden" name="address" value="HOME">
+                            <button name="command" value="redirect">
+                                <fmt:message bundle="${bundle}" key="button.create_request"/>
+                            </button>
+                        </form>
+                        <form action="${pageContext.request.contextPath}/controller">
+                            <input type="hidden" name="address" value="AUTHORIZE">
+                            <button name="command" value="redirect">
+                                <fmt:message bundle="${bundle}" key="button.authorize"/>
+                            </button>
+                        </form>
                     </div>
                 </c:if>
                 <c:if test="${role_id < 4}">
@@ -90,17 +89,26 @@
                         ]
                     </button>
                     <div class="dropdown-content">
-                        <button name="address" value="HOME">
-                            <fmt:message bundle="${bundle}" key="button.create_request"/>
-                        </button>
-                        <c:if test="${role_id < 3}">
-                            <button name="address" value="MANAGEMENT">
-                                <fmt:message bundle="${bundle}" key="button.management"/>
+                        <form action="${pageContext.request.contextPath}/controller">
+                            <input type="hidden" name="address" value="HOME">
+                            <button name="command" value="redirect">
+                                <fmt:message bundle="${bundle}" key="button.create_request"/>
                             </button>
+                        </form>
+                        <c:if test="${role_id < 3}">
+                            <form action="${pageContext.request.contextPath}/controller">
+                                <input type="hidden" name="address" value="MANAGEMENT">
+                                <button name="command" value="redirect">
+                                    <fmt:message bundle="${bundle}" key="button.management"/>
+                                </button>
+                            </form>
                         </c:if>
-                        <button name="address" value="USER_DETAILS">
-                            <fmt:message bundle="${bundle}" key="button.profile"/>
-                        </button>
+                        <form action="${pageContext.request.contextPath}/controller">
+                            <input type="hidden" name="address" value="USER_DETAILS">
+                            <button name="command" value="redirect">
+                                <fmt:message bundle="${bundle}" key="button.profile"/>
+                            </button>
+                        </form>
                         <button name="command" value="log_out">
                             <fmt:message bundle="${bundle}" key="button.logout"/>
                         </button>
@@ -152,7 +160,8 @@
                 <input type="hidden" name="user_id" value="${user.id}"/>
                 <div class="menu-bar">
                     <div class="btn-wrapper">
-                        <button class="menu-bar-button" name="address" value="USER_DETAILS">
+                        <input type="hidden" name="address" value="USER_DETAILS">
+                        <button class="menu-bar-button" name="command" value="redirect">
                             <fmt:message bundle="${bundle}" key="button.my_info"/>
                         </button>
                     </div>
@@ -261,9 +270,6 @@
                                 <th>Driver</th>
                                 <th>Car</th>
                                 <th>Is Complete</th>
-<%--                                <c:if test="${role_id == 1}">--%>
-                                    <%--                                    <th></th>--%>
-                                    <%--                                </c:if>--%>
                             </tr>
                             </thead>
                             <tbody>
@@ -275,17 +281,6 @@
                                     <td>${order.driver.username}</td>
                                     <td>${order.car.carName}</td>
                                     <td>${order.complete}</td>
-<%--                                    <c:if test="${role_id == 1}">--%>
-<%--                                        <td class="p-b-5 p-t-5 p-r-5 p-l-5">--%>
-<%--                                            <form action="${pageContext.request.contextPath}/controller"--%>
-<%--                                                  method="post">--%>
-<%--                                                <input type="hidden" name="user_id" value="${user.id}"/>--%>
-<%--                                                <button class="table-btn-blue" name="command" value="users_more">--%>
-<%--                                                    <fmt:message bundle="${bundle}" key="button.details"/>--%>
-<%--                                                </button>--%>
-<%--                                            </form>--%>
-<%--                                        </td>--%>
-<%--                                    </c:if>--%>
                                 </tr>
                             </c:forEach>
                             </tbody>

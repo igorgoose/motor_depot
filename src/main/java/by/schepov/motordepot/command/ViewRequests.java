@@ -27,11 +27,6 @@ public class ViewRequests implements Executable {
 
     @Override
     public Page execute(HttpServletRequest request, HttpServletResponse response) {
-        User user = (User) request.getSession().getAttribute(SessionAttribute.USER.getName());
-        if (user == null) {
-            LOGGER.warn("Null user was provided by session!");
-            return Page.HOME;
-        }
         try {
             Set<Request> requests = requestService.getAllRequests();
             request.setAttribute(RequestAttribute.REQUESTS.getName(), requests);

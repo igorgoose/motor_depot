@@ -15,8 +15,14 @@
     <title><fmt:message bundle="${bundle}" key="home.title"/></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
     <!--===============================================================================================-->
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/icons/favicon.ico"/>
+
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css"
+          href="${pageContext.request.contextPath}/bootstrap-4.4.1-dist/css/bootstrap.min.css">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css"
           href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css">
@@ -64,12 +70,18 @@
                         <fmt:message bundle="${bundle}" key="button.role.guest"/>
                     </button>
                     <div class="dropdown-content">
-                        <button name="address" value="HOME">
-                            <fmt:message bundle="${bundle}" key="button.home"/>
-                        </button>
-                        <button name="address" value="AUTHORIZE">
-                            <fmt:message bundle="${bundle}" key="button.authorize"/>
-                        </button>
+                        <form action="controller" method="post">
+                            <input type="hidden" name="address" value="HOME"/>
+                            <button name="command" value="redirect">
+                                <fmt:message bundle="${bundle}" key="button.create_request"/>
+                            </button>
+                        </form>
+                        <form action="controller" method="post">
+                            <input type="hidden" name="address" value="AUTHORIZE"/>
+                            <button name="command" value="redirect">
+                                <fmt:message bundle="${bundle}" key="button.authorize"/>
+                            </button>
+                        </form>
                     </div>
                 </c:if>
                 <c:if test="${role_id < 4}">
@@ -87,15 +99,21 @@
                         ]
                     </button>
                     <div class="dropdown-content">
-                        <button name="address" value="HOME">
-                            <fmt:message bundle="${bundle}" key="button.create_request"/>
-                        </button>
-                        <button name="address" value="USER_DETAILS">
-                            <fmt:message bundle="${bundle}" key="button.profile"/>
-                        </button>
-                        <button name="command" value="log_out">
-                            <fmt:message bundle="${bundle}" key="button.logout"/>
-                        </button>
+                        <form action="controller" method="post">
+                            <input type="hidden" name="address" value="HOME"/>
+                            <button name="command" value="redirect">
+                                <fmt:message bundle="${bundle}" key="button.create_request"/>
+                            </button>
+                        </form>
+                        <form action="controller" method="post">
+                            <input type="hidden" name="address" value="USER_DETAILS"/>
+                            <button name="command" value="redirect">
+                                <fmt:message bundle="${bundle}" key="button.profile"/>
+                            </button>
+                            <button name="command" value="log_out">
+                                <fmt:message bundle="${bundle}" key="button.logout"/>
+                            </button>
+                        </form>
                     </div>
                 </c:if>
             </div>
@@ -164,7 +182,6 @@
                             <th>Load Capacity</th>
                             <th>Passenger Capacity</th>
                             <th>State</th>
-                                <%--                        <th></th>--%>
                         </tr>
                         </thead>
                         <tbody>
@@ -177,15 +194,6 @@
                                 <td>${car.loadCapacity}</td>
                                 <td>${car.passengerCapacity}</td>
                                 <td>${car.carStatus}</td>
-                                    <%--                            <td class="p-b-5 p-t-5 p-r-5 p-l-5">--%>
-                                    <%--                                <form action="${pageContext.request.contextPath}/controller"--%>
-                                    <%--                                      method="post">--%>
-                                    <%--                                    <input type="hidden" name="user_id" value="${user.id}"/>--%>
-                                    <%--                                    <button class="table-btn-blue" name="command" value="users_more">--%>
-                                    <%--                                        <fmt:message bundle="${bundle}" key="button.details"/>--%>
-                                    <%--                                    </button>--%>
-                                    <%--                                </form>--%>
-                                    <%--                            </td>--%>
                             </tr>
                         </c:forEach>
                         </tbody>

@@ -32,11 +32,6 @@ public class FinishOrder implements Executable {
 
     @Override
     public Page execute(HttpServletRequest request, HttpServletResponse response) {
-        User user = (User) request.getSession().getAttribute(SessionAttribute.USER.getName());
-        if (user == null) {
-            LOGGER.warn("Null user was provided by session!");
-            return Page.HOME;
-        }
         try {
             int orderId = Integer.parseInt(request.getParameter(JSPParameter.ORDER_ID.getName()));
             CarStatus carStatus = CarStatus.valueOf(request.getParameter(JSPParameter.CAR_STATE.getName()));
