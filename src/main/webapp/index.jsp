@@ -5,7 +5,14 @@
 <fmt:setBundle basename="locale" var="bundle"/>
 <html>
 <head>
-    <title><fmt:message bundle="${bundle}" key="home.title"/></title>
+    <title>
+        <c:if test="${role_id == 4}">
+            <fmt:message bundle="${bundle}" key="home.title"/>
+        </c:if>
+        <c:if test="${role_id < 4}">
+            <fmt:message bundle="${bundle}" key="create_request.title"/>
+        </c:if>
+    </title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
