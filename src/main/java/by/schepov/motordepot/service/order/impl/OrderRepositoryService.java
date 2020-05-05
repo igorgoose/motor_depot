@@ -8,7 +8,7 @@ import by.schepov.motordepot.repository.impl.order.OrderRepository;
 import by.schepov.motordepot.service.RepositoryService;
 import by.schepov.motordepot.service.order.OrderService;
 import by.schepov.motordepot.specification.query.impl.order.FindOrderByDriverIdAndIsCompletedQuerySpecification;
-import by.schepov.motordepot.specification.query.impl.order.FindOrderById;
+import by.schepov.motordepot.specification.query.impl.order.FindOrderByIdQuerySpecification;
 import by.schepov.motordepot.specification.query.impl.order.FindOrdersByUserIdQuerySpecification;
 import by.schepov.motordepot.specification.query.impl.order.GetAllOrdersQuerySpecification;
 import by.schepov.motordepot.specification.update.order.UpdateOrderStatus;
@@ -78,7 +78,7 @@ public class OrderRepositoryService extends RepositoryService<Order> implements 
     @Override
     public Order getOrderById(int id) throws OrderServiceException {
         try {
-            Set<Order> orders = repository.executeQuery(new FindOrderById(id));
+            Set<Order> orders = repository.executeQuery(new FindOrderByIdQuerySpecification(id));
             Iterator<Order> iterator = orders.iterator();
             return iterator.hasNext() ? iterator.next() : null;
         } catch (RepositoryException e) {

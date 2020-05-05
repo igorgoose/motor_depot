@@ -3,6 +3,7 @@ package by.schepov.motordepot.builder.impl.user;
 import by.schepov.motordepot.builder.AbstractBuilder;
 import by.schepov.motordepot.entity.Role;
 import by.schepov.motordepot.entity.User;
+import by.schepov.motordepot.entity.UserStatus;
 
 public class UserBuilder extends AbstractBuilder<User> {
 
@@ -20,8 +21,8 @@ public class UserBuilder extends AbstractBuilder<User> {
         return this;
     }
 
-    public UserBuilder withBlocked(boolean blocked){
-        object.setBlocked(blocked);
+    public UserBuilder withStatus(UserStatus status){
+        object.setStatus(status);
         return this;
     }
 

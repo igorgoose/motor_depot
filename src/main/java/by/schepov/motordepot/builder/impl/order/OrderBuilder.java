@@ -22,11 +22,6 @@ public class OrderBuilder extends AbstractBuilder<Order> {
         return this;
     }
 
-    public OrderBuilder withDriver(User driver){
-        object.setDriver(driver);
-        return this;
-    }
-
     public OrderBuilder withCar(Car car) {
         object.setCar(car);
         return this;

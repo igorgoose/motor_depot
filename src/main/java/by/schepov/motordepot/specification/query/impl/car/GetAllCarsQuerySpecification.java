@@ -26,16 +26,17 @@ public class GetAllCarsQuerySpecification implements QuerySpecification<Car> {
     private static final Logger LOGGER = LogManager.getLogger(GetAllCarsQuerySpecification.class);
 
     private static final String QUERY = "SELECT cars.id, driver_id, registration_number, name_id, load_capacity, " +
-            "passenger_capacity, status_id, " +
+            "passenger_capacity, " +
             "st.status car_status, brand_id, model_id, brands.name brand_name, models.name model_name, " +
-            "login, password, is_blocked, role_id, email, role " +
-            "FROM motor_depot.cars as cars " +
-            "LEFT JOIN motor_depot.users as drivers on driver_id = drivers.id " +
-            "LEFT JOIN motor_depot.roles as roles on roles.id = role_id " +
-            "LEFT JOIN motor_depot.car_statuses as st on status_id = st.id " +
-            "LEFT JOIN motor_depot.car_names as names on name_id = names.id " +
-            "LEFT JOIN motor_depot.car_brands as brands on brand_id = brands.id " +
-            "LEFT JOIN motor_depot.car_models as models on model_id = models.id";
+            "login, password, ust.status user_status, role_id, email, role " +
+            "FROM motor_depot.cars cars " +
+            "LEFT JOIN motor_depot.users drivers on driver_id = drivers.id " +
+            "LEFT JOIN motor_depot.roles roles on roles.id = role_id " +
+            "LEFT JOIN motor_depot.user_statuses ust on ust.id = drivers.status_id " +
+            "LEFT JOIN motor_depot.car_statuses st on cars.status_id = st.id " +
+            "LEFT JOIN motor_depot.car_names names on name_id = names.id " +
+            "LEFT JOIN motor_depot.car_brands brands on brand_id = brands.id " +
+            "LEFT JOIN motor_depot.car_models models on model_id = models.id";
 
     private ConnectionPool pool = ConnectionPool.INSTANCE;
 
@@ -53,7 +54,7 @@ public class GetAllCarsQuerySpecification implements QuerySpecification<Car> {
                 driverBuilder.reset();
                 carNameBuilder.reset();
                 User driver = driverBuilder.withId(Column.DRIVER_ID).withEmail(Column.EMAIL).withLogin(Column.LOGIN)
-                        .withPassword(Column.PASSWORD).withRole(Column.ROLE).withBlocked(Column.IS_BLOCKED)
+                        .withPassword(Column.PASSWORD).withRole(Column.ROLE).withStatus(Column.USER_STATUS)
                         .build();
                 CarName carName = carNameBuilder.withId(Column.NAME_ID).withCarModel(Column.MODEL_NAME)
                         .withCarBrand(Column.BRAND_NAME).build();

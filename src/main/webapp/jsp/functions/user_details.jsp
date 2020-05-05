@@ -142,12 +142,12 @@
                     </div>
                     <div class="btn-wrapper">
                         <input type="hidden" name="user_id" value="${user.id}"/>
-                        <c:if test="${!user.blocked}">
+                        <c:if test="${user.status.id != 3}">
                             <button class="menu-bar-button-dangerous" name="command" value="block">
                                 <fmt:message bundle="${bundle}" key="button.block"/>
                             </button>
                         </c:if>
-                        <c:if test="${user.blocked}">
+                        <c:if test="${user.status.id == 3}">
                             <button class="menu-bar-button-green" name="command" value="unblock">
                                 <fmt:message bundle="${bundle}" key="button.unblock"/>
                             </button>
@@ -204,7 +204,7 @@
                 </div>
                 <div class="content-unit-container">
                     <label class="details-label">
-                        Blocked: ${user.blocked}
+                        Status: ${user.status}
                     </label>
                 </div>
             </c:if>
@@ -280,7 +280,7 @@
                                     <td>${order.id}</td>
                                     <td>${order.departureLocation}</td>
                                     <td>${order.arrivalLocation}</td>
-                                    <td>${order.driver.username}</td>
+                                    <td>${order.car.driver.username}</td>
                                     <td>${order.car.carName}</td>
                                     <td>${order.complete}</td>
                                 </tr>

@@ -1,6 +1,7 @@
 package by.schepov.motordepot.service.user.impl;
 
 import by.schepov.motordepot.entity.User;
+import by.schepov.motordepot.entity.UserStatus;
 import by.schepov.motordepot.exception.UserValidatorException;
 import by.schepov.motordepot.exception.repository.RepositoryException;
 import by.schepov.motordepot.exception.service.UserServiceException;
@@ -60,6 +61,7 @@ public class UserRepositoryService extends RepositoryService<User> implements Us
                     user.setId(foundUser.getId());
                     user.setRole(foundUser.getRole());
                     user.setEmail(foundUser.getEmail());
+                    user.setStatus(foundUser.getStatus());
                     return;
                 }
             }
@@ -71,9 +73,9 @@ public class UserRepositoryService extends RepositoryService<User> implements Us
     }
 
     @Override
-    public void updateIsBlockedById(int id, boolean isBlocked) throws UserServiceException {
+    public void updateStatusById(int id, UserStatus status) throws UserServiceException {
         try {
-            repository.executeUpdate(new UpdateUserBlockedSpecification(id, isBlocked));
+            repository.executeUpdate(new UpdateUserBlockedSpecification(id, status));
         } catch (RepositoryException e) {
             LOGGER.warn(e);
             throw new UserServiceException(e);

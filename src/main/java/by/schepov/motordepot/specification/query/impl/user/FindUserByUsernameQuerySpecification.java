@@ -22,8 +22,9 @@ public class FindUserByUsernameQuerySpecification implements QuerySpecification<
     private String login;
     private static final Logger LOGGER = LogManager.getLogger(FindUserByUsernameQuerySpecification.class);
     private static final String QUERY =
-            "SELECT users.id, login, password, role_id, email, is_blocked, role FROM motor_depot.users as users " +
-                    "LEFT JOIN motor_depot.roles as roles on role_id = roles.id " +
+            "SELECT users.id, login, password, role_id, email, status user_status, role FROM motor_depot.users users " +
+                    "LEFT JOIN motor_depot.roles roles on role_id = roles.id " +
+                    "LEFT JOIN motor_depot.user_statuses st on st.id = users.status_id " +
                     "WHERE users.login = ?";
     private final ConnectionPool pool = ConnectionPool.INSTANCE;
 
@@ -44,7 +45,7 @@ public class FindUserByUsernameQuerySpecification implements QuerySpecification<
             while (resultSet.next()) {
                 builder.reset();
                 users.add(builder.withId(Column.ID)
-                        .withBlocked(Column.IS_BLOCKED)
+                        .withStatus(Column.USER_STATUS)
                         .withEmail(Column.EMAIL)
                         .withLogin(Column.LOGIN)
                         .withPassword(Column.PASSWORD)

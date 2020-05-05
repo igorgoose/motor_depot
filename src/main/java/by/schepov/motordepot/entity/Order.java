@@ -8,7 +8,6 @@ public class Order {
     private String departureLocation;
     private String arrivalLocation;
     private Car car;
-    private User driver;
     private boolean complete;
 
     public int getId() {
@@ -51,14 +50,6 @@ public class Order {
         this.car = car;
     }
 
-    public User getDriver() {
-        return driver;
-    }
-
-    public void setDriver(User driver) {
-        this.driver = driver;
-    }
-
     public boolean isComplete() {
         return complete;
     }
@@ -77,13 +68,12 @@ public class Order {
                 Objects.equals(user, order.user) &&
                 Objects.equals(departureLocation, order.departureLocation) &&
                 Objects.equals(arrivalLocation, order.arrivalLocation) &&
-                Objects.equals(car, order.car) &&
-                Objects.equals(driver, order.driver);
+                Objects.equals(car, order.car);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, departureLocation, arrivalLocation, car, driver, complete);
+        return Objects.hash(id, user, departureLocation, arrivalLocation, car, complete);
     }
 
     @Override
@@ -94,7 +84,6 @@ public class Order {
                 ", departureLocation='" + departureLocation + '\'' +
                 ", arrivalLocation='" + arrivalLocation + '\'' +
                 ", car=" + car +
-                ", driver=" + driver +
                 ", isComplete=" + complete +
                 '}';
     }

@@ -9,7 +9,7 @@ public class User implements Serializable {
     private String password;
     private Role role;
     private String email;
-    private boolean blocked;
+    private UserStatus status;
 
     public int getId() {
         return id;
@@ -51,12 +51,12 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public boolean isBlocked() {
-        return blocked;
+    public UserStatus getStatus() {
+        return status;
     }
 
-    public void setBlocked(boolean blocked) {
-        this.blocked = blocked;
+    public void setStatus(UserStatus status) {
+        this.status = status;
     }
 
     @Override
@@ -65,26 +65,28 @@ public class User implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
         return id == user.id &&
-                blocked == user.blocked &&
                 Objects.equals(username, user.username) &&
                 Objects.equals(password, user.password) &&
                 role == user.role &&
-                Objects.equals(email, user.email);
+                Objects.equals(email, user.email) &&
+                status == user.status;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password, role, email, blocked);
+        return Objects.hash(id, username, password, role, email, status);
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", login='" + username + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
                 ", role=" + role +
                 ", email='" + email + '\'' +
-                ", isBlocked=" + blocked +
+                ", status=" + status +
                 '}';
     }
+
 }

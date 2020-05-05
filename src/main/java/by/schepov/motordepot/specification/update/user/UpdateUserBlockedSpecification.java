@@ -1,6 +1,7 @@
 package by.schepov.motordepot.specification.update.user;
 
 import by.schepov.motordepot.entity.User;
+import by.schepov.motordepot.entity.UserStatus;
 import by.schepov.motordepot.exception.pool.ConnectionPoolException;
 import by.schepov.motordepot.exception.specification.SpecificationException;
 import by.schepov.motordepot.pool.ConnectionPool;
@@ -16,23 +17,23 @@ import java.sql.SQLException;
 public class UpdateUserBlockedSpecification implements UpdateSpecification<User> {
 
     private int id;
-    private boolean isBlocked;
+    private UserStatus status;
     private static final Logger LOGGER = LogManager.getLogger(UpdateCarStateSpecification.class);
     private static final String QUERY = "UPDATE motor_depot.users users " +
-            "SET is_blocked = ? " +
+            "SET status_id = ? " +
             "WHERE users.id = ?";
     private ConnectionPool pool = ConnectionPool.INSTANCE;
 
-    public UpdateUserBlockedSpecification(int id, boolean isBlocked){
+    public UpdateUserBlockedSpecification(int id, UserStatus status){
         this.id = id;
-        this.isBlocked = isBlocked;
+        this.status = status;
     }
 
     @Override
     public void execute() throws SpecificationException {
         try (ProxyConnection connection = pool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(QUERY)) {
-            preparedStatement.setBoolean(1, isBlocked);
+            preparedStatement.setInt(1, status.getId());
             preparedStatement.setInt(2, id);
             preparedStatement.executeUpdate();
         } catch (ConnectionPoolException | SQLException e) {

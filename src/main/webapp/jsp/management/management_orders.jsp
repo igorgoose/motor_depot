@@ -186,7 +186,7 @@
                             <tr>
                                 <td>${order.id}</td>
                                 <td>${order.user.username}</td>
-                                <td>${order.driver.username}</td>
+                                <td>${order.car.driver.username}</td>
                                 <td>${order.car.carName}</td>
                                 <td>${order.departureLocation}</td>
                                 <td>${order.arrivalLocation}</td>
