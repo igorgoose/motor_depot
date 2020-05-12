@@ -5,13 +5,14 @@ import by.schepov.motordepot.command.access.impl.EqualRoleAccessChecker;
 import by.schepov.motordepot.command.access.impl.LessOrEqualRoleAccessChecker;
 import by.schepov.motordepot.entity.Role;
 import by.schepov.motordepot.exception.InvalidParameterException;
-import by.schepov.motordepot.jsp.Page;
+import by.schepov.motordepot.parameter.Page;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public enum Command {
 
+    REJECT_REQUEST("reject_request", new RejectRequest(), new EqualRoleAccessChecker(Role.ADMIN)),
     REDIRECT("redirect", new Redirect(), new LessOrEqualRoleAccessChecker(Role.GUEST)),
     UNBLOCK_USER("unblock", new UnblockUser(), new EqualRoleAccessChecker(Role.ADMIN)),
     BLOCK_USER("block", new BlockUser(), new EqualRoleAccessChecker(Role.ADMIN)),

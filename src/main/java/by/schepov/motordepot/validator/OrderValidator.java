@@ -1,7 +1,7 @@
 package by.schepov.motordepot.validator;
 
 import by.schepov.motordepot.entity.Order;
-import by.schepov.motordepot.exception.OrderValidatorException;
+import by.schepov.motordepot.exception.validator.OrderValidatorException;
 
 public class OrderValidator {
 

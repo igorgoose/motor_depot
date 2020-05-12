@@ -118,6 +118,11 @@
                 </c:if>
             </div>
         </form>
+        <c:if test="${message != null}">
+                    <span class="login100-form-title" style="font-size: 14px; margin-top: 5px">
+                            ${message}
+                    </span>
+        </c:if>
     </div>
     <div class="ultimate-container">
         <c:if test="${role_id == 1 && requestScope.user != null && sessionScope.user.id != requestScope.user.id}">

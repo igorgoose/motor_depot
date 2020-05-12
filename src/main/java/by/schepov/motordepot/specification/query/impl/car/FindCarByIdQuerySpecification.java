@@ -38,7 +38,7 @@ public class FindCarByIdQuerySpecification implements QuerySpecification<Car> {
             "LEFT JOIN motor_depot.car_brands as brands on brand_id = brands.id " +
             "LEFT JOIN motor_depot.car_models as models on model_id = models.id " +
             "WHERE cars.id = ?";
-    private ConnectionPool pool = ConnectionPool.INSTANCE;
+    private final ConnectionPool pool = ConnectionPool.INSTANCE;
 
     public FindCarByIdQuerySpecification(int id){
         this.id = id;

@@ -119,6 +119,11 @@
                 </div>
             </form>
         </div>
+        <c:if test="${message != null}">
+                    <span class="login100-form-title" style="font-size: 14px; margin-top: 5px">
+                            ${message}
+                    </span>
+        </c:if>
     </div>
     <div class="container-login100">
         <div class="wrap-login100 p-t-50 p-b-90">

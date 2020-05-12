@@ -25,7 +25,7 @@ public class FindFreeCarsQuerySpecification implements QuerySpecification<Car> {
 
     private int loadCapacityRequired;
     private int passengerCapacityRequired;
-    private ConnectionPool pool = ConnectionPool.INSTANCE;
+    private final ConnectionPool pool = ConnectionPool.INSTANCE;
 
     private static final Logger LOGGER = LogManager.getLogger(FindFreeCarsQuerySpecification.class);
 

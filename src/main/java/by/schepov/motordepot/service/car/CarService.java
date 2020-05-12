@@ -2,7 +2,7 @@ package by.schepov.motordepot.service.car;
 
 import by.schepov.motordepot.entity.Car;
 import by.schepov.motordepot.entity.CarStatus;
-import by.schepov.motordepot.exception.CarServiceException;
+import by.schepov.motordepot.exception.service.CarServiceException;
 
 import java.util.Set;
 

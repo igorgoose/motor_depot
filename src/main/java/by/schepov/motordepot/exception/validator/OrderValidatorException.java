@@ -1,4 +1,4 @@
-package by.schepov.motordepot.exception;
+package by.schepov.motordepot.exception.validator;
 
 public class OrderValidatorException extends Exception {
     public OrderValidatorException() {

@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Asus
-  Date: 07.04.2020
-  Time: 22:00
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -53,7 +47,7 @@
 <body>
 <div class="limiter">
     <div class="toolbar-top">
-        <form class="toolbar-top-form flex-sb flex-w" action="controller" method="post">
+        <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller" method="post">
             <div class="dropdown toolbar-top-btn">
                 <button class="dropbtn" disabled>
                     <fmt:message bundle="${bundle}" key="button.language"/>
@@ -69,13 +63,13 @@
                         <fmt:message bundle="${bundle}" key="button.role.guest"/>
                     </button>
                     <div class="dropdown-content">
-                        <form action="controller" method="post">
+                        <form action="${pageContext.request.contextPath}/controller" method="post">
                             <input type="hidden" name="address" value="HOME"/>
                             <button name="command" value="redirect">
                                 <fmt:message bundle="${bundle}" key="button.create_request"/>
                             </button>
                         </form>
-                        <form action="controller" method="post">
+                        <form action="${pageContext.request.contextPath}/controller" method="post">
                             <input type="hidden" name="address" value="AUTHORIZE"/>
                             <button name="command" value="redirect">
                                 <fmt:message bundle="${bundle}" key="button.authorize"/>
@@ -98,13 +92,13 @@
                         ]
                     </button>
                     <div class="dropdown-content">
-                        <form action="controller" method="post">
+                        <form action="${pageContext.request.contextPath}/controller" method="post">
                             <input type="hidden" name="address" value="HOME"/>
                             <button name="command" value="redirect">
                                 <fmt:message bundle="${bundle}" key="button.create_request"/>
                             </button>
                         </form>
-                        <form action="controller" method="post">
+                        <form action="${pageContext.request.contextPath}/controller" method="post">
                             <input type="hidden" name="address" value="USER_DETAILS"/>
                             <button name="command" value="redirect">
                                 <fmt:message bundle="${bundle}" key="button.profile"/>
@@ -117,6 +111,11 @@
                 </c:if>
             </div>
         </form>
+        <c:if test="${message != null}">
+                    <span class="login100-form-title" style="font-size: 14px; margin-top: 5px">
+                            ${message}
+                    </span>
+        </c:if>
     </div>
     <div class="ultimate-container">
         <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller"

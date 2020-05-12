@@ -42,7 +42,7 @@
 <div class="limiter">
     <div class="toolbar-top-container">
         <div class="toolbar-top">
-            <form class="toolbar-top-form flex-sb flex-w" action="controller" method="post">
+            <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller" method="post">
                 <div class="dropdown toolbar-top-btn">
                     <button class="dropbtn" disabled>
                         <fmt:message bundle="${bundle}" key="button.language"/>
@@ -58,7 +58,7 @@
                             <fmt:message bundle="${bundle}" key="button.role.guest"/>
                         </button>
                         <div class="dropdown-content">
-                            <form action="controller" method="post">
+                            <form action="${pageContext.request.contextPath}/controller" method="post">
                                 <input type="hidden" name="address" value="HOME">
                                 <button name="command" value="redirect">
                                     <fmt:message bundle="${bundle}" key="button.home"/>
@@ -74,7 +74,7 @@
                                 ]
                             </button>
                             <div class="dropdown-content">
-                                <form action="controller" method="post">
+                                <form action="${pageContext.request.contextPath}/controller" method="post">
                                     <input type="hidden" name="address" value="USER_DETAILS">
                                     <button name="command" value="redirect">
                                         <fmt:message bundle="${bundle}" key="button.profile"/>
@@ -92,13 +92,13 @@
                                 ]
                             </button>
                             <div class="dropdown-content">
-                                <form action="controller" method="post">
+                                <form action="${pageContext.request.contextPath}/controller" method="post">
                                     <input type="hidden" name="address" value="USER_DETAILS">
                                     <button name="command" value="redirect">
                                         <fmt:message bundle="${bundle}" key="button.profile"/>
                                     </button>
                                 </form>
-                                <form action="controller" method="post">
+                                <form action="${pageContext.request.contextPath}/controller" method="post">
                                     <input type="hidden" name="address" value="MANAGEMENT">
                                     <button name="command" value="redirect">
                                         <fmt:message bundle="${bundle}" key="button.management"/>
@@ -116,13 +116,13 @@
                                 ]
                             </button>
                             <div class="dropdown-content">
-                                <form action="controller" method="post">
+                                <form action="${pageContext.request.contextPath}/controller" method="post">
                                     <input type="hidden" name="address" value="USER_DETAILS">
                                     <button name="command" value="redirect">
                                         <fmt:message bundle="${bundle}" key="button.profile"/>
                                     </button>
                                 </form>
-                                <form action="controller" method="post">
+                                <form action="${pageContext.request.contextPath}/controller" method="post">
                                     <input type="hidden" name="address" value="MANAGEMENT">
                                     <button name="command" value="redirect">
                                         <fmt:message bundle="${bundle}" key="button.management"/>
@@ -137,10 +137,15 @@
                 </div>
             </form>
         </div>
+        <c:if test="${message != null}">
+                    <span class="login100-form-title" style="font-size: 14px; margin-top: 5px">
+                            ${message}
+                    </span>
+        </c:if>
     </div>
     <div class="container-login100">
         <div class="wrap-login100 p-t-50 p-b-90">
-            <form class="login100-form validate-form flex-sb flex-w" action="controller" method="post">
+            <form class="login100-form validate-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller" method="post">
 					<span class="login100-form-title p-b-51">
 						<fmt:message bundle="${bundle}" key="authorize.label"/>
 					</span>
@@ -174,7 +179,7 @@
                 </div>
 
             </form>
-            <form class="login100-form validate-form flex-sb flex-w" action="controller" method="post">
+            <form class="login100-form validate-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller" method="post">
                 <div class="container-login100-form-btn m-t-17">
                     <input type="hidden" name="address" value="SIGN_UP"/>
                     <button class="login100-form-btn" name="command" value="redirect">

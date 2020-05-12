@@ -116,6 +116,11 @@
                 </c:if>
             </div>
         </form>
+        <c:if test="${message != null}">
+                    <span class="login100-form-title" style="font-size: 14px; margin-top: 5px">
+                            ${message}
+                    </span>
+        </c:if>
     </div>
     <div class="ultimate-container">
         <c:if test="${role_id == 1}">
@@ -124,6 +129,7 @@
                 <div class="menu-bar">
                     <div class="btn-wrapper">
                         <button class="menu-bar-button-dangerous" name="command" value="reject_request">
+                            <input type="hidden" name="request_id" value="${request.id}"/>
                             <fmt:message bundle="${bundle}" key="button.reject_request"/>
                         </button>
                     </div>

@@ -15,7 +15,7 @@ import java.sql.SQLException;
 public enum UserRepository implements Repository<User> {
     INSTANCE;
 
-    private ConnectionPool pool = ConnectionPool.INSTANCE;
+    private final ConnectionPool pool = ConnectionPool.INSTANCE;
 
     private static final Logger LOGGER = LogManager.getLogger(UserRepository.class);
 

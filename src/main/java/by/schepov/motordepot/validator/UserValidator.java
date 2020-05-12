@@ -1,7 +1,10 @@
 package by.schepov.motordepot.validator;
 
 import by.schepov.motordepot.entity.User;
-import by.schepov.motordepot.exception.UserValidatorException;
+import by.schepov.motordepot.exception.validator.InvalidUserEmailException;
+import by.schepov.motordepot.exception.validator.InvalidUsernameOrPasswordException;
+import by.schepov.motordepot.exception.validator.PasswordRepetitionException;
+import by.schepov.motordepot.exception.validator.UserValidatorException;
 
 public class UserValidator {
 
@@ -12,26 +15,28 @@ public class UserValidator {
     private UserValidator() {
     }
 
-    public static void validateUser(User user) throws UserValidatorException {
-        if (user.getUsername() == null || user.getEmail() == null || user.getPassword() == null ||
-                !user.getUsername().matches(USERNAME_REGEX) ||
-                !user.getEmail().matches(EMAIL_REGEX) ||
-                !user.getPassword().matches(PASSWORD_REGEX)) {
-            throw new UserValidatorException("User data is invalid:" + user);
+    public static void validateUser(User user) throws InvalidUserEmailException, InvalidUsernameOrPasswordException {
+        if(user.getEmail() == null || !user.getEmail().matches(EMAIL_REGEX)){
+            throw new InvalidUserEmailException("User data is invalid:" + user);
         }
-    }
-
-    public static void validateUsernameAndPassword(User user) throws UserValidatorException {
         if (user.getUsername() == null || user.getPassword() == null ||
                 !user.getUsername().matches(USERNAME_REGEX) ||
                 !user.getPassword().matches(PASSWORD_REGEX)) {
-            throw new UserValidatorException("User data is invalid:" + user);
+            throw new InvalidUsernameOrPasswordException("User data is invalid:" + user);
         }
     }
 
-    public static void validatePasswordRepetition(String password, String repeatedPassword) throws UserValidatorException {
+    public static void validateUsernameAndPassword(User user) throws InvalidUsernameOrPasswordException {
+        if (user.getUsername() == null || user.getPassword() == null ||
+                !user.getUsername().matches(USERNAME_REGEX) ||
+                !user.getPassword().matches(PASSWORD_REGEX)) {
+            throw new InvalidUsernameOrPasswordException("User data is invalid:" + user);
+        }
+    }
+
+    public static void validatePasswordRepetition(String password, String repeatedPassword) throws PasswordRepetitionException {
         if(password == null || !password.equals(repeatedPassword)){
-            throw new UserValidatorException("Repeated password is incorrect");
+            throw new PasswordRepetitionException("Repeated password is incorrect(" + password + ", " + repeatedPassword + ")");
         }
     }
 

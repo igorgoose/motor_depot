@@ -2,9 +2,12 @@ package by.schepov.motordepot.service.user.impl;
 
 import by.schepov.motordepot.entity.User;
 import by.schepov.motordepot.entity.UserStatus;
-import by.schepov.motordepot.exception.UserValidatorException;
 import by.schepov.motordepot.exception.repository.RepositoryException;
-import by.schepov.motordepot.exception.service.UserServiceException;
+import by.schepov.motordepot.exception.service.user.UserServiceException;
+import by.schepov.motordepot.exception.validator.InvalidUserEmailException;
+import by.schepov.motordepot.exception.validator.InvalidUsernameOrPasswordException;
+import by.schepov.motordepot.exception.validator.PasswordRepetitionException;
+import by.schepov.motordepot.parameter.MessageKey;
 import by.schepov.motordepot.repository.impl.user.UserRepository;
 import by.schepov.motordepot.service.RepositoryService;
 import by.schepov.motordepot.service.user.UserService;
@@ -42,12 +45,32 @@ public class UserRepositoryService extends RepositoryService<User> implements Us
             UserValidator.validatePasswordRepetition(user.getPassword(), repeatedPassword);
             Set<User> similarLoginUsers = repository.executeQuery(new FindUserByUsernameQuerySpecification(user.getUsername()));
             if(similarLoginUsers.size() > 0){
-                throw new UserServiceException("The username is already taken");
+                UserServiceException e = new UserServiceException("The username is already taken");
+                e.setMessageBundleKey(MessageKey.USERNAME_TAKEN);
+                LOGGER.warn(e);
+                throw e;
             }
             repository.insert(user);
-        } catch (RepositoryException | UserValidatorException e) {
+        } catch (RepositoryException e) {
             LOGGER.warn(e);
-            throw new UserServiceException(e);
+            UserServiceException ex = new UserServiceException(e);
+            ex.setMessageBundleKey(MessageKey.UNEXPECTED_ERROR);
+            throw ex;
+        } catch (PasswordRepetitionException e) {
+            LOGGER.warn(e);
+            UserServiceException ex = new UserServiceException(e);
+            ex.setMessageBundleKey(MessageKey.PASSWORD_REPEATED_INCORRECTLY);
+            throw ex;
+        } catch (InvalidUserEmailException e) {
+            LOGGER.warn(e);
+            UserServiceException ex = new UserServiceException(e);
+            ex.setMessageBundleKey(MessageKey.INCORRECT_EMAIL);
+            throw ex;
+        } catch (InvalidUsernameOrPasswordException e) {
+            LOGGER.warn(e);
+            UserServiceException ex = new UserServiceException(e);
+            ex.setMessageBundleKey(MessageKey.WRONG_USERNAME_OR_PASSWORD);
+            throw ex;
         }
     }
 
@@ -65,10 +88,19 @@ public class UserRepositoryService extends RepositoryService<User> implements Us
                     return;
                 }
             }
-            throw new UserServiceException("Invalid user data");
-        } catch (RepositoryException | UserValidatorException e) {
+            UserServiceException ex = new UserServiceException("Invalid user data " + user);
+            ex.setMessageBundleKey(MessageKey.WRONG_USERNAME_OR_PASSWORD);
+            throw ex;
+        } catch (RepositoryException e) {
             LOGGER.warn(e);
-            throw new UserServiceException(e);
+            UserServiceException ex = new UserServiceException(e);
+            ex.setMessageBundleKey(MessageKey.UNEXPECTED_ERROR);
+            throw ex;
+        } catch (InvalidUsernameOrPasswordException e) {
+            LOGGER.warn(e);
+            UserServiceException ex = new UserServiceException(e);
+            ex.setMessageBundleKey(MessageKey.WRONG_USERNAME_OR_PASSWORD);
+            throw ex;
         }
     }
 
@@ -88,7 +120,9 @@ public class UserRepositoryService extends RepositoryService<User> implements Us
             return repository.executeQuery(new GetAllUsersQuerySpecification());
         } catch (RepositoryException e) {
             LOGGER.warn(e);
-            throw new UserServiceException(e);
+            UserServiceException ex = new UserServiceException(e);
+            ex.setMessageBundleKey(MessageKey.UNEXPECTED_ERROR);
+            throw ex;
         }
     }
 
@@ -99,7 +133,10 @@ public class UserRepositoryService extends RepositoryService<User> implements Us
             Iterator<User> iterator = users.iterator();
             return iterator.hasNext() ? iterator.next() : null;
         } catch (RepositoryException e) {
-            throw new UserServiceException(e);
+            LOGGER.warn(e);
+            UserServiceException ex = new UserServiceException(e);
+            ex.setMessageBundleKey(MessageKey.UNEXPECTED_ERROR);
+            throw ex;
         }
     }
 }

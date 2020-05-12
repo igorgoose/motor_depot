@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <fmt:setLocale value="${locale}"/>
-<fmt:setBundle basename="locale" var="bundle" />
+<fmt:setBundle basename="locale" var="bundle"/>
 <html>
 <head>
     <title><fmt:message bundle="${bundle}" key="signup.title"/></title>
@@ -11,21 +11,27 @@
     <!--===============================================================================================-->
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/icons/car-icon.png"/>
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="${pageContext.request.contextPath}/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="${pageContext.request.contextPath}/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/vendor/animate/animate.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/vendor/css-hamburgers/hamburgers.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="${pageContext.request.contextPath}/vendor/css-hamburgers/hamburgers.min.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/vendor/animsition/css/animsition.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="${pageContext.request.contextPath}/vendor/animsition/css/animsition.min.css">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/vendor/select2/select2.min.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/vendor/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" type="text/css"
+          href="${pageContext.request.contextPath}/vendor/daterangepicker/daterangepicker.css">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/util.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css">
@@ -131,15 +137,21 @@
                 </div>
             </form>
         </div>
+        <c:if test="${message != null}">
+                    <span class="login100-form-title" style="font-size: 14px; margin-top: 5px">
+                            ${message}
+                    </span>
+        </c:if>
     </div>
     <div class="container-login100">
         <div class="wrap-login100 p-t-50 p-b-90">
-            <form class="login100-form validate-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller" method="post">
+            <form class="login100-form validate-form flex-sb flex-w"
+                  action="${pageContext.request.contextPath}/controller" method="post">
 					<span class="login100-form-title p-b-51">
 						<fmt:message bundle="${bundle}" key="signup.title"/>
 					</span>
 
-                <div class="wrap-input100 validate-input m-b-16" data-validate = "Username is required">
+                <div class="wrap-input100 validate-input m-b-16" data-validate="Username is required">
                     <label>
                         <input class="input100" type="text" name="username" placeholder="Username"
                                pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$"
@@ -150,7 +162,7 @@
                     <span class="focus-input100"></span>
                 </div>
 
-                <div class="wrap-input100 validate-input m-b-16" data-validate = "Username is required">
+                <div class="wrap-input100 validate-input m-b-16" data-validate="Username is required">
                     <label>
                         <input class="input100" type="email" name="email" placeholder="Email"
                                pattern="^[A-Za-z0-9+_.-]+@(.+)(\.(.+))+$"
@@ -161,7 +173,7 @@
                     <span class="focus-input100"></span>
                 </div>
 
-                <div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
+                <div class="wrap-input100 validate-input m-b-16" data-validate="Password is required">
                     <label>
                         <input class="input100" type="password" name="password" placeholder="Password"
                                pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
@@ -172,7 +184,7 @@
                     <span class="focus-input100"></span>
                 </div>
 
-                <div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
+                <div class="wrap-input100 validate-input m-b-16" data-validate="Password is required">
                     <label>
                         <input class="input100" type="password" name="repeat_password" placeholder="Repeat password"
                                pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
@@ -183,19 +195,11 @@
                     <span class="focus-input100"></span>
                 </div>
 
+
                 <div class="container-login100-form-btn m-t-17">
                     <button class="login100-form-btn" name="command" value="sign_up">
                         <fmt:message bundle="${bundle}" key="button.signup"/>
                     </button>
-                </div>
-
-            </form>
-            <form class="login100-form validate-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller" method="post">
-                <div class="container-login100-form-btn m-t-17">
-                    <button class="login100-form-btn" name="address" value="HOME">
-                        <fmt:message bundle="${bundle}" key="button.home"/>
-                    </button>
-<%--                    <input class="invisible" name="address" value="HOME"/>--%>
                 </div>
             </form>
         </div>

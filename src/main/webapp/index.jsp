@@ -141,6 +141,11 @@
         </div>
     </div>
     <div class="container-login100">
+        <c:if test="${message != null}">
+                    <span class="login100-form-title" style="font-size: 14px; color:red">
+                            ${message}
+                    </span>
+        </c:if>
         <div class="wrap-login100 p-t-50 p-b-90">
             <c:if test="${role_id == 4}">
                 <div class="wrap-login100 p-t-50 p-b-90">

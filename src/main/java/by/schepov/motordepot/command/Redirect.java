@@ -1,9 +1,7 @@
 package by.schepov.motordepot.command;
 
-import by.schepov.motordepot.entity.User;
-import by.schepov.motordepot.jsp.JSPParameter;
-import by.schepov.motordepot.jsp.Page;
-import by.schepov.motordepot.session.SessionAttribute;
+import by.schepov.motordepot.parameter.JSPParameter;
+import by.schepov.motordepot.parameter.Page;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

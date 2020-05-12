@@ -1,4 +1,4 @@
-package by.schepov.motordepot.jsp;
+package by.schepov.motordepot.parameter;
 
 public enum Page {
 
@@ -9,7 +9,7 @@ public enum Page {
     MANAGEMENT_USERS("/jsp/management/management_users.jsp"),
     MANAGEMENT_CARS("/jsp/management/management_cars.jsp"),
     MANAGEMENT_ORDERS("/jsp/management/management_orders.jsp"),
-    HOME("index.jsp"),
+    HOME("/index.jsp"),
     AUTHORIZE("/jsp/authorize.jsp"),
     SIGN_UP("/jsp/signup.jsp"),
     PROFILE("/jsp/profile.jsp"),
@@ -17,7 +17,7 @@ public enum Page {
     USER_DETAILS("/jsp/functions/user_details.jsp"),
     SUBMIT_ORDER("/jsp/functions/submit_order.jsp");
 
-    private String name;
+    private final String name;
 
     Page(String name){
         this.name = name;

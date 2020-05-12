@@ -1,7 +1,7 @@
 package by.schepov.motordepot.validator;
 
 import by.schepov.motordepot.entity.Car;
-import by.schepov.motordepot.exception.CarValidatorException;
+import by.schepov.motordepot.exception.validator.CarValidatorException;
 
 public class CarValidator {
 

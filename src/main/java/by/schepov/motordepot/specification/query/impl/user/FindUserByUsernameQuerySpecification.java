@@ -19,7 +19,7 @@ import java.util.Set;
 
 public class FindUserByUsernameQuerySpecification implements QuerySpecification<User> {
 
-    private String login;
+    private final String login;
     private static final Logger LOGGER = LogManager.getLogger(FindUserByUsernameQuerySpecification.class);
     private static final String QUERY =
             "SELECT users.id, login, password, role_id, email, status user_status, role FROM motor_depot.users users " +
@@ -54,7 +54,10 @@ public class FindUserByUsernameQuerySpecification implements QuerySpecification<
             }
             resultSet.close();
             return users;
-        } catch (ConnectionPoolException | SQLException e) {
+        } catch (ConnectionPoolException e) {
+            LOGGER.error(e);
+            throw new SpecificationException(e);
+        } catch (SQLException e) {
             LOGGER.warn(e);
             throw new SpecificationException(e);
         }

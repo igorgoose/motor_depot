@@ -1,7 +1,7 @@
 package by.schepov.motordepot.service.order.impl;
 
 import by.schepov.motordepot.entity.Order;
-import by.schepov.motordepot.exception.OrderValidatorException;
+import by.schepov.motordepot.exception.validator.OrderValidatorException;
 import by.schepov.motordepot.exception.repository.RepositoryException;
 import by.schepov.motordepot.exception.service.OrderServiceException;
 import by.schepov.motordepot.repository.impl.order.OrderRepository;

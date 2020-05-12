@@ -3,10 +3,11 @@ package by.schepov.motordepot.command;
 import by.schepov.motordepot.builder.impl.user.UserBuilder;
 import by.schepov.motordepot.entity.Role;
 import by.schepov.motordepot.entity.User;
-import by.schepov.motordepot.exception.service.UserServiceException;
-import by.schepov.motordepot.jsp.JSPParameter;
-import by.schepov.motordepot.jsp.Page;
-import by.schepov.motordepot.jsp.RequestAttribute;
+import by.schepov.motordepot.exception.service.user.UserServiceException;
+import by.schepov.motordepot.parameter.JSPParameter;
+import by.schepov.motordepot.parameter.MessageKey;
+import by.schepov.motordepot.parameter.Page;
+import by.schepov.motordepot.parameter.RequestAttribute;
 import by.schepov.motordepot.service.user.impl.UserRepositoryService;
 import by.schepov.motordepot.session.SessionAttribute;
 import org.apache.logging.log4j.LogManager;
@@ -14,12 +15,16 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class LogIn implements Executable {
 
     private final UserBuilder userBuilder = new UserBuilder();
     private final UserRepositoryService userService = UserRepositoryService.getInstance();
     private static final Logger LOGGER = LogManager.getLogger(LogIn.class);
+    private static final String BUNDLE_NAME = "locale";
+
 
     LogIn(){
 
@@ -40,8 +45,15 @@ public class LogIn implements Executable {
             request.getSession().setAttribute(SessionAttribute.ROLE.getName(), user.getRole());
         } catch (UserServiceException e) {
             LOGGER.warn(e);
-            return Page.ERROR;
+            if(e.hasMessageBundleKey()){
+                setMessage(request, e.getMessageBundleKey());
+            }
+            return Page.AUTHORIZE;
         }
         return Page.HOME;
+    }
+
+    private void setMessage(HttpServletRequest request, MessageKey messageKey){
+        setMessage(request, messageKey, BUNDLE_NAME);
     }
 }

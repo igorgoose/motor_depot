@@ -38,7 +38,7 @@ public class GetAllCarsQuerySpecification implements QuerySpecification<Car> {
             "LEFT JOIN motor_depot.car_brands brands on brand_id = brands.id " +
             "LEFT JOIN motor_depot.car_models models on model_id = models.id";
 
-    private ConnectionPool pool = ConnectionPool.INSTANCE;
+    private final ConnectionPool pool = ConnectionPool.INSTANCE;
 
     @Override
     public Set<Car> execute() throws SpecificationException {

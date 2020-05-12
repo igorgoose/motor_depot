@@ -32,7 +32,7 @@ public enum ConnectionPool {
     private final Properties dbProperties = new Properties();
     private String dbURL;
 
-    public void initializePool() throws ConnectionPoolException {//init block?
+    public void initializePool() throws ConnectionPoolException {
         initializeProperties();
         try {
             DriverManager.registerDriver(new Driver());

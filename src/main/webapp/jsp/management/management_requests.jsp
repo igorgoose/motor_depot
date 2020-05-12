@@ -64,13 +64,13 @@
                         <fmt:message bundle="${bundle}" key="button.role.guest"/>
                     </button>
                     <div class="dropdown-content">
-                        <form action="controller" method="post">
+                        <form action="${pageContext.request.contextPath}/controller" method="post">
                             <input type="hidden" name="address" value="HOME"/>
                             <button name="command" value="redirect">
                                 <fmt:message bundle="${bundle}" key="button.create_request"/>
                             </button>
                         </form>
-                        <form action="controller" method="post">
+                        <form action="${pageContext.request.contextPath}/controller" method="post">
                             <input type="hidden" name="address" value="AUTHORIZE"/>
                             <button name="command" value="redirect">
                                 <fmt:message bundle="${bundle}" key="button.authorize"/>
@@ -93,13 +93,13 @@
                         ]
                     </button>
                     <div class="dropdown-content">
-                        <form action="controller" method="post">
+                        <form action="${pageContext.request.contextPath}/controller" method="post">
                             <input type="hidden" name="address" value="HOME"/>
                             <button name="command" value="redirect">
                                 <fmt:message bundle="${bundle}" key="button.create_request"/>
                             </button>
                         </form>
-                        <form action="controller" method="post">
+                        <form action="${pageContext.request.contextPath}/controller" method="post">
                             <input type="hidden" name="address" value="USER_DETAILS"/>
                             <button name="command" value="redirect">
                                 <fmt:message bundle="${bundle}" key="button.profile"/>
@@ -112,6 +112,11 @@
                 </c:if>
             </div>
         </form>
+        <c:if test="${message != null}">
+                    <span class="login100-form-title" style="font-size: 14px; margin-top: 5px">
+                            ${message}
+                    </span>
+        </c:if>
     </div>
     <div class="ultimate-container">
         <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller"

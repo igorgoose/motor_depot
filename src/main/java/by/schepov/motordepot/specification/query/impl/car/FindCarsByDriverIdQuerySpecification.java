@@ -39,7 +39,7 @@ public class FindCarsByDriverIdQuerySpecification implements QuerySpecification<
             "LEFT JOIN motor_depot.car_models as models on model_id = models.id " +
             "WHERE drivers.id = ?";
 
-    private ConnectionPool pool = ConnectionPool.INSTANCE;
+    private final ConnectionPool pool = ConnectionPool.INSTANCE;
 
     public FindCarsByDriverIdQuerySpecification(int driverId){
         this.driverId = driverId;

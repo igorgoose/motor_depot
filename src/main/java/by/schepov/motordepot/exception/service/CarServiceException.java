@@ -1,8 +1,9 @@
-package by.schepov.motordepot.exception;
+package by.schepov.motordepot.exception.service;
 
-import by.schepov.motordepot.exception.repository.RepositoryException;
+import by.schepov.motordepot.exception.MessageKeyException;
 
-public class CarServiceException extends Exception {
+public class CarServiceException extends MessageKeyException {
+
     public CarServiceException() {
     }
 
@@ -17,4 +18,5 @@ public class CarServiceException extends Exception {
     public CarServiceException(Throwable cause) {
         super(cause);
     }
+
 }

@@ -1,7 +1,7 @@
 package by.schepov.motordepot.filter;
 
-import by.schepov.motordepot.jsp.JSPParameter;
-import by.schepov.motordepot.jsp.Page;
+import by.schepov.motordepot.parameter.JSPParameter;
+import by.schepov.motordepot.parameter.Page;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;

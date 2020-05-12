@@ -1,8 +1,8 @@
 package by.schepov.motordepot.filter;
 
 
-import by.schepov.motordepot.jsp.JSPParameter;
-import by.schepov.motordepot.jsp.Page;
+import by.schepov.motordepot.parameter.JSPParameter;
+import by.schepov.motordepot.parameter.Page;
 import by.schepov.motordepot.session.SessionAttribute;
 
 import javax.servlet.*;
@@ -22,6 +22,7 @@ public class LocaleFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) resp;
         HttpSession session = request.getSession();
+        req.getServletContext();
         String localeName = request.getParameter(JSPParameter.LANGUAGE.getName());
         if (localeName == null) {
             localeName = (String) session.getAttribute(SessionAttribute.LOCALE.getName());

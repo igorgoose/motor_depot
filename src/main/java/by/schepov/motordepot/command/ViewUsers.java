@@ -1,12 +1,12 @@
 package by.schepov.motordepot.command;
 
 import by.schepov.motordepot.entity.User;
-import by.schepov.motordepot.exception.service.UserServiceException;
-import by.schepov.motordepot.jsp.Page;
-import by.schepov.motordepot.jsp.RequestAttribute;
+import by.schepov.motordepot.exception.service.user.UserServiceException;
+import by.schepov.motordepot.parameter.MessageKey;
+import by.schepov.motordepot.parameter.Page;
+import by.schepov.motordepot.parameter.RequestAttribute;
 import by.schepov.motordepot.service.user.UserService;
 import by.schepov.motordepot.service.user.impl.UserRepositoryService;
-import by.schepov.motordepot.session.SessionAttribute;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,7 +17,7 @@ import java.util.Set;
 public class ViewUsers implements Executable {
 
     private static final Logger LOGGER = LogManager.getLogger(ViewUsers.class);
-
+    private static final String BUNDLE_NAME = "locale";
     //todo create ServiceFactory
     private final UserService userService = UserRepositoryService.getInstance();
 
@@ -32,9 +32,16 @@ public class ViewUsers implements Executable {
             request.setAttribute(RequestAttribute.USERS.getName(), users);
         } catch (UserServiceException e) {
             LOGGER.warn(e);
+            if(e.hasMessageBundleKey()){
+                setMessage(request, e.getMessageBundleKey());
+            }
             return Page.ERROR;
         }
         return Page.MANAGEMENT_USERS;
+    }
+
+    private void setMessage(HttpServletRequest request, MessageKey messageKey){
+        setMessage(request, messageKey, BUNDLE_NAME);
     }
 
 }

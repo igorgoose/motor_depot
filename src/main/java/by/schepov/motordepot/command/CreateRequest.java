@@ -4,11 +4,7 @@ import by.schepov.motordepot.builder.impl.request.RequestBuilder;
 import by.schepov.motordepot.entity.Request;
 import by.schepov.motordepot.entity.User;
 import by.schepov.motordepot.exception.service.RequestServiceException;
-import by.schepov.motordepot.exception.service.UserServiceException;
-import by.schepov.motordepot.jsp.JSPParameter;
-import by.schepov.motordepot.jsp.Page;
-import by.schepov.motordepot.jsp.RequestAttribute;
-import by.schepov.motordepot.jsp.SelectOption;
+import by.schepov.motordepot.parameter.*;
 import by.schepov.motordepot.service.request.RequestService;
 import by.schepov.motordepot.service.request.impl.RequestRepositoryService;
 import by.schepov.motordepot.session.SessionAttribute;
@@ -17,11 +13,14 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class CreateRequest implements Executable {
 
     private static final Logger LOGGER = LogManager.getLogger(CreateRequest.class);
     private final RequestService requestService = RequestRepositoryService.getInstance();
+    private static final String BUNDLE_NAME = "locale";
 
     CreateRequest(){
 
@@ -43,8 +42,15 @@ public class CreateRequest implements Executable {
             requestService.insertRequest(userRequest);
         } catch (RequestServiceException e) {
             LOGGER.warn(e);
-            return Page.ERROR;
+            if(e.hasMessageBundleKey()){
+                setMessage(request, e.getMessageBundleKey());
+            }
+            return Page.AUTHORIZE;
         }
         return Page.HOME;
+    }
+
+    private void setMessage(HttpServletRequest request, MessageKey messageKey){
+        setMessage(request, messageKey, BUNDLE_NAME);
     }
 }

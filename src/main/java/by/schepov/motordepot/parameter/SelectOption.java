@@ -1,4 +1,4 @@
-package by.schepov.motordepot.jsp;
+package by.schepov.motordepot.parameter;
 
 public enum SelectOption {
     ANY(0),
@@ -18,7 +18,7 @@ public enum SelectOption {
     EIGHT_HUNDRED(800),
     NINE_HUNDRED(900);
 
-    private int value;
+    private final int value;
 
     SelectOption(int value)
     {

@@ -1,9 +1,10 @@
 package by.schepov.motordepot.service.request.impl;
 
 import by.schepov.motordepot.entity.Request;
-import by.schepov.motordepot.exception.RequestValidatorException;
+import by.schepov.motordepot.exception.validator.RequestValidatorException;
 import by.schepov.motordepot.exception.repository.RepositoryException;
 import by.schepov.motordepot.exception.service.RequestServiceException;
+import by.schepov.motordepot.parameter.MessageKey;
 import by.schepov.motordepot.repository.impl.request.RequestRepository;
 import by.schepov.motordepot.service.RepositoryService;
 import by.schepov.motordepot.service.request.RequestService;
@@ -38,9 +39,16 @@ public class RequestRepositoryService extends RepositoryService<Request> impleme
         try {
             RequestValidator.validateRequest(request);
             repository.insert(request);
-        } catch (RepositoryException | RequestValidatorException e) {
+        } catch (RepositoryException e) {
             LOGGER.warn(e);
-            throw new RequestServiceException(e);
+            RequestServiceException ex = new RequestServiceException(e);
+            ex.setMessageBundleKey(MessageKey.UNEXPECTED_ERROR);
+            throw ex;
+        } catch (RequestValidatorException e) {
+            LOGGER.warn(e);
+            RequestServiceException ex = new RequestServiceException(e);
+            ex.setMessageBundleKey(MessageKey.INVALID_REQUEST_DATA);
+            throw ex;
         }
     }
 
@@ -49,7 +57,10 @@ public class RequestRepositoryService extends RepositoryService<Request> impleme
         try {
             repository.delete(request);
         } catch (RepositoryException e) {
-            throw new RequestServiceException(e);
+            LOGGER.warn(e);
+            RequestServiceException ex = new RequestServiceException(e);
+            ex.setMessageBundleKey(MessageKey.UNEXPECTED_ERROR);
+            throw ex;
         }
     }
 
@@ -59,7 +70,9 @@ public class RequestRepositoryService extends RepositoryService<Request> impleme
             return repository.executeQuery(new GetAllRequestsQuerySpecification());
         } catch (RepositoryException e) {
             LOGGER.warn(e);
-            throw new RequestServiceException(e);
+            RequestServiceException ex = new RequestServiceException(e);
+            ex.setMessageBundleKey(MessageKey.UNEXPECTED_ERROR);
+            throw ex;
         }
     }
 
@@ -69,7 +82,9 @@ public class RequestRepositoryService extends RepositoryService<Request> impleme
             return repository.executeQuery(new FindRequestByUserIdQuerySpecification(id));
         } catch (RepositoryException e) {
             LOGGER.warn(e);
-            throw new RequestServiceException(e);
+            RequestServiceException ex = new RequestServiceException(e);
+            ex.setMessageBundleKey(MessageKey.UNEXPECTED_ERROR);
+            throw ex;
         }
     }
 
@@ -81,7 +96,9 @@ public class RequestRepositoryService extends RepositoryService<Request> impleme
             return iterator.hasNext() ? iterator.next() : null;
         } catch (RepositoryException e) {
             LOGGER.warn(e);
-            throw new RequestServiceException(e);
+            RequestServiceException ex = new RequestServiceException(e);
+            ex.setMessageBundleKey(MessageKey.UNEXPECTED_ERROR);
+            throw ex;
         }
     }
 
