@@ -1,10 +1,8 @@
 package by.schepov.motordepot.validator;
 
 import by.schepov.motordepot.entity.User;
-import by.schepov.motordepot.exception.validator.InvalidUserEmailException;
-import by.schepov.motordepot.exception.validator.InvalidUsernameOrPasswordException;
-import by.schepov.motordepot.exception.validator.PasswordRepetitionException;
-import by.schepov.motordepot.exception.validator.UserValidatorException;
+import by.schepov.motordepot.entity.UserStatus;
+import by.schepov.motordepot.exception.validator.*;
 
 public class UserValidator {
 
@@ -40,5 +38,10 @@ public class UserValidator {
         }
     }
 
+    public static void validateStatus(User user) throws UserStatusIsNullOrBlockedException {
+        if(user.getStatus() == null || user.getStatus() == UserStatus.BLOCKED){
+            throw new UserStatusIsNullOrBlockedException("User(id=" + user.getId() + ") has status=" + user.getStatus());
+        }
+    }
 
 }

@@ -7,7 +7,7 @@ public enum RequestAttribute {
     USER("user"),
     MANAGEMENT_REQUEST("management_request"),
     ROLE("role"),
-    ROLE_ID("role_id"),
+    //ROLE_ID("role_id"),
     USERNAME("username"),
     REQUESTS("requests"),
     USERS("users"),

@@ -12,7 +12,7 @@ import by.schepov.motordepot.service.order.OrderService;
 import by.schepov.motordepot.service.order.impl.OrderRepositoryService;
 import by.schepov.motordepot.service.request.RequestService;
 import by.schepov.motordepot.service.request.impl.RequestRepositoryService;
-import by.schepov.motordepot.session.SessionAttribute;
+import by.schepov.motordepot.parameter.SessionAttribute;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

@@ -12,14 +12,11 @@ import by.schepov.motordepot.service.car.CarService;
 import by.schepov.motordepot.service.car.impl.CarRepositoryService;
 import by.schepov.motordepot.service.request.RequestService;
 import by.schepov.motordepot.service.request.impl.RequestRepositoryService;
-import by.schepov.motordepot.session.SessionAttribute;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 public class AssignCar implements Executable {
 

@@ -7,16 +7,13 @@ import by.schepov.motordepot.exception.service.user.UserServiceException;
 import by.schepov.motordepot.parameter.JSPParameter;
 import by.schepov.motordepot.parameter.MessageKey;
 import by.schepov.motordepot.parameter.Page;
-import by.schepov.motordepot.parameter.RequestAttribute;
 import by.schepov.motordepot.service.user.impl.UserRepositoryService;
-import by.schepov.motordepot.session.SessionAttribute;
+import by.schepov.motordepot.parameter.SessionAttribute;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 
 public class SignUp implements Executable {
@@ -42,7 +39,6 @@ public class SignUp implements Executable {
                 .withEmail(email)
                 .withRole(Role.USER)
                 .build();
-        request.setAttribute(JSPParameter.USERNAME.getName(), username);
         try {
             userService.signUpUser(user, repeatedPassword);
             request.getSession().setAttribute(SessionAttribute.USER.getName(), user);

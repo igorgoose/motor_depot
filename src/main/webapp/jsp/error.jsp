@@ -51,9 +51,9 @@
                 </span>
             </c:if>
             <c:if test="${message != null}">
-                <span class="login100-form-title" style="font-size: 18px">
-                       <fmt:message bundle="${bundle}" key="error_description.label"/> ${message}
-                </span>
+                    <span class="login100-form-title" style="font-size: 14px">
+                            ${message}
+                    </span>
             </c:if>
             <form class="login100-form validate-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller" method="post">
                 <div class="container-login100-form-btn m-t-17">

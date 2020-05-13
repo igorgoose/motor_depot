@@ -7,14 +7,11 @@ import by.schepov.motordepot.parameter.MessageKey;
 import by.schepov.motordepot.parameter.Page;
 import by.schepov.motordepot.parameter.RequestAttribute;
 import by.schepov.motordepot.service.order.impl.OrderRepositoryService;
-import by.schepov.motordepot.session.SessionAttribute;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 public class ReportOrderCompletion implements Executable {
 

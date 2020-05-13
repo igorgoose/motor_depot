@@ -2,6 +2,7 @@ package by.schepov.motordepot.parameter;
 
 public enum MessageKey {
 
+    YOU_ARE_BLOCKED("message.you_are_blocked"),
     DRIVER_IS_BUSY_OR_BLOCKED("message.driver_is_busy_or_blocked"),
     CAR_IS_BUSY("message.busy_car"),
     UNEXPECTED_ERROR("message.unexpected_error"),
@@ -9,7 +10,7 @@ public enum MessageKey {
     USERNAME_TAKEN("message.username_taken"),
     PASSWORD_REPEATED_INCORRECTLY("message.password_repeated_incorrectly"),
     INCORRECT_EMAIL("message.incorrect_email"),
-    INVALID_REQUEST_DATA("message.invalid_request_data");
+    INVALID_REQUEST_DATA("message.invalid_request_data"), ACCESS_DENIED("message.access_denied");
 
     private final String value;
 

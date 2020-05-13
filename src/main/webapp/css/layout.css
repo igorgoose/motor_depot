@@ -1,4 +1,14 @@
 
+@font-face{
+    font-family: Montserrat;
+    src: url('../fonts/montserrat/Montserrat-Medium.ttf');
+}
+
+@font-face {
+    font-family: Ubuntu-Regular;
+    src: url('../fonts/ubuntu/Ubuntu-Regular.ttf');
+}
+
 .ultimate-container {
     width: 100%;
     height: available;
@@ -21,9 +31,11 @@
     float: left;
 }
 
+
+
 .content-unit-container {
-    font-family: Consolas;
-    font-size: 20px;
+    font-family: Ubuntu-Regular;
+    font-size: 22px;
     width: 100%;
     background: #fff;
     padding: 2px;
@@ -174,12 +186,12 @@
 
 
 .details-label {
-    font-family: Consolas;
+    font-family: Ubuntu-Regular;
     font-size: 24px;
 }
 
 .details-label-warn {
-    font-family: Consolas;
+    font-family: Ubuntu-Regular;
     font-size: 24px;
     color: red;
     text-transform: uppercase;
@@ -237,4 +249,17 @@
 
 .full-height{
     max-height: 740px;
+}
+
+.message {
+    font-family: Montserrat;
+    font-size: 18px;
+    margin-top: 5px;
+    color: #403866;
+    line-height: 1.2;
+    text-transform: uppercase;
+    text-align: center;
+
+    width: 100%;
+    display: block;
 }

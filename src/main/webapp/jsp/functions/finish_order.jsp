@@ -1,6 +1,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <fmt:setLocale value="${locale}"/>
 <fmt:setBundle basename="locale" var="bundle"/>
 <html>
@@ -55,7 +55,7 @@
                     </div>
                 </div>
                 <div class="dropdown toolbar-top-btn">
-                    <c:if test="${role_id == 4}">
+                    <c:if test="${role.id == 4}">
                         <button class="dropbtn" disabled>
                             <fmt:message bundle="${bundle}" key="button.role.guest"/>
                         </button>
@@ -76,16 +76,16 @@
 
                         </div>
                     </c:if>
-                    <c:if test="${role_id < 4}">
+                    <c:if test="${role.id < 4}">
                         <button class="dropbtn" disabled>
                                 ${username}[
-                            <c:if test="${role_id == 3}">
+                            <c:if test="${role.id == 3}">
                                 <fmt:message bundle="${bundle}" key="button.role.user"/>
                             </c:if>
-                            <c:if test="${role_id == 2}">
+                            <c:if test="${role.id == 2}">
                                 <fmt:message bundle="${bundle}" key="button.role.driver"/>
                             </c:if>
-                            <c:if test="${role_id == 1}">
+                            <c:if test="${role.id == 1}">
                                 <fmt:message bundle="${bundle}" key="button.role.admin"/>
                             </c:if>
                             ]
@@ -97,7 +97,7 @@
                                     <fmt:message bundle="${bundle}" key="button.create_request"/>
                                 </button>
                             </form>
-                            <c:if test="${role_id < 3}">
+                            <c:if test="${role.id < 3}">
                                 <form action="${pageContext.request.contextPath}/controller">
                                     <input type="hidden" name="address" value="MANAGEMENT">
                                     <button name="command" value="redirect">

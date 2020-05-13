@@ -29,7 +29,6 @@ public class ViewRequests implements Executable {
         try {
             Set<Request> requests = requestService.getAllRequests();
             request.setAttribute(RequestAttribute.REQUESTS.getName(), requests);
-            request.setAttribute(RequestAttribute.MANAGEMENT_REQUEST.getName(), Command.VIEW_REQUESTS.getName());
         } catch (RequestServiceException e) {
             LOGGER.warn(e);
             if(e.hasMessageBundleKey()){

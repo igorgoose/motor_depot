@@ -7,7 +7,7 @@
 --%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <fmt:setLocale value="${locale}"/>
 <fmt:setBundle basename="locale" var="bundle"/>
 <html>
@@ -59,7 +59,7 @@
                 </div>
             </div>
             <div class="dropdown toolbar-top-btn">
-                <c:if test="${role_id == 4}">
+                <c:if test="${role.id == 4}">
                     <button class="dropbtn" disabled>
                         <fmt:message bundle="${bundle}" key="button.role.guest"/>
                     </button>
@@ -78,16 +78,16 @@
                         </form>
                     </div>
                 </c:if>
-                <c:if test="${role_id < 4}">
+                <c:if test="${role.id < 4}">
                     <button class="dropbtn" disabled>
                             ${username}[
-                        <c:if test="${role_id == 3}">
+                        <c:if test="${role.id == 3}">
                             <fmt:message bundle="${bundle}" key="button.role.user"/>
                         </c:if>
-                        <c:if test="${role_id == 2}">
+                        <c:if test="${role.id == 2}">
                             <fmt:message bundle="${bundle}" key="button.role.driver"/>
                         </c:if>
-                        <c:if test="${role_id == 1}">
+                        <c:if test="${role.id == 1}">
                             <fmt:message bundle="${bundle}" key="button.role.admin"/>
                         </c:if>
                         ]
@@ -119,7 +119,7 @@
         </c:if>
     </div>
     <div class="ultimate-container">
-        <c:if test="${role_id == 1}">
+        <c:if test="${role.id == 1}">
             <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller"
                   method="post">
                 <div class="menu-bar">
@@ -146,7 +146,7 @@
                 </div>
             </form>
         </c:if>
-        <c:if test="${role_id == 2}">
+        <c:if test="${role.id == 2}">
             <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller"
                   method="post">
                 <div class="menu-bar">
@@ -181,7 +181,7 @@
                             <th>From</th>
                             <th>To</th>
                             <th>Is Complete</th>
-                            <c:if test="${role_id == 2}">
+                            <c:if test="${role.id == 2}">
                                 <th></th>
                             </c:if>
                         </tr>
@@ -196,7 +196,7 @@
                                 <td>${order.departureLocation}</td>
                                 <td>${order.arrivalLocation}</td>
                                 <td>${order.complete}</td>
-                                <c:if test="${role_id == 2 && !order.complete}">
+                                <c:if test="${role.id == 2 && !order.complete}">
                                     <td class="p-b-5 p-t-5 p-r-5 p-l-5">
                                         <form action="${pageContext.request.contextPath}/controller"
                                               method="post">

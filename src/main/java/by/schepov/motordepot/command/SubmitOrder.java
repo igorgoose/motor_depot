@@ -18,14 +18,13 @@ import by.schepov.motordepot.service.request.RequestService;
 import by.schepov.motordepot.service.request.impl.RequestRepositoryService;
 import by.schepov.motordepot.service.user.UserService;
 import by.schepov.motordepot.service.user.impl.UserRepositoryService;
-import by.schepov.motordepot.session.SessionAttribute;
+import by.schepov.motordepot.parameter.SessionAttribute;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import javax.servlet.http.HttpSession;
 import java.util.Set;
 
 public class SubmitOrder implements Executable{
@@ -48,28 +47,28 @@ public class SubmitOrder implements Executable{
             Request foundRequest = requestService.getRequestById(requestId);
             if(foundRequest == null) {
                 LOGGER.warn("Request hasn't been found(id=" + requestId + ")");
-                setMessage(request, MessageKey.UNEXPECTED_ERROR);
+                setMessage(request.getSession(), MessageKey.UNEXPECTED_ERROR);
                 return Page.ERROR;
             }
             Car foundCar = carService.findCarById(carId);
             if(foundCar == null){
                 LOGGER.warn("Car hasn't been found(id=" + carId + ")");
-                setMessage(request, MessageKey.UNEXPECTED_ERROR);
+                setMessage(request.getSession(), MessageKey.UNEXPECTED_ERROR);
                 return Page.ERROR;
             }
             if (foundCar.getCarStatus() == CarStatus.BUSY) {
                 LOGGER.info("The car was assigned by another admin(car_id=" + carId + ")");
-                request.setAttribute(RequestAttribute.REQUEST.getName(), foundRequest);
+                request.getSession().setAttribute(SessionAttribute.REQUEST.getName(), foundRequest);
                 Set<Car> cars = carService.findFreeCars(foundRequest.getLoad(), foundRequest.getPassengersQuantity());
-                request.setAttribute(RequestAttribute.CARS.getName(), cars);
-                setMessage(request, MessageKey.CAR_IS_BUSY);
+                request.getSession().setAttribute(SessionAttribute.CARS.getName(), cars);
+                setMessage(request.getSession(), MessageKey.CAR_IS_BUSY);
                 return Page.REQUEST_VERIFICATION;
             } else if (foundCar.getDriver().getStatus().getId() > UserStatus.ACTIVE.getId()) {
                 LOGGER.info("The driver is busy(driver_id=" + foundCar.getDriver().getStatus().getId() + ")");
-                request.setAttribute(RequestAttribute.REQUEST.getName(), foundRequest);
+                request.getSession().setAttribute(SessionAttribute.REQUEST.getName(), foundRequest);
                 Set<Car> cars = carService.findFreeCars(foundRequest.getLoad(), foundRequest.getPassengersQuantity());
-                request.setAttribute(RequestAttribute.CARS.getName(), cars);
-                setMessage(request, MessageKey.DRIVER_IS_BUSY_OR_BLOCKED);
+                request.getSession().setAttribute(SessionAttribute.CARS.getName(), cars);
+                setMessage(request.getSession(), MessageKey.DRIVER_IS_BUSY_OR_BLOCKED);
                 return Page.REQUEST_VERIFICATION;
             }
             orderBuilder.reset();
@@ -84,15 +83,15 @@ public class SubmitOrder implements Executable{
         } catch (RequestServiceException | UserServiceException | OrderServiceException | CarServiceException e) {
             LOGGER.warn(e);
             if(e.hasMessageBundleKey()){
-                setMessage(request, e.getMessageBundleKey());
+                setMessage(request.getSession(), e.getMessageBundleKey());
             }
             return Page.ERROR;
         }
     }
 
 
-    private void setMessage(HttpServletRequest request, MessageKey messageKey){
-        setMessage(request, messageKey, BUNDLE_NAME);
+    private void setMessage(HttpSession session, MessageKey messageKey){
+        setMessage(session, messageKey, BUNDLE_NAME);
     }
 
 }

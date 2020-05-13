@@ -7,19 +7,16 @@ import by.schepov.motordepot.exception.service.OrderServiceException;
 import by.schepov.motordepot.parameter.JSPParameter;
 import by.schepov.motordepot.parameter.MessageKey;
 import by.schepov.motordepot.parameter.Page;
-import by.schepov.motordepot.parameter.RequestAttribute;
 import by.schepov.motordepot.service.car.CarService;
 import by.schepov.motordepot.service.car.impl.CarRepositoryService;
 import by.schepov.motordepot.service.order.OrderService;
 import by.schepov.motordepot.service.order.impl.OrderRepositoryService;
-import by.schepov.motordepot.session.SessionAttribute;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import javax.servlet.http.HttpSession;
 
 public class FinishOrder implements Executable {
 
@@ -40,7 +37,7 @@ public class FinishOrder implements Executable {
             Order foundOrder= orderService.getOrderById(orderId);
             if(foundOrder == null){
                 LOGGER.warn("Order hasn't been found by id " + orderId);
-
+                setMessage(request.getSession(), MessageKey.UNEXPECTED_ERROR);
                 return Page.ERROR;
             }
             carService.updateCarStatus(foundOrder.getCar().getId(), carStatus);
@@ -48,16 +45,14 @@ public class FinishOrder implements Executable {
         } catch (OrderServiceException | CarServiceException e) {
             LOGGER.warn(e);
             if(e.hasMessageBundleKey()){
-                Locale locale = new Locale((String) request.getSession().getAttribute(SessionAttribute.LOCALE.getName()));
-                ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_NAME, locale);
-                request.setAttribute(RequestAttribute.MESSAGE.getName(), bundle.getString(e.getMessageBundleKey().getValue()));
+                setMessage(request.getSession(), e.getMessageBundleKey());
             }
             return Page.ERROR;
         }
         return Page.MANAGEMENT;
     }
 
-    private void setMessage(HttpServletRequest request, MessageKey messageKey){
-        setMessage(request, messageKey, BUNDLE_NAME);
+    private void setMessage(HttpSession session, MessageKey messageKey){
+        setMessage(session, messageKey, BUNDLE_NAME);
     }
 }

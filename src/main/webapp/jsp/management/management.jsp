@@ -58,7 +58,7 @@
                 </div>
             </div>
             <div class="dropdown toolbar-top-btn">
-                <c:if test="${role_id == 4}">
+                <c:if test="${role.id == 4}">
                     <button class="dropbtn" disabled>
                         <fmt:message bundle="${bundle}" key="button.role.guest"/>
                     </button>
@@ -77,16 +77,16 @@
                         </form>
                     </div>
                 </c:if>
-                <c:if test="${role_id < 4}">
+                <c:if test="${role.id < 4}">
                     <button class="dropbtn" disabled>
                             ${username}[
-                        <c:if test="${role_id == 3}">
+                        <c:if test="${role.id == 3}">
                             <fmt:message bundle="${bundle}" key="button.role.user"/>
                         </c:if>
-                        <c:if test="${role_id == 2}">
+                        <c:if test="${role.id == 2}">
                             <fmt:message bundle="${bundle}" key="button.role.driver"/>
                         </c:if>
-                        <c:if test="${role_id == 1}">
+                        <c:if test="${role.id == 1}">
                             <fmt:message bundle="${bundle}" key="button.role.admin"/>
                         </c:if>
                         ]
@@ -118,7 +118,7 @@
         </c:if>
     </div>
     <div class="ultimate-container">
-        <c:if test="${role_id == 1}">
+        <c:if test="${role.id == 1}">
             <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller" method="post">
                 <div class="menu-bar">
                     <div class="btn-wrapper">
@@ -144,7 +144,7 @@
                 </div>
             </form>
         </c:if>
-        <c:if test="${role_id == 2}">
+        <c:if test="${role.id == 2}">
             <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller" method="post">
                 <div class="menu-bar">
                     <div class="btn-wrapper">

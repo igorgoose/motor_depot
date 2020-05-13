@@ -6,7 +6,6 @@ import by.schepov.motordepot.exception.pool.ConnectionPoolException;
 import by.schepov.motordepot.parameter.JSPParameter;
 import by.schepov.motordepot.parameter.Page;
 import by.schepov.motordepot.pool.ConnectionPool;
-import by.schepov.motordepot.session.SessionAttribute;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -56,8 +55,10 @@ public class Controller extends HttpServlet {
         String commandName = req.getParameter(JSPParameter.COMMAND.getName());
         Command command = Command.getCommandByName(commandName);
         Page page = command.execute(req, resp);
-        req.getSession().setAttribute(SessionAttribute.LAST_PAGE.getName(), page);
-        req.getRequestDispatcher(page.getName()).forward(req, resp);
-        //resp.sendRedirect(req.getContextPath() + page.getName());
+        if(command.isIdempotent()){
+            req.getRequestDispatcher(page.getName()).forward(req, resp);
+        } else {
+            resp.sendRedirect(req.getContextPath() + page.getName());
+        }
     }
 }

@@ -7,6 +7,7 @@ import by.schepov.motordepot.exception.service.user.UserServiceException;
 import by.schepov.motordepot.exception.validator.InvalidUserEmailException;
 import by.schepov.motordepot.exception.validator.InvalidUsernameOrPasswordException;
 import by.schepov.motordepot.exception.validator.PasswordRepetitionException;
+import by.schepov.motordepot.exception.validator.UserStatusIsNullOrBlockedException;
 import by.schepov.motordepot.parameter.MessageKey;
 import by.schepov.motordepot.repository.impl.user.UserRepository;
 import by.schepov.motordepot.service.RepositoryService;
@@ -47,7 +48,7 @@ public class UserRepositoryService extends RepositoryService<User> implements Us
             if(similarLoginUsers.size() > 0){
                 UserServiceException e = new UserServiceException("The username is already taken");
                 e.setMessageBundleKey(MessageKey.USERNAME_TAKEN);
-                LOGGER.warn(e);
+                LOGGER.info(e);
                 throw e;
             }
             repository.insert(user);
@@ -57,17 +58,17 @@ public class UserRepositoryService extends RepositoryService<User> implements Us
             ex.setMessageBundleKey(MessageKey.UNEXPECTED_ERROR);
             throw ex;
         } catch (PasswordRepetitionException e) {
-            LOGGER.warn(e);
+            LOGGER.info(e);
             UserServiceException ex = new UserServiceException(e);
             ex.setMessageBundleKey(MessageKey.PASSWORD_REPEATED_INCORRECTLY);
             throw ex;
         } catch (InvalidUserEmailException e) {
-            LOGGER.warn(e);
+            LOGGER.info(e);
             UserServiceException ex = new UserServiceException(e);
             ex.setMessageBundleKey(MessageKey.INCORRECT_EMAIL);
             throw ex;
         } catch (InvalidUsernameOrPasswordException e) {
-            LOGGER.warn(e);
+            LOGGER.info(e);
             UserServiceException ex = new UserServiceException(e);
             ex.setMessageBundleKey(MessageKey.WRONG_USERNAME_OR_PASSWORD);
             throw ex;
@@ -85,6 +86,7 @@ public class UserRepositoryService extends RepositoryService<User> implements Us
                     user.setRole(foundUser.getRole());
                     user.setEmail(foundUser.getEmail());
                     user.setStatus(foundUser.getStatus());
+                    UserValidator.validateStatus(user);
                     return;
                 }
             }
@@ -97,9 +99,14 @@ public class UserRepositoryService extends RepositoryService<User> implements Us
             ex.setMessageBundleKey(MessageKey.UNEXPECTED_ERROR);
             throw ex;
         } catch (InvalidUsernameOrPasswordException e) {
-            LOGGER.warn(e);
+            LOGGER.info(e);
             UserServiceException ex = new UserServiceException(e);
             ex.setMessageBundleKey(MessageKey.WRONG_USERNAME_OR_PASSWORD);
+            throw ex;
+        } catch (UserStatusIsNullOrBlockedException e) {
+            LOGGER.info(e);
+            UserServiceException ex = new UserServiceException(e);
+            ex.setMessageBundleKey(MessageKey.YOU_ARE_BLOCKED);
             throw ex;
         }
     }

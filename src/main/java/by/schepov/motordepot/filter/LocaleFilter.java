@@ -3,7 +3,7 @@ package by.schepov.motordepot.filter;
 
 import by.schepov.motordepot.parameter.JSPParameter;
 import by.schepov.motordepot.parameter.Page;
-import by.schepov.motordepot.session.SessionAttribute;
+import by.schepov.motordepot.parameter.SessionAttribute;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;

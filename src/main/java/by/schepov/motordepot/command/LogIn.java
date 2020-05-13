@@ -7,16 +7,14 @@ import by.schepov.motordepot.exception.service.user.UserServiceException;
 import by.schepov.motordepot.parameter.JSPParameter;
 import by.schepov.motordepot.parameter.MessageKey;
 import by.schepov.motordepot.parameter.Page;
-import by.schepov.motordepot.parameter.RequestAttribute;
 import by.schepov.motordepot.service.user.impl.UserRepositoryService;
-import by.schepov.motordepot.session.SessionAttribute;
+import by.schepov.motordepot.parameter.SessionAttribute;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import javax.servlet.http.HttpSession;
 
 public class LogIn implements Executable {
 
@@ -46,14 +44,14 @@ public class LogIn implements Executable {
         } catch (UserServiceException e) {
             LOGGER.warn(e);
             if(e.hasMessageBundleKey()){
-                setMessage(request, e.getMessageBundleKey());
+                setMessage(request.getSession(), e.getMessageBundleKey());
             }
             return Page.AUTHORIZE;
         }
         return Page.HOME;
     }
 
-    private void setMessage(HttpServletRequest request, MessageKey messageKey){
-        setMessage(request, messageKey, BUNDLE_NAME);
+    private void setMessage(HttpSession session, MessageKey messageKey){
+        setMessage(session, messageKey, BUNDLE_NAME);
     }
 }

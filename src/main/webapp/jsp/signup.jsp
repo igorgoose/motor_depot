@@ -53,7 +53,7 @@
                     </div>
                 </div>
                 <div class="dropdown toolbar-top-btn">
-                    <c:if test="${role_id == 4}">
+                    <c:if test="${role.id == 4}">
                         <button class="dropbtn" disabled>
                             <fmt:message bundle="${bundle}" key="button.role.guest"/>
                         </button>
@@ -66,8 +66,8 @@
                             </form>
                         </div>
                     </c:if>
-                    <c:if test="${role_id < 4}">
-                        <c:if test="${role_id == 3}">
+                    <c:if test="${role.id < 4}">
+                        <c:if test="${role.id == 3}">
                             <button class="dropbtn" disabled>
                                     ${username}[
                                 <fmt:message bundle="${bundle}" key="button.role.user"/>
@@ -85,7 +85,7 @@
                                 </button>
                             </div>
                         </c:if>
-                        <c:if test="${role_id == 2}">
+                        <c:if test="${role.id == 2}">
                             <button class="dropbtn" disabled>
                                     ${username}[
                                 <fmt:message bundle="${bundle}" key="button.role.driver"/>
@@ -109,7 +109,7 @@
                                 </button>
                             </div>
                         </c:if>
-                        <c:if test="${role_id == 1}">
+                        <c:if test="${role.id == 1}">
                             <button class="dropbtn" disabled>
                                     ${username}[
                                 <fmt:message bundle="${bundle}" key="button.role.admin"/>

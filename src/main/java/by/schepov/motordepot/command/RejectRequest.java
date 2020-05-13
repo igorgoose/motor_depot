@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class RejectRequest implements Executable{
     private static final Logger LOGGER = LogManager.getLogger(SubmitOrder.class);
@@ -27,7 +28,7 @@ public class RejectRequest implements Executable{
             Request foundRequest = requestService.getRequestById(requestId);
             if(foundRequest == null) {
                 LOGGER.warn("Request hasn't been found(id=" + requestId + ")");
-                setMessage(request, MessageKey.UNEXPECTED_ERROR);
+                setMessage(request.getSession(), MessageKey.UNEXPECTED_ERROR);
                 return Page.ERROR;
             }
             requestService.deleteRequest(foundRequest);
@@ -35,14 +36,14 @@ public class RejectRequest implements Executable{
         } catch (RequestServiceException e) {
             LOGGER.warn(e);
             if(e.hasMessageBundleKey()){
-                setMessage(request, e.getMessageBundleKey());
+                setMessage(request.getSession(), e.getMessageBundleKey());
             }
             return Page.ERROR;
         }
     }
 
-
-    private void setMessage(HttpServletRequest request, MessageKey messageKey){
-        setMessage(request, messageKey, BUNDLE_NAME);
+    private void setMessage(HttpSession session, MessageKey messageKey){
+        setMessage(session, messageKey, BUNDLE_NAME);
     }
+
 }

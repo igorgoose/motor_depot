@@ -6,10 +6,10 @@
 <html>
 <head>
     <title>
-        <c:if test="${role_id == 4}">
+        <c:if test="${role.id == 4}">
             <fmt:message bundle="${bundle}" key="home.title"/>
         </c:if>
-        <c:if test="${role_id < 4}">
+        <c:if test="${role.id < 4}">
             <fmt:message bundle="${bundle}" key="create_request.title"/>
         </c:if>
     </title>
@@ -55,7 +55,7 @@
                     </div>
                 </div>
                 <div class="dropdown toolbar-top-btn">
-                    <c:if test="${role_id == 4}">
+                    <c:if test="${role.id == 4}">
                         <button class="dropbtn" disabled>
                             <fmt:message bundle="${bundle}" key="button.role.guest"/>
                         </button>
@@ -68,8 +68,8 @@
                             </div>
                         </form>
                     </c:if>
-                    <c:if test="${role_id < 4}">
-                        <c:if test="${role_id == 3}">
+                    <c:if test="${role.id < 4}">
+                        <c:if test="${role.id == 3}">
                             <button class="dropbtn" disabled>
                                     ${username}[
                                 <fmt:message bundle="${bundle}" key="button.role.user"/>
@@ -87,7 +87,7 @@
                                 </form>
                             </div>
                         </c:if>
-                        <c:if test="${role_id == 2}">
+                        <c:if test="${role.id == 2}">
                             <button class="dropbtn" disabled>
                                     ${username}[
                                 <fmt:message bundle="${bundle}" key="button.role.driver"/>
@@ -111,7 +111,7 @@
                                 </form>
                             </div>
                         </c:if>
-                        <c:if test="${role_id == 1}">
+                        <c:if test="${role.id == 1}">
                             <button class="dropbtn" disabled>
                                     ${username}[
                                 <fmt:message bundle="${bundle}" key="button.role.admin"/>
@@ -142,12 +142,12 @@
     </div>
     <div class="container-login100">
         <c:if test="${message != null}">
-                    <span class="login100-form-title" style="font-size: 14px; color:red">
+                    <span class="login100-form-title" style="font-size: 14px; margin-top: 5px">
                             ${message}
                     </span>
         </c:if>
         <div class="wrap-login100 p-t-50 p-b-90">
-            <c:if test="${role_id == 4}">
+            <c:if test="${role.id == 4}">
                 <div class="wrap-login100 p-t-50 p-b-90">
             <span class="login100-form-title p-b-51">
                     <fmt:message bundle="${bundle}" key="welcome.welcome"/>
@@ -157,7 +157,7 @@
             </span>
                 </div>
             </c:if>
-            <c:if test="${role_id < 4}">
+            <c:if test="${role.id < 4}">
                 <form class="login100-form validate-form flex-sb flex-w"
                       action="${pageContext.request.contextPath}/controller" method="post">
 					<span class="login100-form-title p-b-51">

@@ -7,7 +7,7 @@ import by.schepov.motordepot.parameter.MessageKey;
 import by.schepov.motordepot.parameter.Page;
 import by.schepov.motordepot.parameter.RequestAttribute;
 import by.schepov.motordepot.service.order.impl.OrderRepositoryService;
-import by.schepov.motordepot.session.SessionAttribute;
+import by.schepov.motordepot.parameter.SessionAttribute;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

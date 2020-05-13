@@ -25,6 +25,9 @@
           href="${pageContext.request.contextPath}/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css"
+          href="${pageContext.request.contextPath}/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css"
           href="${pageContext.request.contextPath}/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/vendor/animate/animate.css">
@@ -58,7 +61,7 @@
                 </div>
             </div>
             <div class="dropdown toolbar-top-btn">
-                <c:if test="${role_id == 4}">
+                <c:if test="${role.id == 4}">
                     <button class="dropbtn" disabled>
                         <fmt:message bundle="${bundle}" key="button.role.guest"/>
                     </button>
@@ -77,16 +80,16 @@
                         </form>
                     </div>
                 </c:if>
-                <c:if test="${role_id < 4}">
+                <c:if test="${role.id < 4}">
                     <button class="dropbtn" disabled>
                             ${username}[
-                        <c:if test="${role_id == 3}">
+                        <c:if test="${role.id == 3}">
                             <fmt:message bundle="${bundle}" key="button.role.user"/>
                         </c:if>
-                        <c:if test="${role_id == 2}">
+                        <c:if test="${role.id == 2}">
                             <fmt:message bundle="${bundle}" key="button.role.driver"/>
                         </c:if>
-                        <c:if test="${role_id == 1}">
+                        <c:if test="${role.id == 1}">
                             <fmt:message bundle="${bundle}" key="button.role.admin"/>
                         </c:if>
                         ]

@@ -57,7 +57,7 @@
                 </div>
             </div>
             <div class="dropdown toolbar-top-btn">
-                <c:if test="${role_id == 4}">
+                <c:if test="${role.id == 4}">
                     <button class="dropbtn" disabled>
                         <fmt:message bundle="${bundle}" key="button.role.guest"/>
                     </button>
@@ -76,16 +76,16 @@
                         </form>
                     </div>
                 </c:if>
-                <c:if test="${role_id < 4}">
+                <c:if test="${role.id < 4}">
                     <button class="dropbtn" disabled>
                             ${username}[
-                        <c:if test="${role_id == 3}">
+                        <c:if test="${role.id == 3}">
                             <fmt:message bundle="${bundle}" key="button.role.user"/>
                         </c:if>
-                        <c:if test="${role_id == 2}">
+                        <c:if test="${role.id == 2}">
                             <fmt:message bundle="${bundle}" key="button.role.driver"/>
                         </c:if>
-                        <c:if test="${role_id == 1}">
+                        <c:if test="${role.id == 1}">
                             <fmt:message bundle="${bundle}" key="button.role.admin"/>
                         </c:if>
                         ]
@@ -97,7 +97,7 @@
                                 <fmt:message bundle="${bundle}" key="button.create_request"/>
                             </button>
                         </form>
-                        <c:if test="${role_id < 3}">
+                        <c:if test="${role.id < 3}">
                             <form action="${pageContext.request.contextPath}/controller">
                                 <input type="hidden" name="address" value="MANAGEMENT">
                                 <button name="command" value="redirect">
@@ -125,10 +125,10 @@
         </c:if>
     </div>
     <div class="ultimate-container">
-        <c:if test="${role_id == 1 && requestScope.user != null && sessionScope.user.id != requestScope.user.id}">
+        <c:if test="${role.id == 1 && ((requestScope.user != null && sessionScope.user.id != requestScope.user.id) ||
+         (that_user != null && that_user.id != sessionScope.user.id))}">
             <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller"
                   method="post">
-                <input type="hidden" name="user_id" value="${user.id}"/>
                 <div class="menu-bar">
                     <div class="btn-wrapper">
                         <button class="menu-bar-button" name="command" value="user_details">
@@ -146,22 +146,37 @@
                         </button>
                     </div>
                     <div class="btn-wrapper">
-                        <input type="hidden" name="user_id" value="${user.id}"/>
-                        <c:if test="${user.status.id != 3}">
-                            <button class="menu-bar-button-dangerous" name="command" value="block">
-                                <fmt:message bundle="${bundle}" key="button.block"/>
-                            </button>
+                        <c:if test="${that_user != null}">
+                            <input type="hidden" name="user_id" value="${that_user.id}"/>
+                            <c:if test="${that_user.status.id != 3}">
+                                <button class="menu-bar-button-dangerous" name="command" value="block">
+                                    <fmt:message bundle="${bundle}" key="button.block"/>
+                                </button>
+                            </c:if>
+                            <c:if test="${that_user.status.id == 3}">
+                                <button class="menu-bar-button-green" name="command" value="unblock">
+                                    <fmt:message bundle="${bundle}" key="button.unblock"/>
+                                </button>
+                            </c:if>
                         </c:if>
-                        <c:if test="${user.status.id == 3}">
-                            <button class="menu-bar-button-green" name="command" value="unblock">
-                                <fmt:message bundle="${bundle}" key="button.unblock"/>
-                            </button>
+                        <c:if test="${requestScope.user != null}">
+                            <input type="hidden" name="user_id" value="${requestScope.user.id}"/>
+                            <c:if test="${requestScope.user.status.id != 3}">
+                                <button class="menu-bar-button-dangerous" name="command" value="block">
+                                    <fmt:message bundle="${bundle}" key="button.block"/>
+                                </button>
+                            </c:if>
+                            <c:if test="${requestScope.user.status.id == 3}">
+                                <button class="menu-bar-button-green" name="command" value="unblock">
+                                    <fmt:message bundle="${bundle}" key="button.unblock"/>
+                                </button>
+                            </c:if>
                         </c:if>
                     </div>
                 </div>
             </form>
         </c:if>
-        <c:if test="${requestScope.user == null || sessionScope.user.id == requestScope.user.id}">
+        <c:if test="${(requestScope.user == null && that_user == null) || sessionScope.user.id == requestScope.user.id || sessionScope.user.id == that_user.id}">
             <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller"
                   method="post">
                 <input type="hidden" name="user_id" value="${user.id}"/>
@@ -189,27 +204,52 @@
             <c:if test="${requestScope.orders == null && requestScope.requests == null}">
                 <div class="content-unit-container">
                     <label class="details-label">
-                        ID: ${user.id}
+                        ID: <c:if test="${that_user != null}">
+                        ${that_user.id}
+                    </c:if>
+                        <c:if test="${that_user == null}">
+                            ${user.id}
+                        </c:if>
                     </label>
                 </div>
                 <div class="content-unit-container">
                     <label class="details-label">
-                        Username: ${user.username}
+                        Username: <c:if test="${that_user != null}">
+                        ${that_user.username}
+                    </c:if>
+                        <c:if test="${that_user == null}">
+                            ${user.username}
+                        </c:if>
                     </label>
                 </div>
                 <div class="content-unit-container">
                     <label class="details-label">
-                        Email: ${user.email}
+                        Email: <c:if test="${that_user != null}">
+                        ${that_user.email}
+                    </c:if>
+                        <c:if test="${that_user == null}">
+                            ${user.email}
+                        </c:if>
                     </label>
                 </div>
                 <div class="content-unit-container">
                     <label class="details-label">
-                        Role: ${user.role}
+                        Role: <c:if test="${that_user != null}">
+                        ${that_user.role}
+                    </c:if>
+                        <c:if test="${that_user == null}">
+                            ${user.role}
+                        </c:if>
                     </label>
                 </div>
                 <div class="content-unit-container">
                     <label class="details-label">
-                        Status: ${user.status}
+                        Status: <c:if test="${that_user != null}">
+                        ${that_user.status}
+                    </c:if>
+                        <c:if test="${that_user == null}">
+                            ${user.status}
+                        </c:if>
                     </label>
                 </div>
             </c:if>
