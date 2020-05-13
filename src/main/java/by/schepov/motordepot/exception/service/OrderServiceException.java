@@ -1,6 +1,8 @@
 package by.schepov.motordepot.exception.service;
 
-public class OrderServiceException extends Exception {
+import by.schepov.motordepot.exception.MessageKeyException;
+
+public class OrderServiceException extends MessageKeyException {
     public OrderServiceException() {
     }
 

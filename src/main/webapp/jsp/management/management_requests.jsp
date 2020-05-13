@@ -12,11 +12,11 @@
 <fmt:setBundle basename="locale" var="bundle"/>
 <html>
 <head>
-    <title><fmt:message bundle="${bundle}" key="home.title"/></title>
+    <title><fmt:message bundle="${bundle}" key="management.title"/></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
-    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/icons/favicon.ico"/>
+    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/icons/car-icon.png"/>
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css"
           href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css">
@@ -47,7 +47,8 @@
 <body>
 <div class="limiter">
     <div class="toolbar-top">
-        <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller" method="post">
+        <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller"
+              method="post">
             <div class="dropdown toolbar-top-btn">
                 <button class="dropbtn" disabled>
                     <fmt:message bundle="${bundle}" key="button.language"/>
@@ -58,50 +59,68 @@
                 </div>
             </div>
             <div class="dropdown toolbar-top-btn">
-                <c:if test="${role_id == 4}">
+                <c:if test="${role.id == 4}">
                     <button class="dropbtn" disabled>
                         <fmt:message bundle="${bundle}" key="button.role.guest"/>
                     </button>
                     <div class="dropdown-content">
-                        <button name="address" value="HOME">
-                            <fmt:message bundle="${bundle}" key="button.home"/>
-                        </button>
-                        <button name="address" value="AUTHORIZE">
-                            <fmt:message bundle="${bundle}" key="button.authorize"/>
-                        </button>
+                        <form action="${pageContext.request.contextPath}/controller" method="post">
+                            <input type="hidden" name="address" value="HOME"/>
+                            <button name="command" value="redirect">
+                                <fmt:message bundle="${bundle}" key="button.create_request"/>
+                            </button>
+                        </form>
+                        <form action="${pageContext.request.contextPath}/controller" method="post">
+                            <input type="hidden" name="address" value="AUTHORIZE"/>
+                            <button name="command" value="redirect">
+                                <fmt:message bundle="${bundle}" key="button.authorize"/>
+                            </button>
+                        </form>
                     </div>
                 </c:if>
-                <c:if test="${role_id < 4}">
+                <c:if test="${role.id < 4}">
                     <button class="dropbtn" disabled>
                             ${username}[
-                        <c:if test="${role_id == 3}">
+                        <c:if test="${role.id == 3}">
                             <fmt:message bundle="${bundle}" key="button.role.user"/>
                         </c:if>
-                        <c:if test="${role_id == 2}">
+                        <c:if test="${role.id == 2}">
                             <fmt:message bundle="${bundle}" key="button.role.driver"/>
                         </c:if>
-                        <c:if test="${role_id == 1}">
+                        <c:if test="${role.id == 1}">
                             <fmt:message bundle="${bundle}" key="button.role.admin"/>
                         </c:if>
                         ]
                     </button>
                     <div class="dropdown-content">
-                        <button name="address" value="HOME">
-                            <fmt:message bundle="${bundle}" key="button.create_request"/>
-                        </button>
-                        <button name="address" value="USER_DETAILS">
-                            <fmt:message bundle="${bundle}" key="button.profile"/>
-                        </button>
-                        <button name="command" value="log_out">
-                            <fmt:message bundle="${bundle}" key="button.logout"/>
-                        </button>
+                        <form action="${pageContext.request.contextPath}/controller" method="post">
+                            <input type="hidden" name="address" value="HOME"/>
+                            <button name="command" value="redirect">
+                                <fmt:message bundle="${bundle}" key="button.create_request"/>
+                            </button>
+                        </form>
+                        <form action="${pageContext.request.contextPath}/controller" method="post">
+                            <input type="hidden" name="address" value="USER_DETAILS"/>
+                            <button name="command" value="redirect">
+                                <fmt:message bundle="${bundle}" key="button.profile"/>
+                            </button>
+                            <button name="command" value="log_out">
+                                <fmt:message bundle="${bundle}" key="button.logout"/>
+                            </button>
+                        </form>
                     </div>
                 </c:if>
             </div>
         </form>
+        <c:if test="${message != null}">
+                    <span class="login100-form-title" style="font-size: 14px; margin-top: 5px">
+                            ${message}
+                    </span>
+        </c:if>
     </div>
     <div class="ultimate-container">
-        <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller" method="post">
+        <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller"
+              method="post">
             <div class="menu-bar">
                 <div class="btn-wrapper">
                     <button class="menu-bar-button" name="command" value="view_requests">
@@ -126,44 +145,51 @@
             </div>
         </form>
         <div class="content-container">
-            <div class="content-unit-container pre-scrollable full-height">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>Request ID</th>
-                        <th>User</th>
-                        <th>Departure location</th>
-                        <th>Arrival location</th>
-                        <th>Passengers quantity</th>
-                        <th>Load Volume</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach var="request" items="${requests}">
+            <c:if test="${not empty requests}">
+                <div class="content-unit-container pre-scrollable full-height">
+                    <table class="table">
+                        <thead>
                         <tr>
-                            <td>${request.id}</td>
-                            <td>${request.user.username}</td>
-                            <td>${request.departureLocation}</td>
-                            <td>${request.arrivalLocation}</td>
-                            <td>${request.passengersQuantity}</td>
-                            <td>${request.load}</td>
-                            <td class="p-b-5 p-t-5 p-r-5 p-l-5">
-                                <form action="${pageContext.request.contextPath}/controller"
-                                      method="post">
-                                    <input type="hidden" name="request_id" value="${request.id}"/>
-                                    <input type="hidden" name="load_volume" value="${request.load}"/>
-                                    <input type="hidden" name="passenger_quantity" value="${request.passengersQuantity}"/>
-                                    <button class="table-btn-green" name="command" value="verify_request">
-                                        <fmt:message bundle="${bundle}" key="button.create_order"/>
-                                    </button>
-                                </form>
-                            </td>
+                            <th>Request ID</th>
+                            <th>User</th>
+                            <th>Departure location</th>
+                            <th>Arrival location</th>
+                            <th>Passengers quantity</th>
+                            <th>Load Volume</th>
+                            <th></th>
                         </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody>
+                        <c:forEach var="request" items="${requests}">
+                            <tr>
+                                <td>${request.id}</td>
+                                <td>${request.user.username}</td>
+                                <td>${request.departureLocation}</td>
+                                <td>${request.arrivalLocation}</td>
+                                <td>${request.passengersQuantity}</td>
+                                <td>${request.load}</td>
+                                <td class="p-b-5 p-t-5 p-r-5 p-l-5">
+                                    <form action="${pageContext.request.contextPath}/controller"
+                                          method="post">
+                                        <input type="hidden" name="request_id" value="${request.id}"/>
+                                        <button class="table-btn-green" name="command" value="verify_request">
+                                            <fmt:message bundle="${bundle}" key="button.create_order"/>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+            </c:if>
+            <c:if test="${empty requests}">
+                <div class="content-unit-container">
+                    <label class="details-label">
+                        <fmt:message bundle="${bundle}" key="management.no_requests"/>
+                    </label>
+                </div>
+            </c:if>
         </div>
     </div>
 </div>

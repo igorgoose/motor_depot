@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
-    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/icons/favicon.ico"/>
+    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/icons/car-icon.png"/>
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css"
           href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css">
@@ -42,7 +42,7 @@
 <div class="limiter">
     <div class="toolbar-top-container">
         <div class="toolbar-top">
-            <form class="toolbar-top-form flex-sb flex-w" action="controller" method="post">
+            <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller" method="post">
                 <div class="dropdown toolbar-top-btn">
                     <button class="dropbtn" disabled>
                         <fmt:message bundle="${bundle}" key="button.language"/>
@@ -53,63 +53,81 @@
                     </div>
                 </div>
                 <div class="dropdown toolbar-top-btn">
-                    <c:if test="${role_id == 4}">
+                    <c:if test="${role.id == 4}">
                         <button class="dropbtn" disabled>
                             <fmt:message bundle="${bundle}" key="button.role.guest"/>
                         </button>
                         <div class="dropdown-content">
-                            <button name="address" value="HOME">
-                                <fmt:message bundle="${bundle}" key="button.home"/>
-                            </button>
+                            <form action="${pageContext.request.contextPath}/controller" method="post">
+                                <input type="hidden" name="address" value="HOME">
+                                <button name="command" value="redirect">
+                                    <fmt:message bundle="${bundle}" key="button.home"/>
+                                </button>
+                            </form>
                         </div>
                     </c:if>
-                    <c:if test="${role_id < 4}">
-                        <c:if test="${role_id == 3}">
+                    <c:if test="${role.id < 4}">
+                        <c:if test="${role.id == 3}">
                             <button class="dropbtn" disabled>
                                     ${username}[
                                 <fmt:message bundle="${bundle}" key="button.role.user"/>
                                 ]
                             </button>
                             <div class="dropdown-content">
-                                <button name="address" value="USER_DETAILS">
-                                    <fmt:message bundle="${bundle}" key="button.profile"/>
-                                </button>
+                                <form action="${pageContext.request.contextPath}/controller" method="post">
+                                    <input type="hidden" name="address" value="USER_DETAILS">
+                                    <button name="command" value="redirect">
+                                        <fmt:message bundle="${bundle}" key="button.profile"/>
+                                    </button>
+                                </form>
                                 <button name="command" value="log_out">
                                     <fmt:message bundle="${bundle}" key="button.logout"/>
                                 </button>
                             </div>
                         </c:if>
-                        <c:if test="${role_id == 2}">
+                        <c:if test="${role.id == 2}">
                             <button class="dropbtn" disabled>
                                     ${username}[
                                 <fmt:message bundle="${bundle}" key="button.role.driver"/>
                                 ]
                             </button>
                             <div class="dropdown-content">
-                                <button name="address" value="USER_DETAILS">
-                                    <fmt:message bundle="${bundle}" key="button.profile"/>
-                                </button>
-                                <button name="address" value="MANAGEMENT">
-                                    <fmt:message bundle="${bundle}" key="button.management"/>
-                                </button>
+                                <form action="${pageContext.request.contextPath}/controller" method="post">
+                                    <input type="hidden" name="address" value="USER_DETAILS">
+                                    <button name="command" value="redirect">
+                                        <fmt:message bundle="${bundle}" key="button.profile"/>
+                                    </button>
+                                </form>
+                                <form action="${pageContext.request.contextPath}/controller" method="post">
+                                    <input type="hidden" name="address" value="MANAGEMENT">
+                                    <button name="command" value="redirect">
+                                        <fmt:message bundle="${bundle}" key="button.management"/>
+                                    </button>
+                                </form>
                                 <button name="command" value="log_out">
                                     <fmt:message bundle="${bundle}" key="button.logout"/>
                                 </button>
                             </div>
                         </c:if>
-                        <c:if test="${role_id == 1}">
+                        <c:if test="${role.id == 1}">
                             <button class="dropbtn" disabled>
                                     ${username}[
                                 <fmt:message bundle="${bundle}" key="button.role.admin"/>
                                 ]
                             </button>
                             <div class="dropdown-content">
-                                <button name="address" value="USER_DETAILS">
-                                    <fmt:message bundle="${bundle}" key="button.profile"/>
-                                </button>
-                                <button name="address" value="MANAGEMENT">
-                                    <fmt:message bundle="${bundle}" key="button.management"/>
-                                </button>
+                                <form action="${pageContext.request.contextPath}/controller" method="post">
+                                    <input type="hidden" name="address" value="USER_DETAILS">
+                                    <button name="command" value="redirect">
+                                        <fmt:message bundle="${bundle}" key="button.profile"/>
+                                    </button>
+                                </form>
+                                <form action="${pageContext.request.contextPath}/controller" method="post">
+                                    <input type="hidden" name="address" value="MANAGEMENT">
+                                    <button name="command" value="redirect">
+                                        <fmt:message bundle="${bundle}" key="button.management"/>
+                                    </button>
+                                </form>
                                 <button name="command" value="log_out">
                                     <fmt:message bundle="${bundle}" key="button.logout"/>
                                 </button>
@@ -119,10 +137,15 @@
                 </div>
             </form>
         </div>
+        <c:if test="${message != null}">
+                    <span class="login100-form-title" style="font-size: 14px; margin-top: 5px">
+                            ${message}
+                    </span>
+        </c:if>
     </div>
     <div class="container-login100">
         <div class="wrap-login100 p-t-50 p-b-90">
-            <form class="login100-form validate-form flex-sb flex-w" action="controller" method="post">
+            <form class="login100-form validate-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller" method="post">
 					<span class="login100-form-title p-b-51">
 						<fmt:message bundle="${bundle}" key="authorize.label"/>
 					</span>
@@ -156,9 +179,10 @@
                 </div>
 
             </form>
-            <form class="login100-form validate-form flex-sb flex-w" action="controller" method="post">
+            <form class="login100-form validate-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller" method="post">
                 <div class="container-login100-form-btn m-t-17">
-                    <button class="login100-form-btn" name="address" value="SIGN_UP">
+                    <input type="hidden" name="address" value="SIGN_UP"/>
+                    <button class="login100-form-btn" name="command" value="redirect">
                         <fmt:message bundle="${bundle}" key="button.signup"/>
                     </button>
                 </div>

@@ -7,16 +7,16 @@
 --%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <fmt:setLocale value="${locale}"/>
 <fmt:setBundle basename="locale" var="bundle"/>
 <html>
 <head>
-    <title><fmt:message bundle="${bundle}" key="home.title"/></title>
+    <title><fmt:message bundle="${bundle}" key="management.title"/></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
-    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/icons/favicon.ico"/>
+    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/icons/car-icon.png"/>
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css"
           href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css">
@@ -59,50 +59,67 @@
                 </div>
             </div>
             <div class="dropdown toolbar-top-btn">
-                <c:if test="${role_id == 4}">
+                <c:if test="${role.id == 4}">
                     <button class="dropbtn" disabled>
                         <fmt:message bundle="${bundle}" key="button.role.guest"/>
                     </button>
                     <div class="dropdown-content">
-                        <button name="address" value="HOME">
-                            <fmt:message bundle="${bundle}" key="button.home"/>
-                        </button>
-                        <button name="address" value="AUTHORIZE">
-                            <fmt:message bundle="${bundle}" key="button.authorize"/>
-                        </button>
+                        <form action="${pageContext.request.contextPath}/controller" method="post">
+                            <input type="hidden" name="address" value="HOME"/>
+                            <button name="command" value="redirect">
+                                <fmt:message bundle="${bundle}" key="button.create_request"/>
+                            </button>
+                        </form>
+                        <form action="${pageContext.request.contextPath}/controller" method="post">
+                            <input type="hidden" name="address" value="AUTHORIZE"/>
+                            <button name="command" value="redirect">
+                                <fmt:message bundle="${bundle}" key="button.authorize"/>
+                            </button>
+                        </form>
                     </div>
                 </c:if>
-                <c:if test="${role_id < 4}">
+                <c:if test="${role.id < 4}">
                     <button class="dropbtn" disabled>
                             ${username}[
-                        <c:if test="${role_id == 3}">
+                        <c:if test="${role.id == 3}">
                             <fmt:message bundle="${bundle}" key="button.role.user"/>
                         </c:if>
-                        <c:if test="${role_id == 2}">
+                        <c:if test="${role.id == 2}">
                             <fmt:message bundle="${bundle}" key="button.role.driver"/>
                         </c:if>
-                        <c:if test="${role_id == 1}">
+                        <c:if test="${role.id == 1}">
                             <fmt:message bundle="${bundle}" key="button.role.admin"/>
                         </c:if>
                         ]
                     </button>
                     <div class="dropdown-content">
-                        <button name="address" value="HOME">
-                            <fmt:message bundle="${bundle}" key="button.create_request"/>
-                        </button>
-                        <button name="address" value="USER_DETAILS">
-                            <fmt:message bundle="${bundle}" key="button.profile"/>
-                        </button>
-                        <button name="command" value="log_out">
-                            <fmt:message bundle="${bundle}" key="button.logout"/>
-                        </button>
+                        <form action="${pageContext.request.contextPath}/controller" method="post">
+                            <input type="hidden" name="address" value="HOME"/>
+                            <button name="command" value="redirect">
+                                <fmt:message bundle="${bundle}" key="button.create_request"/>
+                            </button>
+                        </form>
+                        <form action="${pageContext.request.contextPath}/controller" method="post">
+                            <input type="hidden" name="address" value="USER_DETAILS"/>
+                            <button name="command" value="redirect">
+                                <fmt:message bundle="${bundle}" key="button.profile"/>
+                            </button>
+                            <button name="command" value="log_out">
+                                <fmt:message bundle="${bundle}" key="button.logout"/>
+                            </button>
+                        </form>
                     </div>
                 </c:if>
             </div>
         </form>
+        <c:if test="${message != null}">
+                    <span class="login100-form-title" style="font-size: 14px; margin-top: 5px">
+                            ${message}
+                    </span>
+        </c:if>
     </div>
     <div class="ultimate-container">
-        <c:if test="${role_id == 1}">
+        <c:if test="${role.id == 1}">
             <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller"
                   method="post">
                 <div class="menu-bar">
@@ -129,7 +146,7 @@
                 </div>
             </form>
         </c:if>
-        <c:if test="${role_id == 2}">
+        <c:if test="${role.id == 2}">
             <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller"
                   method="post">
                 <div class="menu-bar">
@@ -152,48 +169,58 @@
             </form>
         </c:if>
         <div class="content-container">
-            <div class="content-unit-container pre-scrollable full-height">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>Order ID</th>
-                        <th>User</th>
-                        <th>Driver</th>
-                        <th>Car</th>
-                        <th>From</th>
-                        <th>To</th>
-                        <th>Is Complete</th>
-                        <c:if test="${role_id == 2}">
-                            <th></th>
-                        </c:if>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach var="order" items="${orders}">
+            <c:if test="${not empty orders}">
+                <div class="content-unit-container pre-scrollable full-height">
+                    <table class="table">
+                        <thead>
                         <tr>
-                            <td>${order.id}</td>
-                            <td>${order.user.username}</td>
-                            <td>${order.driver.username}</td>
-                            <td>${order.car.carName}</td>
-                            <td>${order.departureLocation}</td>
-                            <td>${order.arrivalLocation}</td>
-                            <td>${order.complete}</td>
-                            <c:if test="${role_id == 2 && !order.complete}">
-                                <td class="p-b-5 p-t-5 p-r-5 p-l-5">
-                                    <form action="${pageContext.request.contextPath}/controller"
-                                          method="post">
-                                        <input type="hidden" name="order_id" value="${order.id}"/>
-                                        <button class="table-btn-green" name="command" value="report_order_completion">
-                                            <fmt:message bundle="${bundle}" key="button.finish_order"/>
-                                        </button>
-                                    </form>
-                                </td>
+                            <th>Order ID</th>
+                            <th>User</th>
+                            <th>Driver</th>
+                            <th>Car</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Is Complete</th>
+                            <c:if test="${role.id == 2}">
+                                <th></th>
                             </c:if>
                         </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody>
+                        <c:forEach var="order" items="${orders}">
+                            <tr>
+                                <td>${order.id}</td>
+                                <td>${order.user.username}</td>
+                                <td>${order.car.driver.username}</td>
+                                <td>${order.car.carName}</td>
+                                <td>${order.departureLocation}</td>
+                                <td>${order.arrivalLocation}</td>
+                                <td>${order.complete}</td>
+                                <c:if test="${role.id == 2 && !order.complete}">
+                                    <td class="p-b-5 p-t-5 p-r-5 p-l-5">
+                                        <form action="${pageContext.request.contextPath}/controller"
+                                              method="post">
+                                            <input type="hidden" name="order_id" value="${order.id}"/>
+                                            <button class="table-btn-green" name="command"
+                                                    value="report_order_completion">
+                                                <fmt:message bundle="${bundle}" key="button.finish_order"/>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </c:if>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+            </c:if>
+            <c:if test="${empty orders}">
+                <div class="content-unit-container">
+                    <label class="details-label">
+                        <fmt:message bundle="${bundle}" key="management.no_orders"/>
+                    </label>
+                </div>
+            </c:if>
         </div>
     </div>
 </div>

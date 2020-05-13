@@ -26,10 +26,11 @@ public class FindRequestByUserIdQuerySpecification implements QuerySpecification
     private static final Logger LOGGER = LogManager.getLogger(FindRequestByUserIdQuerySpecification.class);
     private static final String QUERY =
             "SELECT reqs.id, passengers_quantity, load_capacity, departure_location, arrival_location," +
-                    "user_id, login, password, role_id, email, is_blocked, role " +
+                    "user_id, login, password, role_id, email, ust.status user_status , role " +
                     "FROM motor_depot.requests as reqs " +
                     "LEFT JOIN motor_depot.users as users on user_id = users.id " +
                     "LEFT JOIN motor_depot.roles as roles on role_id = roles.id " +
+                    "LEFT JOIN motor_depot.user_statuses ust on users.status_id = ust.id " +
                     "WHERE user_id = ?";
     private final ConnectionPool pool = ConnectionPool.INSTANCE;
 
@@ -55,7 +56,7 @@ public class FindRequestByUserIdQuerySpecification implements QuerySpecification
                         .withPassword(Column.PASSWORD)
                         .withRole(Column.ROLE)
                         .withEmail(Column.EMAIL)
-                        .withBlocked(Column.IS_BLOCKED)
+                        .withStatus(Column.USER_STATUS)
                         .build();
                 requestBuilder.reset();
                 requests.add(requestBuilder.withId(Column.ID)

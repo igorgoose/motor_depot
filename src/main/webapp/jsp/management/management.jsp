@@ -12,11 +12,11 @@
 <fmt:setBundle basename="locale" var="bundle"/>
 <html>
 <head>
-    <title><fmt:message bundle="${bundle}" key="home.title"/></title>
+    <title><fmt:message bundle="${bundle}" key="management.title"/></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
-    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/icons/favicon.ico"/>
+    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/icons/car-icon.png"/>
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css"
           href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css">
@@ -58,50 +58,67 @@
                 </div>
             </div>
             <div class="dropdown toolbar-top-btn">
-                <c:if test="${role_id == 4}">
+                <c:if test="${role.id == 4}">
                     <button class="dropbtn" disabled>
                         <fmt:message bundle="${bundle}" key="button.role.guest"/>
                     </button>
                     <div class="dropdown-content">
-                        <button name="address" value="HOME">
-                            <fmt:message bundle="${bundle}" key="button.home"/>
-                        </button>
-                        <button name="address" value="AUTHORIZE">
-                            <fmt:message bundle="${bundle}" key="button.authorize"/>
-                        </button>
+                        <form action="${pageContext.request.contextPath}/controller" method="post">
+                            <input type="hidden" name="address" value="HOME"/>
+                            <button name="command" value="redirect">
+                                <fmt:message bundle="${bundle}" key="button.create_request"/>
+                            </button>
+                        </form>
+                        <form action="${pageContext.request.contextPath}/controller" method="post">
+                            <input type="hidden" name="address" value="AUTHORIZE"/>
+                            <button name="command" value="redirect">
+                                <fmt:message bundle="${bundle}" key="button.authorize"/>
+                            </button>
+                        </form>
                     </div>
                 </c:if>
-                <c:if test="${role_id < 4}">
+                <c:if test="${role.id < 4}">
                     <button class="dropbtn" disabled>
                             ${username}[
-                        <c:if test="${role_id == 3}">
+                        <c:if test="${role.id == 3}">
                             <fmt:message bundle="${bundle}" key="button.role.user"/>
                         </c:if>
-                        <c:if test="${role_id == 2}">
+                        <c:if test="${role.id == 2}">
                             <fmt:message bundle="${bundle}" key="button.role.driver"/>
                         </c:if>
-                        <c:if test="${role_id == 1}">
+                        <c:if test="${role.id == 1}">
                             <fmt:message bundle="${bundle}" key="button.role.admin"/>
                         </c:if>
                         ]
                     </button>
                     <div class="dropdown-content">
-                        <button name="address" value="HOME">
-                            <fmt:message bundle="${bundle}" key="button.create_request"/>
-                        </button>
-                        <button name="address" value="USER_DETAILS">
-                            <fmt:message bundle="${bundle}" key="button.profile"/>
-                        </button>
-                        <button name="command" value="log_out">
-                            <fmt:message bundle="${bundle}" key="button.logout"/>
-                        </button>
+                        <form action="${pageContext.request.contextPath}/controller" method="post">
+                            <input type="hidden" name="address" value="HOME"/>
+                            <button name="command" value="redirect">
+                                <fmt:message bundle="${bundle}" key="button.create_request"/>
+                            </button>
+                        </form>
+                        <form action="${pageContext.request.contextPath}/controller" method="post">
+                            <input type="hidden" name="address" value="USER_DETAILS"/>
+                            <button name="command" value="redirect">
+                                <fmt:message bundle="${bundle}" key="button.profile"/>
+                            </button>
+                            <button name="command" value="log_out">
+                                <fmt:message bundle="${bundle}" key="button.logout"/>
+                            </button>
+                        </form>
                     </div>
                 </c:if>
             </div>
         </form>
+        <c:if test="${message != null}">
+                    <span class="login100-form-title" style="font-size: 14px; margin-top: 5px">
+                            ${message}
+                    </span>
+        </c:if>
     </div>
     <div class="ultimate-container">
-        <c:if test="${role_id == 1}">
+        <c:if test="${role.id == 1}">
             <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller" method="post">
                 <div class="menu-bar">
                     <div class="btn-wrapper">
@@ -127,7 +144,7 @@
                 </div>
             </form>
         </c:if>
-        <c:if test="${role_id == 2}">
+        <c:if test="${role.id == 2}">
             <form class="toolbar-top-form flex-sb flex-w" action="${pageContext.request.contextPath}/controller" method="post">
                 <div class="menu-bar">
                     <div class="btn-wrapper">

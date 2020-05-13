@@ -191,7 +191,7 @@ iframe {
 
 .toolbar-top {
     background: #e6e6e6;
-    border: 1px solid transparent;
+    border: 2px solid transparent;
 }
 
 
@@ -200,15 +200,11 @@ iframe {
 .dropbtn {
     font-family: Ubuntu-Bold;
     font-size: 16px;
-    color: #fff;
     line-height: 1.2;
     text-transform: uppercase;
-
     width: 100%;
-    padding: 0 20px;
     height: 48px;
-    background-color: #827ffe;
-    /*border-radius: 3px;*/
+    background-color: transparent;
     -webkit-transition: all 0.4s;
     -o-transition: all 0.4s;
     -moz-transition: all 0.4s;
@@ -225,8 +221,10 @@ iframe {
     display: none;
     position: absolute;
     left: 0;
-    background-color: #f1f1f1;
+    background-color: white;
+    color: #827ffe;
     width: 100%;
+    border: 1px dotted #403866;
     /*box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);*/
     z-index: 1;
 }
@@ -250,14 +248,13 @@ iframe {
 .toolbar-top-btn {
     font-family: Ubuntu-Bold;
     font-size: 16px;
-    color: #fff;
     line-height: 1.2;
     text-transform: uppercase;
 
     width: 50%;
-    padding: 0 20px;
     height: 48px;
-    background-color: #827ffe;
+    background-color: white;
+    color: #827ffe;
     /*border-radius: 3px;*/
     -webkit-transition: all 0.4s;
     -o-transition: all 0.4s;
@@ -266,17 +263,18 @@ iframe {
 }
 
 .toolbar-top-btn:hover {
-    background-color: #403866;
+    background-color: #aeb3b6;
+    color: white;
 }
 
 /* Change color of dropdown links on hover */
-.dropdown-content button:hover {background-color: #ddd;}
+.dropdown-content button:hover {background-color: #827ffe; color: white}
 
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {display: block;}
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {background-color: #403866;}
+.dropdown:hover .dropbtn {color: white}
 
 /*==================================================================
 [ Form ]*/

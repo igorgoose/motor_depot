@@ -1,4 +1,4 @@
-package by.schepov.motordepot.jsp;
+package by.schepov.motordepot.parameter;
 
 import by.schepov.motordepot.exception.InvalidParameterException;
 
@@ -7,7 +7,7 @@ public enum RequestAttribute {
     USER("user"),
     MANAGEMENT_REQUEST("management_request"),
     ROLE("role"),
-    ROLE_ID("role_id"),
+    //ROLE_ID("role_id"),
     USERNAME("username"),
     REQUESTS("requests"),
     USERS("users"),
@@ -15,9 +15,10 @@ public enum RequestAttribute {
     ORDERS("orders"),
     REQUEST("request"),
     CAR("car"),
-    ORDER("order");
+    ORDER("order"),
+    MESSAGE("message");
 
-    private String value;
+    private final String value;
 
     RequestAttribute(String value){
         this.value = value;

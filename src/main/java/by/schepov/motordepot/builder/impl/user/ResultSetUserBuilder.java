@@ -3,6 +3,7 @@ package by.schepov.motordepot.builder.impl.user;
 import by.schepov.motordepot.builder.Builder;
 import by.schepov.motordepot.entity.Role;
 import by.schepov.motordepot.entity.User;
+import by.schepov.motordepot.entity.UserStatus;
 import by.schepov.motordepot.specification.Column;
 
 import java.sql.ResultSet;
@@ -27,8 +28,8 @@ public class ResultSetUserBuilder implements Builder<User> {
         return this;
     }
 
-    public ResultSetUserBuilder withBlocked(Column blockedColumn) throws SQLException {
-        userBuilder.withBlocked(resultSet.getBoolean(blockedColumn.getName()));
+    public ResultSetUserBuilder withStatus(Column statusColumn) throws SQLException {
+        userBuilder.withStatus(UserStatus.valueOf(resultSet.getString(statusColumn.getName())));
         return this;
     }
 

@@ -1,19 +1,22 @@
 package by.schepov.motordepot.service.order.impl;
 
 import by.schepov.motordepot.entity.Order;
+import by.schepov.motordepot.exception.validator.OrderValidatorException;
 import by.schepov.motordepot.exception.repository.RepositoryException;
 import by.schepov.motordepot.exception.service.OrderServiceException;
 import by.schepov.motordepot.repository.impl.order.OrderRepository;
 import by.schepov.motordepot.service.RepositoryService;
 import by.schepov.motordepot.service.order.OrderService;
 import by.schepov.motordepot.specification.query.impl.order.FindOrderByDriverIdAndIsCompletedQuerySpecification;
-import by.schepov.motordepot.specification.query.impl.order.FindOrderById;
+import by.schepov.motordepot.specification.query.impl.order.FindOrderByIdQuerySpecification;
 import by.schepov.motordepot.specification.query.impl.order.FindOrdersByUserIdQuerySpecification;
 import by.schepov.motordepot.specification.query.impl.order.GetAllOrdersQuerySpecification;
 import by.schepov.motordepot.specification.update.order.UpdateOrderStatus;
+import by.schepov.motordepot.validator.OrderValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Iterator;
 import java.util.Set;
 
 public class OrderRepositoryService extends RepositoryService<Order> implements OrderService {
@@ -35,8 +38,9 @@ public class OrderRepositoryService extends RepositoryService<Order> implements 
     @Override
     public void insertOrder(Order order) throws OrderServiceException {
         try {
+            OrderValidator.validateOrder(order);
             repository.insert(order);
-        } catch (RepositoryException e) {
+        } catch (RepositoryException | OrderValidatorException e) {
             throw new OrderServiceException(e);
         }
     }
@@ -72,9 +76,11 @@ public class OrderRepositoryService extends RepositoryService<Order> implements 
     }
 
     @Override
-    public Set<Order> getOrderById(int id) throws OrderServiceException {
+    public Order getOrderById(int id) throws OrderServiceException {
         try {
-            return repository.executeQuery(new FindOrderById(id));
+            Set<Order> orders = repository.executeQuery(new FindOrderByIdQuerySpecification(id));
+            Iterator<Order> iterator = orders.iterator();
+            return iterator.hasNext() ? iterator.next() : null;
         } catch (RepositoryException e) {
             LOGGER.warn(e);
             throw new OrderServiceException(e);

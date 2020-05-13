@@ -19,7 +19,7 @@ public enum OrderRepository implements Repository<Order> {
 
     private final ConnectionPool pool = ConnectionPool.INSTANCE;
     private static final String INSERT_QUERY =
-            "INSERT INTO orders(user_id, car_id, driver_id, departure_location, arrival_location) VALUES(?, ?, ?, ?, ?)";
+            "INSERT INTO orders(user_id, car_id, departure_location, arrival_location) VALUES( ?, ?, ?, ?)";
 
     @Override
     public void insert(Order item) throws RepositoryException {
@@ -27,9 +27,8 @@ public enum OrderRepository implements Repository<Order> {
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_QUERY)) {
             preparedStatement.setInt(1, item.getUser().getId());
             preparedStatement.setInt(2, item.getCar().getId());
-            preparedStatement.setInt(3, item.getDriver().getId());
-            preparedStatement.setString(4, item.getDepartureLocation());
-            preparedStatement.setString(5, item.getArrivalLocation());
+            preparedStatement.setString(3, item.getDepartureLocation());
+            preparedStatement.setString(4, item.getArrivalLocation());
             preparedStatement.executeUpdate();
         } catch (SQLException | ConnectionPoolException e) {
             LOGGER.warn(e);

@@ -39,11 +39,6 @@ public class ResultSetOrderBuilder implements Builder<Order> {
         return this;
     }
 
-    public ResultSetOrderBuilder withDriver(User driver){
-        orderBuilder.withDriver(driver);
-        return this;
-    }
-
     public ResultSetOrderBuilder withCar(Car car) {
         orderBuilder.withCar(car);
         return this;

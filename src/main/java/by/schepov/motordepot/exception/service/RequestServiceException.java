@@ -1,6 +1,9 @@
 package by.schepov.motordepot.exception.service;
 
-public class RequestServiceException extends Exception {
+import by.schepov.motordepot.exception.MessageKeyException;
+
+public class RequestServiceException extends MessageKeyException {
+
     public RequestServiceException() {
     }
 
@@ -15,4 +18,6 @@ public class RequestServiceException extends Exception {
     public RequestServiceException(Throwable cause) {
         super(cause);
     }
+
+
 }

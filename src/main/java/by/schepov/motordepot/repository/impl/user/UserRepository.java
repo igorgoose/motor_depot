@@ -15,12 +15,12 @@ import java.sql.SQLException;
 public enum UserRepository implements Repository<User> {
     INSTANCE;
 
-    private ConnectionPool pool = ConnectionPool.INSTANCE;
+    private final ConnectionPool pool = ConnectionPool.INSTANCE;
 
     private static final Logger LOGGER = LogManager.getLogger(UserRepository.class);
 
     private static final String INSERT_QUERY =
-            "INSERT INTO users(login, password, role_id, email, is_blocked) VALUES(?, ?, ?, ?, ?)";
+            "INSERT INTO users(login, password, role_id, email, status_id) VALUES(?, ?, ?, ?, ?)";
 
     @Override
     public void insert(User item) throws RepositoryException {
@@ -30,7 +30,7 @@ public enum UserRepository implements Repository<User> {
             preparedStatement.setString(2, item.getPassword());
             preparedStatement.setInt(3, item.getRole().getId());
             preparedStatement.setString(4, item.getEmail());
-            preparedStatement.setBoolean(5, item.isBlocked());
+            preparedStatement.setInt(5, item.getStatus().getId());
             preparedStatement.executeUpdate();
         } catch (ConnectionPoolException | SQLException e) {
             LOGGER.warn(e);
