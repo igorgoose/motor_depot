@@ -1,7 +1,6 @@
 package by.schepov.motordepot.command.impl;
 
 import by.schepov.motordepot.builder.impl.user.UserBuilder;
-import by.schepov.motordepot.command.Action;
 import by.schepov.motordepot.command.RepositoryAction;
 import by.schepov.motordepot.entity.Role;
 import by.schepov.motordepot.entity.User;
@@ -10,7 +9,6 @@ import by.schepov.motordepot.parameter.JSPParameter;
 import by.schepov.motordepot.parameter.MessageKey;
 import by.schepov.motordepot.parameter.Page;
 import by.schepov.motordepot.service.user.UserService;
-import by.schepov.motordepot.service.user.impl.UserRepositoryService;
 import by.schepov.motordepot.parameter.SessionAttribute;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

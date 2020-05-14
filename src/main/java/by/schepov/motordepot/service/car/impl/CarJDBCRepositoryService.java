@@ -2,14 +2,13 @@ package by.schepov.motordepot.service.car.impl;
 
 import by.schepov.motordepot.entity.Car;
 import by.schepov.motordepot.entity.CarStatus;
-import by.schepov.motordepot.exception.service.CarServiceException;
 import by.schepov.motordepot.exception.repository.RepositoryException;
-import by.schepov.motordepot.exception.service.RequestServiceException;
+import by.schepov.motordepot.exception.service.CarServiceException;
+import by.schepov.motordepot.factory.repository.impl.JDBCRepositoryFactory;
 import by.schepov.motordepot.parameter.MessageKey;
-import by.schepov.motordepot.repository.impl.car.CarRepository;
+import by.schepov.motordepot.repository.Repository;
 import by.schepov.motordepot.service.RepositoryService;
 import by.schepov.motordepot.service.car.CarService;
-import by.schepov.motordepot.service.request.impl.RequestRepositoryService;
 import by.schepov.motordepot.specification.query.impl.car.FindCarByIdQuerySpecification;
 import by.schepov.motordepot.specification.query.impl.car.FindCarsByDriverIdQuerySpecification;
 import by.schepov.motordepot.specification.query.impl.car.FindFreeCarsQuerySpecification;
@@ -21,22 +20,24 @@ import org.apache.logging.log4j.Logger;
 import java.util.Iterator;
 import java.util.Set;
 
-public class CarRepositoryService extends RepositoryService<Car> implements CarService {
+public class CarJDBCRepositoryService extends RepositoryService<Car> implements CarService {
 
 
-    private static final Logger LOGGER = LogManager.getLogger(CarRepositoryService.class);
+    private static final Logger LOGGER = LogManager.getLogger(CarJDBCRepositoryService.class);
+    private final Repository<Car> repository;
 
-    private CarRepositoryService() {
-        super(CarRepository.INSTANCE);
+    private CarJDBCRepositoryService() {
+        super(JDBCRepositoryFactory.getInstance());
+        repository = repositoryFactory.createCarRepository();
     }
 
 
     public static class InstanceHolder {
-        public static final CarRepositoryService INSTANCE = new CarRepositoryService();
+        public static final CarJDBCRepositoryService INSTANCE = new CarJDBCRepositoryService();
     }
 
-    public static CarRepositoryService getInstance() {
-        return CarRepositoryService.InstanceHolder.INSTANCE;
+    public static CarJDBCRepositoryService getInstance() {
+        return CarJDBCRepositoryService.InstanceHolder.INSTANCE;
     }
 
     @Override

@@ -3,24 +3,32 @@ package by.schepov.motordepot.repository.impl.user;
 import by.schepov.motordepot.entity.User;
 import by.schepov.motordepot.exception.pool.ConnectionPoolException;
 import by.schepov.motordepot.exception.repository.RepositoryException;
-import by.schepov.motordepot.pool.ConnectionPool;
 import by.schepov.motordepot.pool.ProxyConnection;
-import by.schepov.motordepot.repository.Repository;
+import by.schepov.motordepot.repository.JDBCRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public enum UserRepository implements Repository<User> {
-    INSTANCE;
+public class UserJDBCRepository extends JDBCRepository<User> {
 
-    private final ConnectionPool pool = ConnectionPool.INSTANCE;
-
-    private static final Logger LOGGER = LogManager.getLogger(UserRepository.class);
+    private static final Logger LOGGER = LogManager.getLogger(UserJDBCRepository.class);
 
     private static final String INSERT_QUERY =
             "INSERT INTO users(login, password, role_id, email, status_id) VALUES(?, ?, ?, ?, ?)";
+
+    private UserJDBCRepository() {
+
+    }
+
+    public static class InstanceHolder {
+        public static final UserJDBCRepository INSTANCE = new UserJDBCRepository();
+    }
+
+    public static UserJDBCRepository getInstance() {
+        return UserJDBCRepository.InstanceHolder.INSTANCE;
+    }
 
     @Override
     public void insert(User item) throws RepositoryException {

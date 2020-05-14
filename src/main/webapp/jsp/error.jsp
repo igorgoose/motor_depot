@@ -48,7 +48,7 @@
             <c:if test="${pageContext.errorData.statusCode != null}">
                 <span class="login100-form-title" style="font-size: 18px">
                     <c:if test="${pageContext.errorData.statusCode != 0}">
-                        <fmt:message bundle="${bundle}" key="error_code.label"/>
+                        <fmt:message bundle="${bundle}" key="error_code.label"/>${pageContext.errorData.statusCode}
                     </c:if>
                 </span>
             </c:if>

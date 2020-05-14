@@ -11,7 +11,7 @@ import by.schepov.motordepot.parameter.Page;
 import by.schepov.motordepot.parameter.RequestAttribute;
 import by.schepov.motordepot.service.car.CarService;
 import by.schepov.motordepot.service.request.RequestService;
-import by.schepov.motordepot.service.request.impl.RequestRepositoryService;
+import by.schepov.motordepot.service.request.impl.RequestJDBCRepositoryService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,7 +24,7 @@ public class VerifyRequest extends RepositoryAction {
     private static final Logger LOGGER = LogManager.getLogger(VerifyRequest.class);
 
     private final CarService carService = serviceFactory.createCarService();
-    private final RequestService requestService = RequestRepositoryService.getInstance();
+    private final RequestService requestService = RequestJDBCRepositoryService.getInstance();
     private static final String BUNDLE_NAME = "locale";
 
     VerifyRequest(){

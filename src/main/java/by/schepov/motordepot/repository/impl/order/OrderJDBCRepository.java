@@ -3,23 +3,32 @@ package by.schepov.motordepot.repository.impl.order;
 import by.schepov.motordepot.entity.Order;
 import by.schepov.motordepot.exception.pool.ConnectionPoolException;
 import by.schepov.motordepot.exception.repository.RepositoryException;
-import by.schepov.motordepot.pool.ConnectionPool;
 import by.schepov.motordepot.pool.ProxyConnection;
-import by.schepov.motordepot.repository.Repository;
+import by.schepov.motordepot.repository.JDBCRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public enum OrderRepository implements Repository<Order> {
-    INSTANCE;
+public class OrderJDBCRepository extends JDBCRepository<Order> {
 
-    private static final Logger LOGGER = LogManager.getLogger(OrderRepository.class);
+    private static final Logger LOGGER = LogManager.getLogger(OrderJDBCRepository.class);
 
-    private final ConnectionPool pool = ConnectionPool.INSTANCE;
     private static final String INSERT_QUERY =
             "INSERT INTO orders(user_id, car_id, departure_location, arrival_location) VALUES( ?, ?, ?, ?)";
+
+    private OrderJDBCRepository() {
+
+    }
+
+    public static class InstanceHolder {
+        public static final OrderJDBCRepository INSTANCE = new OrderJDBCRepository();
+    }
+
+    public static OrderJDBCRepository getInstance() {
+        return OrderJDBCRepository.InstanceHolder.INSTANCE;
+    }
 
     @Override
     public void insert(Order item) throws RepositoryException {

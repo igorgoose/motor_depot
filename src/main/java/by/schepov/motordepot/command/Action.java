@@ -52,7 +52,7 @@ public interface Action {
      *
      * @param session the session to add a message to
      * @param messageKey the key for the message in a bundle
-     * @param bundleName he name of the bundle
+     * @param bundleName the name of the bundle
      */
     default void setMessage(HttpSession session, MessageKey messageKey, String bundleName){
         Locale locale = new Locale((String) session.getAttribute(SessionAttribute.LOCALE.getName()));

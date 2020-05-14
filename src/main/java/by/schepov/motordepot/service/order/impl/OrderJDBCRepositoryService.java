@@ -1,10 +1,11 @@
 package by.schepov.motordepot.service.order.impl;
 
 import by.schepov.motordepot.entity.Order;
-import by.schepov.motordepot.exception.validator.OrderValidatorException;
 import by.schepov.motordepot.exception.repository.RepositoryException;
 import by.schepov.motordepot.exception.service.OrderServiceException;
-import by.schepov.motordepot.repository.impl.order.OrderRepository;
+import by.schepov.motordepot.exception.validator.OrderValidatorException;
+import by.schepov.motordepot.factory.repository.impl.JDBCRepositoryFactory;
+import by.schepov.motordepot.repository.Repository;
 import by.schepov.motordepot.service.RepositoryService;
 import by.schepov.motordepot.service.order.OrderService;
 import by.schepov.motordepot.specification.query.impl.order.FindOrderByDriverIdAndIsCompletedQuerySpecification;
@@ -19,20 +20,24 @@ import org.apache.logging.log4j.Logger;
 import java.util.Iterator;
 import java.util.Set;
 
-public class OrderRepositoryService extends RepositoryService<Order> implements OrderService {
+public class OrderJDBCRepositoryService extends RepositoryService<Order> implements OrderService {
 
-    private static final Logger LOGGER = LogManager.getLogger(OrderRepositoryService.class);
+    private static final Logger LOGGER = LogManager.getLogger(OrderJDBCRepositoryService.class);
 
-    private OrderRepositoryService() {
-        super(OrderRepository.INSTANCE);
+    private final Repository<Order> repository;
+
+    private OrderJDBCRepositoryService() {
+        super(JDBCRepositoryFactory.getInstance());
+        repository = repositoryFactory.createOrderRepository();
     }
 
-    private static class InstanceHolder{
-        public static final OrderRepositoryService INSTANCE = new OrderRepositoryService();
+
+    public static class InstanceHolder {
+        public static final OrderJDBCRepositoryService INSTANCE = new OrderJDBCRepositoryService();
     }
 
-    public static OrderRepositoryService getInstance(){
-        return InstanceHolder.INSTANCE;
+    public static OrderJDBCRepositoryService getInstance() {
+        return OrderJDBCRepositoryService.InstanceHolder.INSTANCE;
     }
 
     @Override

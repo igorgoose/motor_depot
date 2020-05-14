@@ -8,8 +8,10 @@ import by.schepov.motordepot.exception.validator.user.InvalidUserEmailException;
 import by.schepov.motordepot.exception.validator.user.InvalidUsernameOrPasswordException;
 import by.schepov.motordepot.exception.validator.user.PasswordRepetitionException;
 import by.schepov.motordepot.exception.validator.user.UserStatusIsNullOrBlockedException;
+import by.schepov.motordepot.factory.repository.impl.JDBCRepositoryFactory;
 import by.schepov.motordepot.parameter.MessageKey;
-import by.schepov.motordepot.repository.impl.user.UserRepository;
+import by.schepov.motordepot.repository.Repository;
+import by.schepov.motordepot.repository.impl.user.UserJDBCRepository;
 import by.schepov.motordepot.service.RepositoryService;
 import by.schepov.motordepot.service.user.UserService;
 import by.schepov.motordepot.specification.query.impl.user.FindUserByIdQuerySpecification;
@@ -23,20 +25,23 @@ import org.apache.logging.log4j.Logger;
 import java.util.Iterator;
 import java.util.Set;
 
-public class UserRepositoryService extends RepositoryService<User> implements UserService {
+public class UserJDBCRepositoryService extends RepositoryService<User> implements UserService {
 
-    private static final Logger LOGGER = LogManager.getLogger(UserRepositoryService.class);
+    private static final Logger LOGGER = LogManager.getLogger(UserJDBCRepositoryService.class);
 
-    private UserRepositoryService() {
-        super(UserRepository.INSTANCE);
+    private final Repository<User> repository;
+
+    private UserJDBCRepositoryService() {
+        super(JDBCRepositoryFactory.getInstance());
+        repository = repositoryFactory.createUserRepository();
     }
 
     public static class InstanceHolder{
-        public static final UserRepositoryService INSTANCE = new UserRepositoryService();
+        public static final UserJDBCRepositoryService INSTANCE = new UserJDBCRepositoryService();
     }
 
-    public static UserRepositoryService getInstance(){
-        return UserRepositoryService.InstanceHolder.INSTANCE;
+    public static UserJDBCRepositoryService getInstance(){
+        return UserJDBCRepositoryService.InstanceHolder.INSTANCE;
     }
 
     @Override

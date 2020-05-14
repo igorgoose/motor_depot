@@ -3,28 +3,36 @@ package by.schepov.motordepot.repository.impl.car;
 import by.schepov.motordepot.entity.Car;
 import by.schepov.motordepot.exception.pool.ConnectionPoolException;
 import by.schepov.motordepot.exception.repository.RepositoryException;
-import by.schepov.motordepot.pool.ConnectionPool;
 import by.schepov.motordepot.pool.ProxyConnection;
-import by.schepov.motordepot.repository.Repository;
-import by.schepov.motordepot.repository.impl.user.UserRepository;
+import by.schepov.motordepot.repository.JDBCRepository;
+import by.schepov.motordepot.repository.impl.user.UserJDBCRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 
-public enum CarRepository implements Repository<Car> {
-    INSTANCE;
+public class CarJDBCRepository extends JDBCRepository<Car> {
 
-    private ConnectionPool pool = ConnectionPool.INSTANCE;
 
-    private static final Logger LOGGER = LogManager.getLogger(UserRepository.class);
+    private static final Logger LOGGER = LogManager.getLogger(UserJDBCRepository.class);
 
     private static final String INSERT_QUERY =
             "INSERT INTO cars(driver_id, registration_number, name_id, load_capacity, passenger_capacity, status_id) " +
                     "VALUES(?, ?, ?, ?, ?, ?)";
+
+    private CarJDBCRepository() {
+
+    }
+
+    public static class InstanceHolder {
+        public static final CarJDBCRepository INSTANCE = new CarJDBCRepository();
+    }
+
+    public static CarJDBCRepository getInstance() {
+        return CarJDBCRepository.InstanceHolder.INSTANCE;
+    }
 
     @Override
     public void insert(Car item) throws RepositoryException {

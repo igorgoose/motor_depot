@@ -5,7 +5,6 @@ import by.schepov.motordepot.exception.pool.ConnectionPoolException;
 import by.schepov.motordepot.exception.specification.SpecificationException;
 import by.schepov.motordepot.pool.ConnectionPool;
 import by.schepov.motordepot.pool.ProxyConnection;
-import by.schepov.motordepot.specification.query.impl.order.GetAllOrdersQuerySpecification;
 import by.schepov.motordepot.specification.update.UpdateSpecification;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

@@ -4,8 +4,9 @@ import by.schepov.motordepot.entity.Request;
 import by.schepov.motordepot.exception.repository.RepositoryException;
 import by.schepov.motordepot.exception.service.RequestServiceException;
 import by.schepov.motordepot.exception.validator.request.*;
+import by.schepov.motordepot.factory.repository.impl.JDBCRepositoryFactory;
 import by.schepov.motordepot.parameter.MessageKey;
-import by.schepov.motordepot.repository.impl.request.RequestRepository;
+import by.schepov.motordepot.repository.Repository;
 import by.schepov.motordepot.service.RepositoryService;
 import by.schepov.motordepot.service.request.RequestService;
 import by.schepov.motordepot.specification.query.impl.request.FindRequestByIdQuerySpecification;
@@ -18,19 +19,22 @@ import org.apache.logging.log4j.Logger;
 import java.util.Iterator;
 import java.util.Set;
 
-public class RequestRepositoryService extends RepositoryService<Request> implements RequestService {
+public class RequestJDBCRepositoryService extends RepositoryService<Request> implements RequestService {
 
-    private static final Logger LOGGER = LogManager.getLogger(RequestRepositoryService.class);
+    private static final Logger LOGGER = LogManager.getLogger(RequestJDBCRepositoryService.class);
 
-    private RequestRepositoryService() {
-        super(RequestRepository.INSTANCE);
+    private final Repository<Request> repository;
+
+    private RequestJDBCRepositoryService() {
+        super(JDBCRepositoryFactory.getInstance());
+        repository = repositoryFactory.createRequestRepository();
     }
 
     public static class InstanceHolder{
-        public static final RequestRepositoryService INSTANCE = new RequestRepositoryService();
+        public static final RequestJDBCRepositoryService INSTANCE = new RequestJDBCRepositoryService();
     }
 
-    public static RequestRepositoryService getInstance(){
+    public static RequestJDBCRepositoryService getInstance(){
         return InstanceHolder.INSTANCE;
     }
 
