@@ -10,7 +10,12 @@ public enum MessageKey {
     USERNAME_TAKEN("message.username_taken"),
     PASSWORD_REPEATED_INCORRECTLY("message.password_repeated_incorrectly"),
     INCORRECT_EMAIL("message.incorrect_email"),
-    INVALID_REQUEST_DATA("message.invalid_request_data"), ACCESS_DENIED("message.access_denied");
+    INVALID_REQUEST_DATA("message.invalid_request_data"),
+    ACCESS_DENIED("message.access_denied"),
+    EMPTY_ARRIVAL_LOCATION("message.empty_arrival_location"),
+    NEGATIVE_PASSENGER_QUANTITY("message.negative_passenger_quantity"),
+    EMPTY_DEPARTURE_LOCATION("message.empty_departure_location"),
+    NEGATIVE_LOAD("message.negative_load");
 
     private final String value;
 

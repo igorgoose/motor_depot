@@ -1,4 +1,4 @@
-package by.schepov.motordepot.exception.validator;
+package by.schepov.motordepot.exception.validator.request;
 
 public class RequestValidatorException extends Exception {
 

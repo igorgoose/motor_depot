@@ -1,4 +1,4 @@
-package by.schepov.motordepot.exception.validator;
+package by.schepov.motordepot.exception.validator.user;
 
 public class UserStatusIsNullOrBlockedException extends Exception {
     public UserStatusIsNullOrBlockedException() {

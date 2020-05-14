@@ -1,9 +1,9 @@
 package by.schepov.motordepot.service.request.impl;
 
 import by.schepov.motordepot.entity.Request;
-import by.schepov.motordepot.exception.validator.RequestValidatorException;
 import by.schepov.motordepot.exception.repository.RepositoryException;
 import by.schepov.motordepot.exception.service.RequestServiceException;
+import by.schepov.motordepot.exception.validator.request.*;
 import by.schepov.motordepot.parameter.MessageKey;
 import by.schepov.motordepot.repository.impl.request.RequestRepository;
 import by.schepov.motordepot.service.RepositoryService;
@@ -39,15 +39,30 @@ public class RequestRepositoryService extends RepositoryService<Request> impleme
         try {
             RequestValidator.validateRequest(request);
             repository.insert(request);
-        } catch (RepositoryException e) {
+        } catch (RepositoryException | NullUserException e) {
             LOGGER.warn(e);
             RequestServiceException ex = new RequestServiceException(e);
             ex.setMessageBundleKey(MessageKey.UNEXPECTED_ERROR);
             throw ex;
-        } catch (RequestValidatorException e) {
+        } catch (EmptyArrivalLocationException e) {
             LOGGER.warn(e);
             RequestServiceException ex = new RequestServiceException(e);
-            ex.setMessageBundleKey(MessageKey.INVALID_REQUEST_DATA);
+            ex.setMessageBundleKey(MessageKey.EMPTY_ARRIVAL_LOCATION);
+            throw ex;
+        } catch (NegativePassengerQuantityException e) {
+            LOGGER.warn(e);
+            RequestServiceException ex = new RequestServiceException(e);
+            ex.setMessageBundleKey(MessageKey.NEGATIVE_PASSENGER_QUANTITY);
+            throw ex;
+        } catch (EmptyDepartureLocationException e) {
+            LOGGER.warn(e);
+            RequestServiceException ex = new RequestServiceException(e);
+            ex.setMessageBundleKey(MessageKey.EMPTY_DEPARTURE_LOCATION);
+            throw ex;
+        } catch (NegativeLoadException e) {
+            LOGGER.warn(e);
+            RequestServiceException ex = new RequestServiceException(e);
+            ex.setMessageBundleKey(MessageKey.NEGATIVE_LOAD);
             throw ex;
         }
     }

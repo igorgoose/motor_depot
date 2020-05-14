@@ -4,10 +4,10 @@ import by.schepov.motordepot.entity.User;
 import by.schepov.motordepot.entity.UserStatus;
 import by.schepov.motordepot.exception.repository.RepositoryException;
 import by.schepov.motordepot.exception.service.user.UserServiceException;
-import by.schepov.motordepot.exception.validator.InvalidUserEmailException;
-import by.schepov.motordepot.exception.validator.InvalidUsernameOrPasswordException;
-import by.schepov.motordepot.exception.validator.PasswordRepetitionException;
-import by.schepov.motordepot.exception.validator.UserStatusIsNullOrBlockedException;
+import by.schepov.motordepot.exception.validator.user.InvalidUserEmailException;
+import by.schepov.motordepot.exception.validator.user.InvalidUsernameOrPasswordException;
+import by.schepov.motordepot.exception.validator.user.PasswordRepetitionException;
+import by.schepov.motordepot.exception.validator.user.UserStatusIsNullOrBlockedException;
 import by.schepov.motordepot.parameter.MessageKey;
 import by.schepov.motordepot.repository.impl.user.UserRepository;
 import by.schepov.motordepot.service.RepositoryService;
@@ -86,7 +86,7 @@ public class UserRepositoryService extends RepositoryService<User> implements Us
                     user.setRole(foundUser.getRole());
                     user.setEmail(foundUser.getEmail());
                     user.setStatus(foundUser.getStatus());
-                    UserValidator.validateStatus(user);
+                    UserValidator.validateUserIsActive(user);
                     return;
                 }
             }
