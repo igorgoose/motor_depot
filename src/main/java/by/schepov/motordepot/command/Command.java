@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 public enum Command {
 
+    SET_CAR_STATE_READY("set_car_state_ready", new SetCarStateReady(), new EqualRoleAccessChecker(Role.DRIVER), false),
+    SET_CAR_STATE_BROKEN("set_car_state_broken", new SetCarStateBroken(), new EqualRoleAccessChecker(Role.DRIVER), false),
     REJECT_REQUEST("reject_request", new RejectRequest(), new EqualRoleAccessChecker(Role.ADMIN), false),
     REDIRECT("redirect", new Redirect(), new LessOrEqualRoleAccessChecker(Role.GUEST), true),
     UNBLOCK_USER("unblock", new UnblockUser(), new EqualRoleAccessChecker(Role.ADMIN), false),

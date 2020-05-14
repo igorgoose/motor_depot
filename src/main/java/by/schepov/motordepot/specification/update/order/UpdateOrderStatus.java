@@ -15,13 +15,13 @@ import java.sql.SQLException;
 
 public class UpdateOrderStatus implements UpdateSpecification<Order> {
 
-    private boolean isComplete;
-    private int orderId;
+    private final boolean isComplete;
+    private final int orderId;
     private static final Logger LOGGER = LogManager.getLogger(UpdateOrderStatus.class);
     private static final String QUERY = "UPDATE motor_depot.orders " +
                     "SET is_complete = ? " +
                     "WHERE orders.id = ?";
-    private ConnectionPool pool = ConnectionPool.INSTANCE;
+    private final ConnectionPool pool = ConnectionPool.INSTANCE;
 
     public UpdateOrderStatus(int orderId, boolean isComplete) {
         this.isComplete = isComplete;

@@ -34,15 +34,15 @@ public class ViewUserRequests implements Executable {
     @Override
     public Page execute(HttpServletRequest request, HttpServletResponse response) {
         try {
-            int user_id = Integer.parseInt(request.getParameter(JSPParameter.USER_ID.getName()));
-            User foundUser = userService.getUserById(user_id);
+            int userID = Integer.parseInt(request.getParameter(JSPParameter.USER_ID.getName()));
+            User foundUser = userService.getUserById(userID);
             if (foundUser == null) {
-                LOGGER.warn("No users have been found by id " + user_id);
+                LOGGER.warn("No users have been found by id " + userID);
                 setMessage(request, MessageKey.UNEXPECTED_ERROR);
                 return Page.ERROR;
             }
             request.setAttribute(RequestAttribute.USER.getName(), foundUser);
-            Set<Request> requests = requestService.getRequestsByUserId(user_id);
+            Set<Request> requests = requestService.getRequestsByUserId(userID);
             request.setAttribute(RequestAttribute.REQUESTS.getName(), requests);
         } catch (RequestServiceException | UserServiceException e) {
             LOGGER.warn(e);

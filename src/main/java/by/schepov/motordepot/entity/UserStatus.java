@@ -3,8 +3,8 @@ package by.schepov.motordepot.entity;
 public enum UserStatus {
     ACTIVE(1, "ACTIVE"), BUSY(2, "BUSY"), BLOCKED(3, "BLOCKED");
 
-    private int id;
-    private String name;
+    private final int id;
+    private final String name;
 
     UserStatus(int id, String name){
         this.id = id;

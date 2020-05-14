@@ -182,10 +182,15 @@
                             <th>Car ID</th>
                             <th>Car Model</th>
                             <th>Reg. Number</th>
-                            <th>Driver</th>
+                            <c:if test="${role.id != 2}">
+                                <th>Driver</th>
+                            </c:if>
                             <th>Load Capacity</th>
                             <th>Passenger Capacity</th>
                             <th>State</th>
+                            <c:if test="${role.id == 2}">
+                                <th></th>
+                            </c:if>
                         </tr>
                         </thead>
                         <tbody>
@@ -194,10 +199,34 @@
                                 <td>${car.id}</td>
                                 <td>${car.carName}</td>
                                 <td>${car.registrationNumber}</td>
-                                <td>${car.driver.username}</td>
+                                <c:if test="${role.id != 2}">
+                                    <td>${car.driver.username}</td>
+                                </c:if>
                                 <td>${car.loadCapacity}</td>
                                 <td>${car.passengerCapacity}</td>
                                 <td>${car.carStatus}</td>
+                                <c:if test="${role.id == 2 && car.carStatus.id == 1}">
+                                    <td>
+                                        <form action="${pageContext.request.contextPath}/controller"
+                                              method="post">
+                                            <input type="hidden" name="car_id" value="${car.id}"/>
+                                            <button class="table-btn-blue" name="command" value="set_car_state_broken">
+                                                <fmt:message bundle="${bundle}" key="button.car_is_broken"/>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </c:if>
+                                <c:if test="${role.id == 2 && car.carStatus.id == 3}">
+                                    <td>
+                                        <form action="${pageContext.request.contextPath}/controller"
+                                              method="post">
+                                            <input type="hidden" name="car_id" value="${car.id}"/>
+                                            <button class="table-btn-blue" name="command" value="set_car_state_ready">
+                                                <fmt:message bundle="${bundle}" key="button.car_is_ready"/>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </c:if>
                             </tr>
                         </c:forEach>
                         </tbody>

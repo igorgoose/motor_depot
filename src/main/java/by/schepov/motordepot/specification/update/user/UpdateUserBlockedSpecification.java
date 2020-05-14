@@ -16,13 +16,13 @@ import java.sql.SQLException;
 
 public class UpdateUserBlockedSpecification implements UpdateSpecification<User> {
 
-    private int id;
-    private UserStatus status;
+    private final int id;
+    private final UserStatus status;
     private static final Logger LOGGER = LogManager.getLogger(UpdateCarStateSpecification.class);
     private static final String QUERY = "UPDATE motor_depot.users users " +
             "SET status_id = ? " +
             "WHERE users.id = ?";
-    private ConnectionPool pool = ConnectionPool.INSTANCE;
+    private final ConnectionPool pool = ConnectionPool.INSTANCE;
 
     public UpdateUserBlockedSpecification(int id, UserStatus status){
         this.id = id;

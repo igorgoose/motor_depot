@@ -25,11 +25,11 @@ public class UnblockUser implements Executable {
     @Override
     public Page execute(HttpServletRequest request, HttpServletResponse response) {
         try {
-            int user_id = Integer.parseInt(request.getParameter(JSPParameter.USER_ID.getName()));
-            userService.updateStatusById(user_id, UserStatus.ACTIVE);
-            User foundUser = userService.getUserById(user_id);
+            int userId = Integer.parseInt(request.getParameter(JSPParameter.USER_ID.getName()));
+            userService.updateStatusById(userId, UserStatus.ACTIVE);
+            User foundUser = userService.getUserById(userId);
             if (foundUser == null) {
-                LOGGER.warn("No users have been found by id " + user_id);
+                LOGGER.warn("No users have been found by id " + userId);
                 setMessage(request.getSession(), MessageKey.UNEXPECTED_ERROR);
                 return Page.ERROR;
             }
