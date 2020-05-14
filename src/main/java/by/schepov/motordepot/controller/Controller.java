@@ -1,7 +1,7 @@
 package by.schepov.motordepot.controller;
 
 
-import by.schepov.motordepot.command.Command;
+import by.schepov.motordepot.command.impl.Command;
 import by.schepov.motordepot.exception.pool.ConnectionPoolException;
 import by.schepov.motordepot.parameter.JSPParameter;
 import by.schepov.motordepot.parameter.Page;

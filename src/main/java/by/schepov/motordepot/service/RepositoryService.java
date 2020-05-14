@@ -1,13 +1,13 @@
 package by.schepov.motordepot.service;
 
-import by.schepov.motordepot.repository.Repository;
+import by.schepov.motordepot.factory.repository.RepositoryFactory;
 
 public abstract class RepositoryService<T> {
 
-    protected Repository<T> repository;
+    protected RepositoryFactory repositoryFactory;
 
-    public RepositoryService(Repository<T> repository){
-        this.repository = repository;
+    public RepositoryService(RepositoryFactory repositoryFactory){
+        this.repositoryFactory = repositoryFactory;
     }
 
 }

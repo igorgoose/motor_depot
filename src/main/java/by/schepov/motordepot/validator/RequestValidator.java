@@ -1,17 +1,28 @@
 package by.schepov.motordepot.validator;
 
 import by.schepov.motordepot.entity.Request;
-import by.schepov.motordepot.exception.validator.RequestValidatorException;
+import by.schepov.motordepot.exception.validator.request.*;
 
 public class RequestValidator {
 
     private RequestValidator() {
     }
 
-    public static void validateRequest(Request request) throws RequestValidatorException {
-        if (isEmptyString(request.getArrivalLocation()) || isEmptyString(request.getDepartureLocation()) ||
-                request.getLoad() < 0 || request.getPassengersQuantity() < 0 || request.getUser() == null) {
-                throw new RequestValidatorException("Request data is invalid:" + request);
+    public static void validateRequest(Request request) throws EmptyArrivalLocationException, EmptyDepartureLocationException, NegativeLoadException, NegativePassengerQuantityException, NullUserException {
+        if (isEmptyString(request.getArrivalLocation())){
+            throw new EmptyArrivalLocationException();
+        }
+        if (isEmptyString(request.getDepartureLocation())){
+            throw new EmptyDepartureLocationException();
+        }
+        if (request.getLoad() < 0 ) {
+            throw new NegativeLoadException();
+        }
+        if (request.getPassengersQuantity() < 0) {
+            throw new NegativePassengerQuantityException();
+        }
+        if (request.getUser() == null) {
+            throw new NullUserException();
         }
     }
 

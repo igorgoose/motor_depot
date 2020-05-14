@@ -2,11 +2,14 @@ package by.schepov.motordepot.validator;
 
 import by.schepov.motordepot.entity.User;
 import by.schepov.motordepot.entity.UserStatus;
-import by.schepov.motordepot.exception.validator.*;
+import by.schepov.motordepot.exception.validator.user.InvalidUserEmailException;
+import by.schepov.motordepot.exception.validator.user.InvalidUsernameOrPasswordException;
+import by.schepov.motordepot.exception.validator.user.PasswordRepetitionException;
+import by.schepov.motordepot.exception.validator.user.UserStatusIsNullOrBlockedException;
 
 public class UserValidator {
 
-    private static final String USERNAME_REGEX = "^[a-zA-Z][a-zA-Z0-9-_\\.]{1,20}$";
+    private static final String USERNAME_REGEX = "^[a-zA-Z][a-zA-Z0-9-_.]{1,20}$";
     private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@(.+)(\\.(.+))+$";
     private static final String PASSWORD_REGEX = "(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*";
 
@@ -38,7 +41,7 @@ public class UserValidator {
         }
     }
 
-    public static void validateStatus(User user) throws UserStatusIsNullOrBlockedException {
+    public static void validateUserIsActive(User user) throws UserStatusIsNullOrBlockedException {
         if(user.getStatus() == null || user.getStatus() == UserStatus.BLOCKED){
             throw new UserStatusIsNullOrBlockedException("User(id=" + user.getId() + ") has status=" + user.getStatus());
         }

@@ -2,7 +2,6 @@ package by.schepov.motordepot.parameter;
 
 public enum SessionAttribute {
 
-    //ROLE_ID("role_id"),
     USERNAME("username"),
     REQUESTS("requests"),
     CARS("cars"),
@@ -11,7 +10,8 @@ public enum SessionAttribute {
     ROLE("role"),
     LOCALE("locale"),
     THAT_USER("that_user"),
-    USER("user");
+    USER("user"),
+    ORDERS("orders");
 
     private final String name;
 

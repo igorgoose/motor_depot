@@ -2,7 +2,6 @@ package by.schepov.motordepot.specification.query.impl.order;
 
 import by.schepov.motordepot.builder.impl.car.ResultSetCarBuilder;
 import by.schepov.motordepot.builder.impl.carname.ResultSetCarNameBuilder;
-import by.schepov.motordepot.builder.impl.order.OrderBuilder;
 import by.schepov.motordepot.builder.impl.order.ResultSetOrderBuilder;
 import by.schepov.motordepot.builder.impl.user.ResultSetUserBuilder;
 import by.schepov.motordepot.entity.Car;

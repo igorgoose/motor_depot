@@ -1,6 +1,6 @@
 package by.schepov.motordepot.filter;
 
-import by.schepov.motordepot.command.Command;
+import by.schepov.motordepot.command.impl.Command;
 import by.schepov.motordepot.entity.Role;
 import by.schepov.motordepot.entity.User;
 import by.schepov.motordepot.entity.UserStatus;
@@ -23,9 +23,9 @@ public class AccessSecurityFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         String commandName = request.getParameter(JSPParameter.COMMAND.getName());
+        Role role = (Role) request.getSession().getAttribute(SessionAttribute.ROLE.getName());
         if(commandName != null){
             Command command = Command.getCommandByName(commandName);
-            Role role = (Role) request.getSession().getAttribute(SessionAttribute.ROLE.getName());
             if(role != Role.GUEST){
                 User user = (User) request.getSession().getAttribute(SessionAttribute.USER.getName());
                 if(user.getStatus() == UserStatus.BLOCKED){

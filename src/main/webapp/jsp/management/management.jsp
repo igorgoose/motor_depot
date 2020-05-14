@@ -7,6 +7,7 @@
 --%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="ctg" uri="customtags"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <fmt:setLocale value="${locale}"/>
 <fmt:setBundle basename="locale" var="bundle"/>
@@ -99,8 +100,7 @@
                             </button>
                         </form>
                         <form action="${pageContext.request.contextPath}/controller" method="post">
-                            <input type="hidden" name="address" value="USER_DETAILS"/>
-                            <button name="command" value="redirect">
+                            <button name="command" value="view_profile">
                                 <fmt:message bundle="${bundle}" key="button.profile"/>
                             </button>
                             <button name="command" value="log_out">
@@ -165,6 +165,9 @@
                 </div>
             </form>
         </c:if>
+    </div>
+    <div class="copyright">
+        <ctg:copyright-tag/>
     </div>
 </div>
 

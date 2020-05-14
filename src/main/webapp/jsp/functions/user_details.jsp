@@ -1,5 +1,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="ctg" uri="customtags"%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <fmt:setLocale value="${locale}"/>
 <fmt:setBundle basename="locale" var="bundle"/>
@@ -106,8 +107,7 @@
                             </form>
                         </c:if>
                         <form action="${pageContext.request.contextPath}/controller">
-                            <input type="hidden" name="address" value="USER_DETAILS">
-                            <button name="command" value="redirect">
+                            <button name="command" value="view_profile">
                                 <fmt:message bundle="${bundle}" key="button.profile"/>
                             </button>
                         </form>
@@ -161,8 +161,13 @@
                         </c:if>
                         <c:if test="${requestScope.user != null}">
                             <input type="hidden" name="user_id" value="${requestScope.user.id}"/>
-                            <c:if test="${requestScope.user.status.id != 3}">
+                            <c:if test="${requestScope.user.status.id == 1}">
                                 <button class="menu-bar-button-dangerous" name="command" value="block">
+                                    <fmt:message bundle="${bundle}" key="button.block"/>
+                                </button>
+                            </c:if>
+                            <c:if test="${requestScope.user.status.id == 2}">
+                                <button class="menu-bar-button-disabled" name="command" value="block" disabled>
                                     <fmt:message bundle="${bundle}" key="button.block"/>
                                 </button>
                             </c:if>
@@ -182,9 +187,8 @@
                 <input type="hidden" name="user_id" value="${user.id}"/>
                 <div class="menu-bar">
                     <div class="btn-wrapper">
-                        <input type="hidden" name="address" value="USER_DETAILS">
-                        <button class="menu-bar-button" name="command" value="redirect">
-                            <fmt:message bundle="${bundle}" key="button.my_info"/>
+                        <button class="menu-bar-button" name="command" value="view_profile">
+                            <fmt:message bundle="${bundle}" key="button.profile"/>
                         </button>
                     </div>
                     <div class="btn-wrapper">
@@ -336,6 +340,9 @@
                 </c:if>
             </c:if>
         </div>
+    </div>
+    <div class="copyright">
+        <ctg:copyright-tag/>
     </div>
 </div>
 </body>

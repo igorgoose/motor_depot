@@ -1,5 +1,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="ctg" uri="customtags"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <fmt:setLocale value="${locale}"/>
 <fmt:setBundle basename="locale" var="bundle"/>
@@ -77,8 +78,7 @@
                             </button>
                             <div class="dropdown-content">
                                 <form action="controller" method="post">
-                                    <input type="hidden" name="address" value="USER_DETAILS"/>
-                                    <button name="command" value="redirect">
+                                    <button name="command" value="view_profile">
                                         <fmt:message bundle="${bundle}" key="button.profile"/>
                                     </button>
                                     <button name="command" value="log_out">
@@ -95,8 +95,7 @@
                             </button>
                             <div class="dropdown-content">
                                 <form action="controller" method="post">
-                                    <input type="hidden" name="address" value="USER_DETAILS"/>
-                                    <button name="command" value="redirect">
+                                    <button name="command" value="view_profile">
                                         <fmt:message bundle="${bundle}" key="button.profile"/>
                                     </button>
                                 </form>
@@ -119,8 +118,7 @@
                             </button>
                             <div class="dropdown-content">
                                 <form action="controller" method="post">
-                                    <input type="hidden" name="address" value="USER_DETAILS"/>
-                                    <button name="command" value="redirect">
+                                    <button name="command" value="view_profile">
                                         <fmt:message bundle="${bundle}" key="button.profile"/>
                                     </button>
                                 </form>
@@ -139,13 +137,13 @@
                 </div>
             </form>
         </div>
-    </div>
-    <div class="container-login100">
         <c:if test="${message != null}">
                     <span class="login100-form-title" style="font-size: 14px; margin-top: 5px">
                             ${message}
                     </span>
         </c:if>
+    </div>
+    <div class="container-login100">
         <div class="wrap-login100 p-t-50 p-b-90">
             <c:if test="${role.id == 4}">
                 <div class="wrap-login100 p-t-50 p-b-90">
@@ -231,6 +229,9 @@
                 </form>
             </c:if>
         </div>
+    </div>
+    <div class="copyright">
+        <ctg:copyright-tag/>
     </div>
 </div>
 

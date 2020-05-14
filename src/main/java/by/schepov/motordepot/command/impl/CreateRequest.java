@@ -1,0 +1,54 @@
+package by.schepov.motordepot.command.impl;
+
+import by.schepov.motordepot.builder.impl.request.RequestBuilder;
+import by.schepov.motordepot.command.RepositoryAction;
+import by.schepov.motordepot.entity.Request;
+import by.schepov.motordepot.entity.User;
+import by.schepov.motordepot.exception.service.RequestServiceException;
+import by.schepov.motordepot.parameter.*;
+import by.schepov.motordepot.service.request.RequestService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+public class CreateRequest extends RepositoryAction {
+
+    private static final Logger LOGGER = LogManager.getLogger(CreateRequest.class);
+    private final RequestService requestService = serviceFactory.createRequestService();
+    private static final String BUNDLE_NAME = "locale";
+
+    CreateRequest(){
+
+    }
+
+    @Override
+    public Page execute(HttpServletRequest request, HttpServletResponse response) {
+        User user = (User) request.getSession().getAttribute(SessionAttribute.USER.getName());
+        try {
+            String departureLocation = request.getParameter(JSPParameter.DEPARTURE_LOCATION.getName());
+            String arrivalLocation = request.getParameter(JSPParameter.ARRIVAL_LOCATION.getName());
+            int passengers = SelectOption.valueOf(request.getParameter(JSPParameter.PASSENGER_QUANTITY.getName())).getValue();
+            int loadVolume = SelectOption.valueOf(request.getParameter(JSPParameter.LOAD_VOLUME.getName())).getValue();
+            RequestBuilder requestBuilder = new RequestBuilder();
+            requestBuilder.reset();
+            Request userRequest = requestBuilder.withUser(user).withDepartureLocation(departureLocation)
+                    .withPassengerQuantity(passengers).withArrivalLocation(arrivalLocation).withLoad(loadVolume).build();
+            requestService.insertRequest(userRequest);
+            setMessage(request.getSession(), MessageKey.REQUEST_CREATED);
+        } catch (RequestServiceException e) {
+            LOGGER.warn(e);
+            if(e.hasMessageBundleKey()){
+                setMessage(request.getSession(), e.getMessageBundleKey());
+            }
+            return Page.HOME;
+        }
+        return Page.HOME;
+    }
+
+    private void setMessage(HttpSession session, MessageKey messageKey){
+        setMessage(session, messageKey, BUNDLE_NAME);
+    }
+}

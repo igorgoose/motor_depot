@@ -15,13 +15,13 @@ import java.sql.SQLException;
 
 public class UpdateCarStateSpecification implements UpdateSpecification<Car> {
 
-    private int id;
-    private CarStatus carStatus;
+    private final int id;
+    private final CarStatus carStatus;
     private static final Logger LOGGER = LogManager.getLogger(UpdateCarStateSpecification.class);
     private static final String QUERY = "UPDATE motor_depot.cars " +
             "SET status_id = ? " +
             "WHERE cars.id = ?";
-    private ConnectionPool pool = ConnectionPool.INSTANCE;
+    private final ConnectionPool pool = ConnectionPool.INSTANCE;
 
     public UpdateCarStateSpecification(int id, CarStatus carStatus) {
         this.id = id;
