@@ -1,5 +1,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="ctg" uri="customtags"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <fmt:setLocale value="${locale}"/>
 <fmt:setBundle basename="locale" var="bundle"/>
@@ -186,10 +187,11 @@
             </form>
         </div>
     </div>
+    <div class="copyright">
+        <ctg:copyright-tag/>
+    </div>
 </div>
 
-
-<div id="dropDownSelect1"></div>
 
 </body>
 </html>

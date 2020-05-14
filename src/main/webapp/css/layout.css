@@ -315,3 +315,13 @@
     width: 100%;
     display: block;
 }
+
+.copyright{
+    font-family: Montserrat;
+    font-size: 12px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    color: #000000;
+    width: 100%;
+}
