@@ -1,10 +1,14 @@
-package by.schepov.motordepot.command;
+package by.schepov.motordepot.command.impl;
 
+import by.schepov.motordepot.command.RepositoryAction;
 import by.schepov.motordepot.entity.User;
 import by.schepov.motordepot.entity.UserStatus;
 import by.schepov.motordepot.exception.service.user.UserServiceException;
-import by.schepov.motordepot.parameter.*;
-import by.schepov.motordepot.service.user.impl.UserRepositoryService;
+import by.schepov.motordepot.parameter.JSPParameter;
+import by.schepov.motordepot.parameter.MessageKey;
+import by.schepov.motordepot.parameter.Page;
+import by.schepov.motordepot.parameter.SessionAttribute;
+import by.schepov.motordepot.service.user.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -12,9 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class UnblockUser implements Executable {
+public class UnblockUser extends RepositoryAction {
 
-    private final UserRepositoryService userService = UserRepositoryService.getInstance();
+    private final UserService userService = serviceFactory.createUserService();
     private static final Logger LOGGER = LogManager.getLogger(UnblockUser.class);
     private static final String BUNDLE_NAME = "locale";
 

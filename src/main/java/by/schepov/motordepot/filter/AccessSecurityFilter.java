@@ -1,6 +1,6 @@
 package by.schepov.motordepot.filter;
 
-import by.schepov.motordepot.command.Command;
+import by.schepov.motordepot.command.impl.Command;
 import by.schepov.motordepot.entity.Role;
 import by.schepov.motordepot.entity.User;
 import by.schepov.motordepot.entity.UserStatus;

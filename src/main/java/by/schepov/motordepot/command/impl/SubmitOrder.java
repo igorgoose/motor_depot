@@ -1,6 +1,7 @@
-package by.schepov.motordepot.command;
+package by.schepov.motordepot.command.impl;
 
 import by.schepov.motordepot.builder.impl.order.OrderBuilder;
+import by.schepov.motordepot.command.RepositoryAction;
 import by.schepov.motordepot.entity.*;
 import by.schepov.motordepot.exception.service.CarServiceException;
 import by.schepov.motordepot.exception.service.OrderServiceException;
@@ -9,16 +10,11 @@ import by.schepov.motordepot.exception.service.user.UserServiceException;
 import by.schepov.motordepot.parameter.JSPParameter;
 import by.schepov.motordepot.parameter.MessageKey;
 import by.schepov.motordepot.parameter.Page;
-import by.schepov.motordepot.parameter.RequestAttribute;
-import by.schepov.motordepot.service.car.CarService;
-import by.schepov.motordepot.service.car.impl.CarRepositoryService;
-import by.schepov.motordepot.service.order.OrderService;
-import by.schepov.motordepot.service.order.impl.OrderRepositoryService;
-import by.schepov.motordepot.service.request.RequestService;
-import by.schepov.motordepot.service.request.impl.RequestRepositoryService;
-import by.schepov.motordepot.service.user.UserService;
-import by.schepov.motordepot.service.user.impl.UserRepositoryService;
 import by.schepov.motordepot.parameter.SessionAttribute;
+import by.schepov.motordepot.service.car.CarService;
+import by.schepov.motordepot.service.order.OrderService;
+import by.schepov.motordepot.service.request.RequestService;
+import by.schepov.motordepot.service.user.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -27,15 +23,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Set;
 
-public class SubmitOrder implements Executable{
+public class SubmitOrder extends RepositoryAction {
 
     private static final Logger LOGGER = LogManager.getLogger(SubmitOrder.class);
 
-    //todo create ServiceFactory
-    private final RequestService requestService = RequestRepositoryService.getInstance();
-    private final OrderService orderService = OrderRepositoryService.getInstance();
-    private final CarService carService = CarRepositoryService.getInstance();
-    private final UserService userService = UserRepositoryService.getInstance();
+    private final RequestService requestService = serviceFactory.createRequestService();
+    private final OrderService orderService = serviceFactory.createOrderService();
+    private final CarService carService = serviceFactory.createCarService();
+    private final UserService userService = serviceFactory.createUserService();
     private final OrderBuilder orderBuilder = new OrderBuilder();
     private static final String BUNDLE_NAME = "locale";
 

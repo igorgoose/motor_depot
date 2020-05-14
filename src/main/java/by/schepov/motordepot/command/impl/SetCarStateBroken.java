@@ -1,12 +1,15 @@
-package by.schepov.motordepot.command;
+package by.schepov.motordepot.command.impl;
 
+import by.schepov.motordepot.command.RepositoryAction;
 import by.schepov.motordepot.entity.Car;
 import by.schepov.motordepot.entity.CarStatus;
 import by.schepov.motordepot.entity.User;
 import by.schepov.motordepot.exception.service.CarServiceException;
-import by.schepov.motordepot.parameter.*;
+import by.schepov.motordepot.parameter.JSPParameter;
+import by.schepov.motordepot.parameter.MessageKey;
+import by.schepov.motordepot.parameter.Page;
+import by.schepov.motordepot.parameter.SessionAttribute;
 import by.schepov.motordepot.service.car.CarService;
-import by.schepov.motordepot.service.car.impl.CarRepositoryService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,13 +17,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Set;
 
-public class SetCarStateBroken implements Executable{
+public class SetCarStateBroken extends RepositoryAction {
 
     private static final Logger LOGGER = LogManager.getLogger(ViewMyCars.class);
     private static final String BUNDLE_NAME = "locale";
 
-    //todo create ServiceFactory
-    private final CarService carService = CarRepositoryService.getInstance();
+    private final CarService carService = serviceFactory.createCarService();
 
     @Override
     public Page execute(HttpServletRequest request, HttpServletResponse response) {

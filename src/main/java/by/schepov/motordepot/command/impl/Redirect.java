@@ -1,5 +1,6 @@
-package by.schepov.motordepot.command;
+package by.schepov.motordepot.command.impl;
 
+import by.schepov.motordepot.command.Action;
 import by.schepov.motordepot.parameter.JSPParameter;
 import by.schepov.motordepot.parameter.Page;
 import org.apache.logging.log4j.LogManager;
@@ -8,9 +9,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class Redirect implements Executable{
-
-    private static final Logger LOGGER = LogManager.getLogger(Redirect.class);
+public class Redirect implements Action {
 
     Redirect(){
 

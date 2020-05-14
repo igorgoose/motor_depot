@@ -1,10 +1,13 @@
-package by.schepov.motordepot.command;
+package by.schepov.motordepot.command.impl;
 
+import by.schepov.motordepot.command.RepositoryAction;
 import by.schepov.motordepot.entity.Request;
 import by.schepov.motordepot.exception.service.RequestServiceException;
-import by.schepov.motordepot.parameter.*;
+import by.schepov.motordepot.parameter.JSPParameter;
+import by.schepov.motordepot.parameter.MessageKey;
+import by.schepov.motordepot.parameter.Page;
+import by.schepov.motordepot.parameter.SessionAttribute;
 import by.schepov.motordepot.service.request.RequestService;
-import by.schepov.motordepot.service.request.impl.RequestRepositoryService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,11 +16,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Set;
 
-public class RejectRequest implements Executable{
+public class RejectRequest extends RepositoryAction {
     private static final Logger LOGGER = LogManager.getLogger(SubmitOrder.class);
 
     //todo create ServiceFactory
-    private final RequestService requestService = RequestRepositoryService.getInstance();
+    private final RequestService requestService = serviceFactory.createRequestService();
     private static final String BUNDLE_NAME = "locale";
 
     @Override

@@ -1,5 +1,6 @@
-package by.schepov.motordepot.command;
+package by.schepov.motordepot.command.impl;
 
+import by.schepov.motordepot.command.RepositoryAction;
 import by.schepov.motordepot.entity.CarStatus;
 import by.schepov.motordepot.entity.Order;
 import by.schepov.motordepot.entity.User;
@@ -11,13 +12,9 @@ import by.schepov.motordepot.parameter.JSPParameter;
 import by.schepov.motordepot.parameter.MessageKey;
 import by.schepov.motordepot.parameter.Page;
 import by.schepov.motordepot.parameter.SessionAttribute;
-import by.schepov.motordepot.repository.impl.user.UserRepository;
 import by.schepov.motordepot.service.car.CarService;
-import by.schepov.motordepot.service.car.impl.CarRepositoryService;
 import by.schepov.motordepot.service.order.OrderService;
-import by.schepov.motordepot.service.order.impl.OrderRepositoryService;
 import by.schepov.motordepot.service.user.UserService;
-import by.schepov.motordepot.service.user.impl.UserRepositoryService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -25,12 +22,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class FinishOrder implements Executable {
+public class FinishOrder extends RepositoryAction {
 
     private static final Logger LOGGER = LogManager.getLogger(ReportOrderCompletion.class);
-    private final OrderService orderService = OrderRepositoryService.getInstance();
-    private final CarService carService = CarRepositoryService.getInstance();
-    private final UserService userService = UserRepositoryService.getInstance();
+    private final OrderService orderService = serviceFactory.createOrderService();
+    private final CarService carService = serviceFactory.createCarService();
+    private final UserService userService = serviceFactory.createUserService();
     private static final String BUNDLE_NAME = "locale";
 
     FinishOrder(){

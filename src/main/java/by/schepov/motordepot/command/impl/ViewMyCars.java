@@ -1,13 +1,14 @@
-package by.schepov.motordepot.command;
+package by.schepov.motordepot.command.impl;
 
-import by.schepov.motordepot.entity.Order;
+import by.schepov.motordepot.command.RepositoryAction;
+import by.schepov.motordepot.entity.Car;
 import by.schepov.motordepot.entity.User;
-import by.schepov.motordepot.exception.service.OrderServiceException;
+import by.schepov.motordepot.exception.service.CarServiceException;
 import by.schepov.motordepot.parameter.MessageKey;
 import by.schepov.motordepot.parameter.Page;
 import by.schepov.motordepot.parameter.RequestAttribute;
-import by.schepov.motordepot.service.order.impl.OrderRepositoryService;
 import by.schepov.motordepot.parameter.SessionAttribute;
+import by.schepov.motordepot.service.car.CarService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,30 +16,31 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Set;
 
-public class ViewCurrentOrder implements Executable {
+public class ViewMyCars extends RepositoryAction {
 
-    private final OrderRepositoryService orderService = OrderRepositoryService.getInstance();
-    private static final Logger LOGGER = LogManager.getLogger(ViewCurrentOrder.class);
+    private static final Logger LOGGER = LogManager.getLogger(ViewMyCars.class);
     private static final String BUNDLE_NAME = "locale";
 
-    ViewCurrentOrder(){
+    private final CarService carService = serviceFactory.createCarService();
+
+    ViewMyCars(){
 
     }
 
     @Override
     public Page execute(HttpServletRequest request, HttpServletResponse response) {
         User user = (User) request.getSession().getAttribute(SessionAttribute.USER.getName());
-        try{
-            Set<Order> orders = orderService.getOrdersByDriverIdAndIsCompleted(user.getId(), false);
-            request.setAttribute(RequestAttribute.ORDERS.getName(), orders);
-        } catch (OrderServiceException e) {
+        try {
+            Set<Car> cars = carService.getCarsByDriverId(user.getId());
+            request.setAttribute(RequestAttribute.CARS.getName(), cars);
+        } catch (CarServiceException e) {
             LOGGER.warn(e);
             if(e.hasMessageBundleKey()){
                 setMessage(request, e.getMessageBundleKey());
             }
             return Page.ERROR;
         }
-        return Page.MANAGEMENT_ORDERS;
+        return Page.MANAGEMENT_CARS;
     }
 
     private void setMessage(HttpServletRequest request, MessageKey messageKey){

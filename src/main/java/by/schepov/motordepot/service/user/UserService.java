@@ -9,7 +9,7 @@ import java.util.Set;
 
 public interface UserService {
     void signUpUser(User user, String repeatedPassword) throws UserServiceException;
-    void authorizeUser(User user) throws UserServiceException, InvalidUsernameOrPasswordException;
+    void authorizeUser(User user) throws UserServiceException;
     void updateStatusById(int id, UserStatus status) throws UserServiceException;
     Set<User> getAllUsers() throws UserServiceException;
     User getUserById(int id) throws UserServiceException;
