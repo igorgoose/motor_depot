@@ -138,7 +138,7 @@
                         </button>
                     </div>
                     <div class="btn-wrapper">
-                        <button class="menu-bar-button" name="command" value="view_orders">
+                        <button class="menu-bar-button-pushed" name="command" value="view_orders">
                             <fmt:message bundle="${bundle}" key="button.orders"/>
                         </button>
                     </div>

@@ -160,8 +160,13 @@
                         </c:if>
                         <c:if test="${requestScope.user != null}">
                             <input type="hidden" name="user_id" value="${requestScope.user.id}"/>
-                            <c:if test="${requestScope.user.status.id != 3}">
+                            <c:if test="${requestScope.user.status.id == 1}">
                                 <button class="menu-bar-button-dangerous" name="command" value="block">
+                                    <fmt:message bundle="${bundle}" key="button.block"/>
+                                </button>
+                            </c:if>
+                            <c:if test="${requestScope.user.status.id == 2}">
+                                <button class="menu-bar-button-disabled" name="command" value="block" disabled>
                                     <fmt:message bundle="${bundle}" key="button.block"/>
                                 </button>
                             </c:if>

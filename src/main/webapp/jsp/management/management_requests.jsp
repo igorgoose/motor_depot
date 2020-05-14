@@ -122,7 +122,7 @@
               method="post">
             <div class="menu-bar">
                 <div class="btn-wrapper">
-                    <button class="menu-bar-button" name="command" value="view_requests">
+                    <button class="menu-bar-button-pushed" name="command" value="view_requests">
                         <fmt:message bundle="${bundle}" key="button.requests"/>
                     </button>
                 </div>
