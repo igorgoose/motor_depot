@@ -2,9 +2,7 @@ package by.schepov.motordepot.command;
 
 import by.schepov.motordepot.entity.Request;
 import by.schepov.motordepot.exception.service.RequestServiceException;
-import by.schepov.motordepot.parameter.JSPParameter;
-import by.schepov.motordepot.parameter.MessageKey;
-import by.schepov.motordepot.parameter.Page;
+import by.schepov.motordepot.parameter.*;
 import by.schepov.motordepot.service.request.RequestService;
 import by.schepov.motordepot.service.request.impl.RequestRepositoryService;
 import org.apache.logging.log4j.LogManager;
@@ -13,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Set;
 
 public class RejectRequest implements Executable{
     private static final Logger LOGGER = LogManager.getLogger(SubmitOrder.class);
@@ -32,7 +31,9 @@ public class RejectRequest implements Executable{
                 return Page.ERROR;
             }
             requestService.deleteRequest(foundRequest);
-            return Page.MANAGEMENT;
+            Set<Request> requests = requestService.getAllRequests();
+            request.getSession().setAttribute(SessionAttribute.REQUESTS.getName(), requests);
+            return Page.MANAGEMENT_REQUESTS;
         } catch (RequestServiceException e) {
             LOGGER.warn(e);
             if(e.hasMessageBundleKey()){

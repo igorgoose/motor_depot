@@ -2,10 +2,7 @@ package by.schepov.motordepot.command;
 
 import by.schepov.motordepot.entity.User;
 import by.schepov.motordepot.exception.service.user.UserServiceException;
-import by.schepov.motordepot.parameter.JSPParameter;
-import by.schepov.motordepot.parameter.MessageKey;
-import by.schepov.motordepot.parameter.Page;
-import by.schepov.motordepot.parameter.RequestAttribute;
+import by.schepov.motordepot.parameter.*;
 import by.schepov.motordepot.service.user.UserService;
 import by.schepov.motordepot.service.user.impl.UserRepositoryService;
 import org.apache.logging.log4j.LogManager;
@@ -24,7 +21,7 @@ public class ViewUserDetails implements Executable {
 
     @Override
     public Page execute(HttpServletRequest request, HttpServletResponse response) {
-        try{
+        try {
             int user_id = Integer.parseInt(request.getParameter(JSPParameter.USER_ID.getName()));
             User foundUser = userService.getUserById(user_id);
             if (foundUser == null) {
@@ -35,7 +32,7 @@ public class ViewUserDetails implements Executable {
             request.setAttribute(RequestAttribute.USER.getName(), foundUser);
         } catch (UserServiceException e) {
             LOGGER.warn(e);
-            if(e.hasMessageBundleKey()){
+            if (e.hasMessageBundleKey()) {
                 setMessage(request, e.getMessageBundleKey());
             }
             return Page.ERROR;
@@ -43,7 +40,7 @@ public class ViewUserDetails implements Executable {
         return Page.USER_DETAILS;
     }
 
-    private void setMessage(HttpServletRequest request, MessageKey messageKey){
+    private void setMessage(HttpServletRequest request, MessageKey messageKey) {
         setMessage(request, messageKey, BUNDLE_NAME);
     }
 

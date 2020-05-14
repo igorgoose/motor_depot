@@ -79,7 +79,9 @@ public class SubmitOrder implements Executable{
             userService.updateStatusById(foundCar.getDriver().getId(), UserStatus.BUSY);
             requestService.deleteRequest(foundRequest);
             orderService.insertOrder(order);
-            return Page.MANAGEMENT;
+            Set<Order> orders = orderService.getAllOrders();
+            request.getSession().setAttribute(SessionAttribute.ORDERS.getName(), orders);
+            return Page.MANAGEMENT_ORDERS;
         } catch (RequestServiceException | UserServiceException | OrderServiceException | CarServiceException e) {
             LOGGER.warn(e);
             if(e.hasMessageBundleKey()){

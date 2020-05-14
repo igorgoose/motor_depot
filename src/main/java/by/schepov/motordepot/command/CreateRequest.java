@@ -41,6 +41,7 @@ public class CreateRequest implements Executable {
             Request userRequest = requestBuilder.withUser(user).withDepartureLocation(departureLocation)
                     .withPassengerQuantity(passengers).withArrivalLocation(arrivalLocation).withLoad(loadVolume).build();
             requestService.insertRequest(userRequest);
+            setMessage(request.getSession(), MessageKey.REQUEST_CREATED);
         } catch (RequestServiceException e) {
             LOGGER.warn(e);
             if(e.hasMessageBundleKey()){

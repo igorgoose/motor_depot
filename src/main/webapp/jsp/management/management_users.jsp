@@ -102,8 +102,7 @@
                             </button>
                         </form>
                         <form action="${pageContext.request.contextPath}/controller" method="post">
-                            <input type="hidden" name="address" value="USER_DETAILS"/>
-                            <button name="command" value="redirect">
+                            <button name="command" value="view_profile">
                                 <fmt:message bundle="${bundle}" key="button.profile"/>
                             </button>
                             <button name="command" value="log_out">

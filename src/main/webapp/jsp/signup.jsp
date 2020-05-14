@@ -75,8 +75,7 @@
                             </button>
                             <div class="dropdown-content">
                                 <form action="controller" method="post">
-                                    <input type="hidden" name="address" value="USER_DETAILS">
-                                    <button name="command" value="redirect">
+                                    <button name="command" value="view_profile">
                                         <fmt:message bundle="${bundle}" key="button.profile"/>
                                     </button>
                                 </form>
@@ -93,8 +92,7 @@
                             </button>
                             <div class="dropdown-content">
                                 <form action="controller" method="post">
-                                    <input type="hidden" name="address" value="USER_DETAILS">
-                                    <button name="command" value="redirect">
+                                    <button name="command" value="view_profile">
                                         <fmt:message bundle="${bundle}" key="button.profile"/>
                                     </button>
                                 </form>
@@ -117,8 +115,7 @@
                             </button>
                             <div class="dropdown-content">
                                 <form action="controller" method="post">
-                                    <input type="hidden" name="address" value="USER_DETAILS">
-                                    <button name="command" value="redirect">
+                                    <button name="command" value="view_profile">
                                         <fmt:message bundle="${bundle}" key="button.profile"/>
                                     </button>
                                 </form>

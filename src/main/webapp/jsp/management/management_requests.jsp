@@ -100,8 +100,7 @@
                             </button>
                         </form>
                         <form action="${pageContext.request.contextPath}/controller" method="post">
-                            <input type="hidden" name="address" value="USER_DETAILS"/>
-                            <button name="command" value="redirect">
+                            <button name="command" value="view_profile">
                                 <fmt:message bundle="${bundle}" key="button.profile"/>
                             </button>
                             <button name="command" value="log_out">
@@ -157,6 +156,7 @@
                             <th>Passengers quantity</th>
                             <th>Load Volume</th>
                             <th></th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -174,6 +174,15 @@
                                         <input type="hidden" name="request_id" value="${request.id}"/>
                                         <button class="table-btn-green" name="command" value="verify_request">
                                             <fmt:message bundle="${bundle}" key="button.create_order"/>
+                                        </button>
+                                    </form>
+                                </td>
+                                <td class="p-b-5 p-t-5 p-r-5 p-l-5">
+                                    <form action="${pageContext.request.contextPath}/controller"
+                                          method="post">
+                                        <button class="menu-bar-button-dangerous" name="command" value="reject_request">
+                                            <input type="hidden" name="request_id" value="${request.id}"/>
+                                            <fmt:message bundle="${bundle}" key="button.reject_request"/>
                                         </button>
                                     </form>
                                 </td>

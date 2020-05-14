@@ -106,8 +106,7 @@
                             </form>
                         </c:if>
                         <form action="${pageContext.request.contextPath}/controller">
-                            <input type="hidden" name="address" value="USER_DETAILS">
-                            <button name="command" value="redirect">
+                            <button name="command" value="view_profile">
                                 <fmt:message bundle="${bundle}" key="button.profile"/>
                             </button>
                         </form>
@@ -182,9 +181,8 @@
                 <input type="hidden" name="user_id" value="${user.id}"/>
                 <div class="menu-bar">
                     <div class="btn-wrapper">
-                        <input type="hidden" name="address" value="USER_DETAILS">
-                        <button class="menu-bar-button" name="command" value="redirect">
-                            <fmt:message bundle="${bundle}" key="button.my_info"/>
+                        <button class="menu-bar-button" name="command" value="view_profile">
+                            <fmt:message bundle="${bundle}" key="button.profile"/>
                         </button>
                     </div>
                     <div class="btn-wrapper">
