@@ -43,7 +43,11 @@ public class VerifyRequest extends RepositoryAction {
             }
             request.setAttribute(RequestAttribute.REQUEST.getName(), foundRequest);
             Set<Car> cars = carService.findFreeCars(foundRequest.getLoad(), foundRequest.getPassengersQuantity());
-            request.setAttribute(RequestAttribute.CARS.getName(), cars);
+            if(!cars.isEmpty()){
+                request.setAttribute(RequestAttribute.CARS.getName(), cars);
+            } else {
+                setMessage(request, MessageKey.NO_SUITING_CARS);
+            }
         } catch (CarServiceException | RequestServiceException e) {
             LOGGER.warn(e);
             if(e.hasMessageBundleKey()){

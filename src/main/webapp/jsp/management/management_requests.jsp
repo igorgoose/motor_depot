@@ -150,12 +150,12 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>Request ID</th>
-                            <th>User</th>
-                            <th>Departure location</th>
-                            <th>Arrival location</th>
-                            <th>Passengers quantity</th>
-                            <th>Load Volume</th>
+                            <th><fmt:message bundle="${bundle}" key="th.request_id"/></th>
+                            <th><fmt:message bundle="${bundle}" key="th.user"/></th>
+                            <th><fmt:message bundle="${bundle}" key="th.departure_location"/></th>
+                            <th><fmt:message bundle="${bundle}" key="th.arrival_location"/></th>
+                            <th><fmt:message bundle="${bundle}" key="th.passenger_quantity"/></th>
+                            <th><fmt:message bundle="${bundle}" key="th.load_volume"/></th>
                             <th></th>
                             <th></th>
                         </tr>

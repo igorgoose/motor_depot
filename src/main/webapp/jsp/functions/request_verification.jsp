@@ -1,13 +1,13 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="ctg" uri="customtags"%>
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html;charset=utf8" %>
 <fmt:setLocale value="${locale}"/>
 <fmt:setBundle basename="locale" var="bundle"/>
 <html>
 <head>
     <title><fmt:message bundle="${bundle}" key="request_verification.title"/></title>
-    <meta charset="UTF-8">
+    <meta charset="utf8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/icons/car-icon.png"/>
@@ -139,46 +139,46 @@
         <div class="content-container">
             <div class="content-unit-container">
                 <label class="details-label">
-                    Request ID: ${request.id}
+                    <fmt:message bundle="${bundle}" key="th.request_id"/>: ${request.id}
                 </label>
             </div>
             <div class="content-unit-container">
                 <label class="details-label">
-                    Customer's username: ${request.user.username}
+                    <fmt:message bundle="${bundle}" key="th.customers_name"/>: ${request.user.username}
                 </label>
             </div>
             <div class="content-unit-container">
                 <label class="details-label">
-                    From: ${request.departureLocation}
+                    <fmt:message bundle="${bundle}" key="th.from"/>: ${request.departureLocation}
                 </label>
             </div>
             <div class="content-unit-container">
                 <label class="details-label">
-                    To: ${request.arrivalLocation}
+                    <fmt:message bundle="${bundle}" key="th.to"/>: ${request.arrivalLocation}
                 </label>
             </div>
             <div class="content-unit-container">
                 <label class="details-label">
-                    Seats required: ${request.passengersQuantity}
+                    <fmt:message bundle="${bundle}" key="th.seats_required"/>: ${request.passengersQuantity}
                 </label>
             </div>
             <div class="content-unit-container">
                 <label class="details-label">
-                    Room for baggage required: ${request.load}
+                    <fmt:message bundle="${bundle}" key="th.room_for_baggage"/>: ${request.load}
                 </label>
             </div>
-            <c:if test="${not empty cars}">
+            <c:if test="${cars != null}">
                 <div class="p-b-20 content-unit-container pre-scrollable black-border">
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>Car ID</th>
-                            <th>Car Model</th>
-                            <th>Reg. Number</th>
-                            <th>Driver</th>
-                            <th>Load Capacity</th>
-                            <th>Passenger Capacity</th>
-                            <th>State</th>
+                            <th><fmt:message bundle="${bundle}" key="th.car_id"/></th>
+                            <th><fmt:message bundle="${bundle}" key="th.car_model"/></th>
+                            <th><fmt:message bundle="${bundle}" key="th.reg_number"/></th>
+                            <th><fmt:message bundle="${bundle}" key="th.driver"/></th>
+                            <th><fmt:message bundle="${bundle}" key="th.load_capacity"/></th>
+                            <th><fmt:message bundle="${bundle}" key="th.passenger_capacity"/></th>
+                            <th><fmt:message bundle="${bundle}" key="th.state"/></th>
                             <th></th>
                         </tr>
                         </thead>
@@ -207,13 +207,6 @@
                         </tbody>
                     </table>
                 </div>
-            </c:if>
-            <c:if test="${empty cars}">
-            <div class="content-unit-container">
-                <label class="details-label-warn">
-                    There are no cars that match the request at the moment
-                </label>
-            </div>
             </c:if>
         </div>
     </div>
