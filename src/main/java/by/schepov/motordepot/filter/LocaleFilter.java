@@ -20,6 +20,7 @@ public class LocaleFilter implements Filter {
     @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
+        request.setCharacterEncoding("UTF-8");
         HttpServletResponse response = (HttpServletResponse) resp;
         HttpSession session = request.getSession();
         req.getServletContext();
