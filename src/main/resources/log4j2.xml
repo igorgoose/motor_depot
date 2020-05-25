@@ -5,8 +5,8 @@
 			<PatternLayout
 				pattern="%d{HH:mm:ss.SSS}  %-5level %t %logger{36} - %msg%n" />
 		</Console>
-		<File name="MyFile" fileName="../logs/motor_depot/application_log.log"
-			immediateFlush="false" append="false">
+		<File name="by.schepov.motordepot" fileName="../logs/motor_depot/application_log.log"
+			immediateFlush="true" append="true">
 			<PatternLayout
 				pattern="%d{yyy-MM-dd HH:mm:ss.SSS} %t %-5level %logger{36} - %msg%n" />
 		</File>
@@ -14,7 +14,7 @@
 	<Loggers>
 		<Root level="all">
 			<AppenderRef ref="Console" />
-			<AppenderRef ref="MyFile" />
+			<AppenderRef ref="by.schepov.motordepot" />
 		</Root>
 	</Loggers>
 </Configuration>
