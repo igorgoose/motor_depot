@@ -141,27 +141,27 @@
             <div class="content-unit-container">
                 <div class="content-unit-container">
                     <label class="details-label">
-                        Customer's username: ${request.user.username}
+                        <fmt:message bundle="${bundle}" key="th.customers_name"/>: ${request.user.username}
                     </label>
                 </div>
                 <div class="content-unit-container">
                     <label class="details-label">
-                        Car: ${car.carName}
+                        <fmt:message bundle="${bundle}" key="th.car"/>: ${car.carName}
                     </label>
                 </div>
                 <div class="content-unit-container">
                     <label class="details-label">
-                        Driver: ${car.driver.username}
+                        <fmt:message bundle="${bundle}" key="th.driver"/>: ${car.driver.username}
                     </label>
                 </div>
                 <div class="content-unit-container">
                     <label class="details-label">
-                        From: ${request.departureLocation}
+                        <fmt:message bundle="${bundle}" key="th.from"/>: ${request.departureLocation}
                     </label>
                 </div>
                 <div class="content-unit-container">
                     <label class="details-label">
-                        To: ${request.arrivalLocation}
+                        <fmt:message bundle="${bundle}" key="th.to"/>: ${request.arrivalLocation}
                     </label>
                 </div>
             </div>

@@ -136,27 +136,27 @@
                 <div class="content-unit-container">
                     <div class="content-unit-container">
                         <label class="details-label">
-                            Order ID: ${order.id}
+                            <fmt:message bundle="${bundle}" key="th.order_id"/>: ${order.id}
                         </label>
                     </div>
                     <div class="content-unit-container">
                         <label class="details-label">
-                            Customer's name: ${order.user.username}
+                            <fmt:message bundle="${bundle}" key="th.customers_name"/>: ${order.user.username}
                         </label>
                     </div>
                     <div class="content-unit-container">
                         <label class="details-label">
-                            Car: ${order.car.carName}
+                            <fmt:message bundle="${bundle}" key="th.car"/>: ${order.car.carName}
                         </label>
                     </div>
                     <div class="content-unit-container">
                         <label class="details-label">
-                            From: ${order.departureLocation}
+                            <fmt:message bundle="${bundle}" key="th.from"/>: ${order.departureLocation}
                         </label>
                     </div>
                     <div class="content-unit-container">
                         <label class="details-label">
-                            To: ${order.arrivalLocation}
+                            <fmt:message bundle="${bundle}" key="th.to"/>: ${order.arrivalLocation}
                         </label>
                     </div>
                 </div>

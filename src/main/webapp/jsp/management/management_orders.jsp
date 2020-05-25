@@ -174,13 +174,13 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>Order ID</th>
-                            <th>User</th>
-                            <th>Driver</th>
-                            <th>Car</th>
-                            <th>From</th>
-                            <th>To</th>
-                            <th>Is Complete</th>
+                            <th><fmt:message bundle="${bundle}" key="th.order_id"/></th>
+                            <th><fmt:message bundle="${bundle}" key="th.user"/></th>
+                            <th><fmt:message bundle="${bundle}" key="th.driver"/></th>
+                            <th><fmt:message bundle="${bundle}" key="th.car"/></th>
+                            <th><fmt:message bundle="${bundle}" key="th.from"/></th>
+                            <th><fmt:message bundle="${bundle}" key="th.to"/></th>
+                            <th><fmt:message bundle="${bundle}" key="th.is_complete"/></th>
                             <c:if test="${role.id == 2}">
                                 <th></th>
                             </c:if>

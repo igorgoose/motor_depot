@@ -180,15 +180,15 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>Car ID</th>
-                            <th>Car Model</th>
-                            <th>Reg. Number</th>
+                            <th><fmt:message bundle="${bundle}" key="th.car_id"/></th>
+                            <th><fmt:message bundle="${bundle}" key="th.car_model"/></th>
+                            <th><fmt:message bundle="${bundle}" key="th.reg_number"/></th>
                             <c:if test="${role.id != 2}">
-                                <th>Driver</th>
+                                <th><fmt:message bundle="${bundle}" key="th.driver"/></th>
                             </c:if>
-                            <th>Load Capacity</th>
-                            <th>Passenger Capacity</th>
-                            <th>State</th>
+                            <th><fmt:message bundle="${bundle}" key="th.load_capacity"/></th>
+                            <th><fmt:message bundle="${bundle}" key="th.passenger_capacity"/></th>
+                            <th><fmt:message bundle="${bundle}" key="th.state"/></th>
                             <c:if test="${role.id == 2}">
                                 <th></th>
                             </c:if>

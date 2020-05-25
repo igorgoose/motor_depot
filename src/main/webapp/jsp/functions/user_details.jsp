@@ -218,7 +218,7 @@
                 </div>
                 <div class="content-unit-container">
                     <label class="details-label">
-                        Username: <c:if test="${that_user != null}">
+                        <fmt:message bundle="${bundle}" key="th.username"/>: <c:if test="${that_user != null}">
                         ${that_user.username}
                     </c:if>
                         <c:if test="${that_user == null}">
@@ -228,7 +228,7 @@
                 </div>
                 <div class="content-unit-container">
                     <label class="details-label">
-                        Email: <c:if test="${that_user != null}">
+                        <fmt:message bundle="${bundle}" key="th.email"/>: <c:if test="${that_user != null}">
                         ${that_user.email}
                     </c:if>
                         <c:if test="${that_user == null}">
@@ -238,7 +238,7 @@
                 </div>
                 <div class="content-unit-container">
                     <label class="details-label">
-                        Role: <c:if test="${that_user != null}">
+                        <fmt:message bundle="${bundle}" key="th.email"/>: <c:if test="${that_user != null}">
                         ${that_user.role}
                     </c:if>
                         <c:if test="${that_user == null}">
@@ -248,7 +248,7 @@
                 </div>
                 <div class="content-unit-container">
                     <label class="details-label">
-                        Status: <c:if test="${that_user != null}">
+                        <fmt:message bundle="${bundle}" key="th.status"/>: <c:if test="${that_user != null}">
                         ${that_user.status}
                     </c:if>
                         <c:if test="${that_user == null}">
@@ -270,11 +270,11 @@
                         <table class="table">
                             <thead>
                             <tr>
-                                <th>Request ID</th>
-                                <th>Departure location</th>
-                                <th>Arrival location</th>
-                                <th>Passengers quantity</th>
-                                <th>Load Volume</th>
+                                <th><fmt:message bundle="${bundle}" key="th.request_id"/></th>
+                                <th><fmt:message bundle="${bundle}" key="th.departure_location"/></th>
+                                <th><fmt:message bundle="${bundle}" key="th.arrival_location"/></th>
+                                <th><fmt:message bundle="${bundle}" key="th.passenger_quantity"/></th>
+                                <th><fmt:message bundle="${bundle}" key="th.load_volume"/></th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -315,12 +315,12 @@
                         <table class="table">
                             <thead>
                             <tr>
-                                <th>Order ID</th>
-                                <th>Departure location</th>
-                                <th>Arrival location</th>
-                                <th>Driver</th>
-                                <th>Car</th>
-                                <th>Is Complete</th>
+                                <th><fmt:message bundle="${bundle}" key="th.order_id"/></th>
+                                <th><fmt:message bundle="${bundle}" key="th.departure_location"/></th>
+                                <th><fmt:message bundle="${bundle}" key="th.arrival_location"/></th>
+                                <th><fmt:message bundle="${bundle}" key="th.driver"/></th>
+                                <th><fmt:message bundle="${bundle}" key="th.car"/></th>
+                                <th><fmt:message bundle="${bundle}" key="th.is_complete"/></th>
                             </tr>
                             </thead>
                             <tbody>

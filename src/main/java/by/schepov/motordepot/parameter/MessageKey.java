@@ -15,7 +15,9 @@ public enum MessageKey {
     EMPTY_ARRIVAL_LOCATION("message.empty_arrival_location"),
     NEGATIVE_PASSENGER_QUANTITY("message.negative_passenger_quantity"),
     EMPTY_DEPARTURE_LOCATION("message.empty_departure_location"),
-    NEGATIVE_LOAD("message.negative_load"), REQUEST_CREATED("message.request_created");
+    NEGATIVE_LOAD("message.negative_load"),
+    REQUEST_CREATED("message.request_created"),
+    NO_SUITING_CARS("message.no_suiting_cars");
 
     private final String value;
 

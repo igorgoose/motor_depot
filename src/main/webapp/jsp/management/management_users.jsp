@@ -1,7 +1,7 @@
-<%@ taglib prefix="ctg" uri="customtags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="ctg" uri="customtags"%>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <fmt:setLocale value="${locale}"/>
 <fmt:setBundle basename="locale" var="bundle"/>
 <html>
@@ -150,10 +150,11 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th>User ID</th>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Status</th>
+                        <th><fmt:message bundle="${bundle}" key="th.user_id"/></th>
+                        <th><fmt:message bundle="${bundle}" key="th.username"/></th>
+                        <th><fmt:message bundle="${bundle}" key="th.email"/></th>
+                        <th><fmt:message bundle="${bundle}" key="th.role"/></th>
+                        <th><fmt:message bundle="${bundle}" key="th.status"/></th>
                         <th></th>
                     </tr>
                     </thead>
@@ -163,6 +164,7 @@
                             <td>${user.id}</td>
                             <td>${user.username}</td>
                             <td>${user.email}</td>
+                            <td>${user.role}</td>
                             <td>${user.status}</td>
                             <td class="p-b-5 p-t-5 p-r-5 p-l-5">
                                 <form action="${pageContext.request.contextPath}/controller"
