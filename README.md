@@ -1,6 +1,5 @@
-# motor_depot
+# Motor Depot
 
-Система Автобаза.
-Диспетчер распределяет Заявки на Рейсы между Водителями, за каждым из которых закреплен свой Автомобиль.
-На Рейс может быть назначен Автомобиль, находящийся в исправном состоянии и характеристики которого соответствуют Заявке.
-Водитель делает отметку о выполнении Рейса и состоянии Автомобиля.
+Dispatcher distributes requests among drivers. Each driver has their own car.
+Only cars which correspond requested parameters can be assigned to fulfill the order.
+After completing an order driver marks the order as accomplished and updates state of their car.
