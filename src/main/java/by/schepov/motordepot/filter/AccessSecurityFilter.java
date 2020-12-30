@@ -45,8 +45,7 @@ public class AccessSecurityFilter implements Filter {
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }
-
-
+    
     private void setMessage(HttpServletRequest request, MessageKey messageKey){
         Locale locale = new Locale((String)request.getSession().getAttribute(SessionAttribute.LOCALE.getName()));
         ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_NAME, locale);
